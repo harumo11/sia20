@@ -62,7 +62,7 @@
     <parent link="base_link" />
     <child link="link_s" />
     <axis xyz="0 1 0" />
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="3.1415" />
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="2.2689" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
@@ -101,7 +101,7 @@
     <parent link="link_s" />
     <child link="link_l" />
     <axis xyz="0 0 1" />
-    <limit lower="-1.9198" upper="1.19198" effort="100" velocity="3.1415" />
+    <limit lower="-1.9198" upper="1.9198" effort="100" velocity="2.2689" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
@@ -142,7 +142,7 @@
     <parent link="link_l" />
     <child link="link_e" />
     <axis xyz="0 1 0" />
-    <limit lower="-2.9670" upper="2.9670" effort="100" velocity="3.1415" />
+    <limit lower="-2.9670" upper="2.9670" effort="100" velocity="2.9670" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
@@ -180,7 +180,7 @@
     <parent link="link_e" />
     <child link="link_u" />
     <axis xyz="0 0 1" />
-    <limit lower="-2.9670" upper="2.9670" effort="100" velocity="3.1415" />
+    <limit lower="-2.9670" upper="2.9670" effort="100" velocity="2.9670" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
@@ -219,7 +219,7 @@
     <parent link="link_u" />
     <child link="link_r" />
     <axis xyz="0 1 0" />
-    <limit lower="-3.1415" upper="3.1414" effort="100" velocity="3.1415" />
+    <limit lower="-3.1415" upper="3.1414" effort="100" velocity="3.4906" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
@@ -257,7 +257,7 @@
     <parent link="link_r" />
     <child link="link_b" />
     <axis xyz="0 0 1" />
-    <limit lower="-1.9198" upper="1.9198" effort="100" velocity="3.4" />
+    <limit lower="-1.9198" upper="1.9198" effort="100" velocity="3.4906" />
     <calibration rising="0" falling="0" />
     <dynamics damping="0" friction="0" />
     <safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0" />
