@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- macro -->
+	<xacro:macro name="default_mesh" params="name">
+		<geometry>
+			<mesh filename="package://sia20/meshes/${name}.STL"/>
+		</geometry>
+	</xacro:macro>
+
+	<xacro:macro name="default_inertial">
+		<inertia
+			ixx="0.001"
+			ixy="0.001"
+			ixz="0.001"
+			iyy="0.001"
+			iyz="0.001"
+			izz="0.001"/>
+	</xacro:macro>
+
+	<xacro:macro name="default_origin">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_base_link">
+		<origin xyz="-0.05327 0.066798 0.00014271" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_s">
+        <origin xyz="7.8023E-07 0.18911 -0.015611" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_l">
+        <origin xyz="1.6057E-05 0.10201 0.041335" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_e">
+        <origin xyz="3.9186E-05 0.16471 0.020774" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_u">
+        <origin xyz="-7.9992E-07 0.08472 -0.032542" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_r">
+        <origin xyz="4.8678E-06 0.12569 -0.02028" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_b">
+        <origin xyz="5.1667E-06 0.069849 0.019496" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_link_t">
+        <origin xyz="-0.00019051 0.0087466 -2.475E-05" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="default_joint_misc">
+		<calibration rising="0" falling="0"/>
+		<dynamics damping="0" fraction="0"/>
+		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_s">
+        <origin xyz="0 0 0.112" rpy="1.5708 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_l">
+        <origin xyz="0 0.298 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_e">
+        <origin xyz="0 0.247135547651375 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_u">
+        <origin xyz="0 0.242864452348634 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_r">
+        <origin xyz="0 0.23899999999989 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_b">
+        <origin xyz="0 0.181 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_t">
+        <origin xyz="0 0.164069662461231 0.0015" rpy="0 0 0" />
+	</xacro:macro>
+
+	<!-- base_link-->
+	<link name="base_link">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="base_link"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="base_link"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="base_link"/>
+		</collision>
+	</link>
+
+	<!-- link_s-->
+	<link name="link_s">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_s"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_s"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_s"/>
+		</collision>
+	</link>
+
+	<!-- joint_s (base_link | joint_s) -->
+	<joint name="joint_s" type="revolute">
+		<xacro:origin_joint_s/>
+		<parent link="base_link"/>
+		<child  link="link_s"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="2.2698"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_l-->
+	<link name="link_l">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_l"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:origin_link_l/>
+			<xacro:default_mesh name="link_l"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:origin_link_l/>
+			<xacro:default_mesh name="link_l"/>
+		</collision>
+	</link>
+
+	<!-- joint_l (link_s | joint_l) -->
+	<joint name="joint_l" type="revolute">
+		<xacro:origin_joint_l/>
+		<parent link="link_s"/>
+		<child  link="link_l"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="2.2698"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_e-->
+	<link name="link_e">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_e"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_e"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_e"/>
+		</collision>
+	</link>
+
+	<!-- joint_e (link_l | joint_e) -->
+	<joint name="joint_e" type="revolute">
+		<xacro:origin_joint_e/>
+		<parent link="link_l"/>
+		<child  link="link_e"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_u-->
+	<link name="link_u">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_u"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_u"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_u"/>
+			<xacro:default_mesh name="link_u"/>
+		</collision>
+	</link>
+
+	<!-- joint_u (link_e | joint_u) -->
+	<joint name="joint_u" type="revolute">
+		<xacro:origin_joint_u/>
+		<parent link="link_e"/>
+		<child  link="link_u"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_r-->
+	<link name="link_r">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_r"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_r"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_r"/>
+		</collision>
+	</link>
+
+	<!-- joint_r (link_u | joint_r) -->
+	<joint name="joint_r" type="revolute">
+		<xacro:origin_joint_r/>
+		<parent link="link_u"/>
+		<child  link="link_r"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="3.4906"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_b-->
+	<link name="link_b">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_b"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_b"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_b"/>
+		</collision>
+	</link>
+
+	<!-- joint_b (link_r | joint_b) -->
+	<joint name="joint_b" type="revolute">
+		<xacro:origin_joint_b/>
+		<parent link="link_r"/>
+		<child  link="link_b"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="3.4906"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+	<!-- link_t-->
+	<link name="link_t">
+		<inertial>
+			<mass value="1.0"/>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_t"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_t"/>
+		</visual>
+		<collision>
+			<xacro:default_origin/>
+			<xacro:default_mesh name="link_t"/>
+		</collision>
+	</link>
+
+	<!-- joint_t (link_b | joint_t) -->
+	<joint name="joint_t" type="revolute">
+		<xacro:origin_joint_t/>
+		<parent link="link_b"/>
+		<child  link="link_t"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="7.0"/>
+		<xacro:default_joint_misc/>
+	</joint>
+
+</robot>

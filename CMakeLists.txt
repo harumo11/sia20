@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-project(sia20f)
+project(sia20)
 
 find_package(catkin REQUIRED)
 

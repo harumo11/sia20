@@ -1,33 +1,35 @@
 <?xml version="1.0"?>
 <robot name="sia20">
-  <link name="base_link">
-    <inertial>
-      <origin xyz="-0.05327 0.066798 0.00014271" rpy="0 0 0" />
-      <mass value="9.5604" />
-      <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://sia20f/meshes/base_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="1 1 1 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://sia20f/meshes/base_link.STL" />
-      </geometry>
-    </collision>
-  </link>
+
+	<!-- base_link-->
+	<link name="base_link">
+		<inertial>
+			<origin xyz="-0.05327 0.066798 0.00014271" rpy="0 0 0" />
+			<mass value="9.5604" />
+			<inertia
+				 ixx="0"
+       			 ixy="0"
+       			 ixz="0"
+       			 iyy="0"
+       			 iyz="0"
+       			 izz="0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://sia20f/meshes/base_link.STL" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://sia20f/meshes/base_link.STL" />
+			</geometry>
+		</collision>
+	</link>
   <link name="link_s">
     <inertial>
       <origin xyz="7.8023E-07 0.18911 -0.015611" rpy="0 0 0" />
