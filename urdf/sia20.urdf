@@ -301,18 +301,14 @@
   <!-- link fixed in order to stand rigidly in gazebo -->
   <link name="world"/>
   <joint name="fixed" type="fixed">
-    <orgin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="base_link"/>
-    <child link="world"/>
+    <parent link="world"/>
+    <child link="base_link"/>
   </joint>
   <!-- ros_control_plugin-->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/</robotNamespace>
-      <robotSimType>libgazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <robotNameSpace>/</robotNameSpace>
     </plugin>
-    <mu1>0.3</mu1>
-    <mu2>0.3</mu2>
   </gazebo>
 </robot>
 

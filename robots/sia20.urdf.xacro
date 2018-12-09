@@ -90,9 +90,23 @@
         <origin xyz="0 0.164069662461231 0.0015" rpy="0 0 0" />
 	</xacro:macro>
 
+	<xacro:macro name="default_transmission" params="suffix">
+		<transmission name="${suffix}_trans">
+			<type>transimission_interface/SimpleTransmission</type>
+			<joint name="${suffix}">
+				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${suffix}_motor">
+				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+	</xacro:macro>
+
 	<material name="white">
 		<color rgba="1 1 1 1"/>
 	</material>
+
 
 	<!-- base_link-->
 	<link name="base_link">
@@ -141,6 +155,8 @@
 		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_s"/>
+
 
 	<!-- link_l-->
 	<link name="link_l">
@@ -170,6 +186,7 @@
 		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_l"/>
 
 	<!-- link_e-->
 	<link name="link_e">
@@ -199,6 +216,7 @@
 		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_e"/>
 
 	<!-- link_u-->
 	<link name="link_u">
@@ -228,6 +246,7 @@
 		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_u"/>
 
 	<!-- link_r-->
 	<link name="link_r">
@@ -257,6 +276,7 @@
 		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="3.4906"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_r"/>
 
 	<!-- link_b-->
 	<link name="link_b">
@@ -286,6 +306,7 @@
 		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="3.4906"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_b"/>
 
 	<!-- link_t-->
 	<link name="link_t">
@@ -315,6 +336,7 @@
 		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="7.0"/>
 		<xacro:default_joint_misc/>
 	</joint>
+	<xacro:default_transmission suffix="joint_t"/>
 
 	<!-- link tool0-->
 	<link name="tool0"/>
@@ -329,19 +351,17 @@
 	<!-- link fixed in order to stand rigidly in gazebo -->
 	<link name="world"/>
 	<joint name="fixed" type="fixed">
-		<orgin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="base_link"/>
-		<child  link="world"/>
+		<parent link="world"/>
+		<child  link="base_link"/>
 	</joint>
 
 	<!-- ros_control_plugin-->
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<robotNamespace>/</robotNamespace>
-			<robotSimType>libgazebo_ros_control/DefaultRobotHWSim</robotSimType>
+			<robotNameSpace>/sia20</robotNameSpace>
 		</plugin>
-		<mu1>0.3</mu1>
-		<mu2>0.3</mu2>
+		<mu1>0.1</mu1>
+		<mu2>0.1</mu2>
 	</gazebo>
 
 </robot>
