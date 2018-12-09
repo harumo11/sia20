@@ -22,42 +22,44 @@
 		<origin xyz="0 0 0" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_base_link">
+	<xacro:macro name="inertia_origin_base_link">
 		<origin xyz="-0.05327 0.066798 0.00014271" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_s">
+	<xacro:macro name="inertia_origin_link_s">
         <origin xyz="7.8023E-07 0.18911 -0.015611" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_l">
+	<xacro:macro name="inertia_origin_link_l">
         <origin xyz="1.6057E-05 0.10201 0.041335" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_e">
+	<xacro:macro name="inertia_origin_link_e">
         <origin xyz="3.9186E-05 0.16471 0.020774" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_u">
+	<xacro:macro name="inertia_origin_link_u">
         <origin xyz="-7.9992E-07 0.08472 -0.032542" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_r">
+	<xacro:macro name="inertia_origin_link_r">
         <origin xyz="4.8678E-06 0.12569 -0.02028" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_b">
+	<xacro:macro name="inertia_origin_link_b">
         <origin xyz="5.1667E-06 0.069849 0.019496" rpy="0 0 0" />
 	</xacro:macro>
 
-	<xacro:macro name="origin_link_t">
+	<xacro:macro name="inertia_origin_link_t">
         <origin xyz="-0.00019051 0.0087466 -2.475E-05" rpy="0 0 0" />
 	</xacro:macro>
 
 	<xacro:macro name="default_joint_misc">
+		<!--
 		<calibration rising="0" falling="0"/>
 		<dynamics damping="0" fraction="0"/>
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
+		-->
 	</xacro:macro>
 
 	<xacro:macro name="origin_joint_s">
@@ -88,17 +90,22 @@
         <origin xyz="0 0.164069662461231 0.0015" rpy="0 0 0" />
 	</xacro:macro>
 
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+
 	<!-- base_link-->
 	<link name="base_link">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_base_link/>
 			<xacro:default_mesh name="base_link"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="base_link"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -110,13 +117,14 @@
 	<link name="link_s">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_s/>
 			<xacro:default_mesh name="link_s"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_s"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -138,18 +146,17 @@
 	<link name="link_l">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_l/>
 			<xacro:default_mesh name="link_l"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
-			<xacro:origin_link_l/>
 			<xacro:default_mesh name="link_l"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
-			<xacro:origin_link_l/>
 			<xacro:default_mesh name="link_l"/>
 		</collision>
 	</link>
@@ -168,13 +175,14 @@
 	<link name="link_e">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_e/>
 			<xacro:default_mesh name="link_e"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_e"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -196,17 +204,17 @@
 	<link name="link_u">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_u/>
 			<xacro:default_mesh name="link_u"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_u"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
-			<xacro:default_mesh name="link_u"/>
 			<xacro:default_mesh name="link_u"/>
 		</collision>
 	</link>
@@ -225,13 +233,14 @@
 	<link name="link_r">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_r/>
 			<xacro:default_mesh name="link_r"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_r"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -253,13 +262,14 @@
 	<link name="link_b">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_b/>
 			<xacro:default_mesh name="link_b"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_b"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -281,13 +291,14 @@
 	<link name="link_t">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:default_origin/>
+			<xacro:inertia_origin_link_t/>
 			<xacro:default_mesh name="link_t"/>
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
 			<xacro:default_origin/>
 			<xacro:default_mesh name="link_t"/>
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:default_origin/>
@@ -304,5 +315,33 @@
 		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="7.0"/>
 		<xacro:default_joint_misc/>
 	</joint>
+
+	<!-- link tool0-->
+	<link name="tool0"/>
+
+	<!-- joint link_t-tool0 -->
+	<joint name="link_t-tool0" type="fixed">
+		<origin rpy="0 0 -3.1415" xyz="0 0 0"/>
+		<parent link="link_t"/>
+		<child  link="tool0"/>
+	</joint>
+
+	<!-- link fixed in order to stand rigidly in gazebo -->
+	<link name="world"/>
+	<joint name="fixed" type="fixed">
+		<orgin rpy="0 0 0" xyz="0 0 0"/>
+		<parent link="base_link"/>
+		<child  link="world"/>
+	</joint>
+
+	<!-- ros_control_plugin-->
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/</robotNamespace>
+			<robotSimType>libgazebo_ros_control/DefaultRobotHWSim</robotSimType>
+		</plugin>
+		<mu1>0.3</mu1>
+		<mu2>0.3</mu2>
+	</gazebo>
 
 </robot>
