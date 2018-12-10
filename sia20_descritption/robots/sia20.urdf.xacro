@@ -94,10 +94,10 @@
 		<transmission name="${suffix}_trans">
 			<type>transimission_interface/SimpleTransmission</type>
 			<joint name="${suffix}">
-				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="${suffix}_motor">
-				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
@@ -358,7 +358,7 @@
 	<!-- ros_control_plugin-->
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<robotNameSpace>/sia20</robotNameSpace>
+			<robotNamespace>/</robotNamespace>
 		</plugin>
 		<mu1>0.1</mu1>
 		<mu2>0.1</mu2>
