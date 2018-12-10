@@ -5,7 +5,7 @@
 
 	<!-- Load the controllers -->
 	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		output="screen" ns="/"      args="joint_s_position_controller 
+		output="screen" ns="/sia20"      args="joint_s_position_controller 
 										  joint_l_position_controller
 										  joint_e_position_controller
 										  joint_u_position_controller
@@ -17,7 +17,7 @@
 	<!-- Convert joint states to TF transforms for rviz, etc -->
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
 		respawn="false" output="screen" >
-		<!--remap from="/joint_states" to="/sia20/joint_states"/-->
+		<remap from="/joint_states" to="/sia20/joint_states"/>
 	</node>
 
 </launch>

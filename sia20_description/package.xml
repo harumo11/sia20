@@ -1,5 +1,5 @@
 <package>
-  <name>sia20</name>
+  <name>sia20_description</name>
   <version>1.0.0</version>
   <description>
     <p>URDF Description package for SIA20</p>

@@ -1,4 +1,4 @@
-/:
+sia20:
     # Publish all joint state ---------------------------
     joint_state_controller:
         type: joint_state_controller/JointStateController
