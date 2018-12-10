@@ -95,6 +95,10 @@ You can see that sia20 moves in gazebo.
 
 ## How to add a new gripper
 
+reference 
+- [gazebo ros control](http://gazebosim.org/tutorials/?tut=ros_control)
+- [urdf turorial](http://wiki.ros.org/urdf/Tutorials)
+
 ### 0. Make your package
 
 Make your new package. It may be convenient to make new package as subpackage of sia20.
