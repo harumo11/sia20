@@ -89,7 +89,7 @@ rostopic echo /sia20/joint_states
 
 Let's move joint using following command.
 ```
-rostopic pub -1 /sia20/joint_s_position_controller/command std_msgs/Float64 "data 1.5"
+rostopic pub -1 /sia20/joint_s_position_controller/command std_msgs/Float64 "data 1.0"
 ```
 You can see that sia20 moves in gazebo.
 
