@@ -112,7 +112,8 @@
 	<link name="base_link">
 		<inertial>
 			<mass value="1.0"/>
-			<xacro:inertia_origin_base_link/>
+			<!--xacro:inertia_origin_base_link/-->
+			<xacro:default_origin/>
 			<xacro:default_mesh name="base_link"/>
 			<xacro:default_inertial/>
 		</inertial>
