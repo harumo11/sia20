@@ -11,23 +11,23 @@
   <link name="base_link">
     <inertial>
       <mass value="1.0"/>
-      <origin rpy="0 0 0" xyz="-0.05327 0.066798 0.00014271"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/base_link.STL"/>
+        <mesh filename="package://sia20_description/meshes/base_link.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/base_link.STL"/>
+        <mesh filename="package://sia20_description/meshes/base_link.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/base_link.STL"/>
+        <mesh filename="package://sia20_description/meshes/base_link.STL"/>
       </geometry>
     </collision>
   </link>
@@ -37,21 +37,21 @@
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="7.8023E-07 0.18911 -0.015611"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_s.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_s.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_s.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_s.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_s.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_s.STL"/>
       </geometry>
     </collision>
   </link>
@@ -68,27 +68,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_s_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_s">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_s_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_l-->
   <link name="link_l">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="1.6057E-05 0.10201 0.041335"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_l.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_l.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_l.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_l.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_l.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_l.STL"/>
       </geometry>
     </collision>
   </link>
@@ -105,27 +115,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_l_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_l">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_l_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_e-->
   <link name="link_e">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="3.9186E-05 0.16471 0.020774"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_e.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_e.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_e.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_e.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_e.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_e.STL"/>
       </geometry>
     </collision>
   </link>
@@ -142,27 +162,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_e_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_e">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_e_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_u-->
   <link name="link_u">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="-7.9992E-07 0.08472 -0.032542"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_u.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_u.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_u.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_u.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_u.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_u.STL"/>
       </geometry>
     </collision>
   </link>
@@ -179,27 +209,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_u_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_u">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_u_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_r-->
   <link name="link_r">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="4.8678E-06 0.12569 -0.02028"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_r.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_r.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_r.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_r.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_r.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_r.STL"/>
       </geometry>
     </collision>
   </link>
@@ -216,27 +256,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_r_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_r">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_r_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_b-->
   <link name="link_b">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="5.1667E-06 0.069849 0.019496"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_b.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_b.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_b.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_b.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_b.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_b.STL"/>
       </geometry>
     </collision>
   </link>
@@ -253,27 +303,37 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_b_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_b">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_b_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link_t-->
   <link name="link_t">
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="-0.00019051 0.0087466 -2.475E-05"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_t.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_t.STL"/>
       </geometry>
       <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_t.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_t.STL"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://sia20/meshes/link_t.STL"/>
+        <mesh filename="package://sia20_description/meshes/link_t.STL"/>
       </geometry>
     </collision>
   </link>
@@ -290,6 +350,16 @@
 		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
 		-->
   </joint>
+  <transmission name="joint_t_trans">
+    <type>transimission_interface/SimpleTransmission</type>
+    <joint name="joint_t">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_t_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- link tool0-->
   <link name="tool0"/>
   <!-- joint link_t-tool0 -->
@@ -307,8 +377,10 @@
   <!-- ros_control_plugin-->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNameSpace>/</robotNameSpace>
+      <robotNamespace>/sia20</robotNamespace>
     </plugin>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
   </gazebo>
 </robot>
 
