@@ -5,7 +5,7 @@
 		<arg name="world_name" value="$(find sia20_gazebo)/worlds/sia20.world"/>
 		<arg name="paused" default="false"/>
 		<arg name="use_sim_time" default="true"/>
-		<arg name="headless" default="false"/>
+		<arg name="recording" default="false"/>
 		<arg name="debug" default="false"/>
 		<!-- Change default parameters here -->
 	</include>
@@ -19,7 +19,7 @@
 
 
 	<!-- ros_control sia20 launch file -->
-	<!-- include file="$(find sia20_control)/launch/sia20_control.launch"/-->
+	<include file="$(find sia20_control)/launch/sia20_control.launch"/>
 
 </launch>
 
