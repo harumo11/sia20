@@ -1,0 +1,14 @@
+controller_manager_ns: controller_manager
+controller_list:
+    - name: sia20/sia20_joint_controller
+      action_ns: follow_joint_trajectory
+      type: FollowJointTrajectory
+      default: true
+      joints:
+          - joint_s
+          - joint_l
+          - joint_e
+          - joint_u
+          - joint_r
+          - joint_b
+          - joint_t

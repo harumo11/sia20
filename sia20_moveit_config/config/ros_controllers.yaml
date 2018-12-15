@@ -23,7 +23,7 @@ sia20:
   joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 50
-  arm_position_controller:
+  sia20_position_controller:
     type: effort_controllers/JointTrajectoryController
     joints:
       - joint_s
