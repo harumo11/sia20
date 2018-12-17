@@ -2,15 +2,14 @@
 	<!-- gazebo -->
 	<include file="$(find sia20_description)/launch/gazebo.launch" />
 
-	<!-- Load the URDF, SRDF, joint limits and kinematics config to the parameter server -->
-	<include file="$(find sia20_moveit_config)/launch/planning_context.launch" />
-
 	<!-- controllers -->
-	<!--rosparam file="$(find sia20_moveit_config)/config/trajectory_control.yaml" command="load"/-->
-	<!--node name="sia20_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/sia20" args="sia20_joint_controller joint_state_controller"/-->
 	<include file="$(find sia20_control)/launch/sia20_control.launch" />
 
 	<!-- MoveIt! -->
+	<!-- Load the URDF, SRDF, joint limits and kinematics config to the parameter server -->
+	<include file="$(find sia20_moveit_config)/launch/planning_context.launch" />
+
+	<!-- Run move_group node -->
 	<include file="$(find sia20_moveit_config)/launch/move_group.launch">
 		<arg name="publish_monitored_planning_scene" value="true"/>
 		<arg name="allow_trajectory_execution" value="true"/>
