@@ -10,14 +10,11 @@
   	<arg name="debug" default="false"/>
   </include>
 
-  <!-- robot_description-->
+  <!-- load robot_description of sia20-->
   <arg name="model" default="$(find sia20_description)/robots/sia20.urdf.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
-  <!-- spawn robot model -->
+  <!-- spawn robot model into gazebo-->
   <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -model sia20 -param robot_description" respawn="false" output="screen" />
-
-  <!-- ros_control sia20 launch file -->
-  <!--include file="$(find sia20_control)/launch/sia20_control.launch"/-->
 
 </launch>
