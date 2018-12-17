@@ -53,3 +53,7 @@
 	- [include] include sia20_moveit_config/launch/move_group.launch
 	- [include] sia20_moveit_config/launch/moveit_rviz.launch
 
+### moveit_rviz.launch
+```moveit_rviz.launch``` file is a launch file for run rviz specialized for sia20.
+- moveit_rviz.launch
+	- [node] rviz(anonimous)

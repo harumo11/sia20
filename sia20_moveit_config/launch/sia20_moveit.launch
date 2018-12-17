@@ -2,7 +2,7 @@
 	<!-- gazebo -->
 	<include file="$(find sia20_description)/launch/gazebo.launch" />
 
-	<!-- Load the URDF, SRDF to the parameter server -->
+	<!-- Load the URDF, SRDF, joint limits and kinematics config to the parameter server -->
 	<include file="$(find sia20_moveit_config)/launch/planning_context.launch" />
 
 	<!-- controllers -->
