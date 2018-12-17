@@ -6,8 +6,9 @@
 	<include file="$(find sia20_moveit_config)/launch/planning_context.launch" />
 
 	<!-- controllers -->
-	<rosparam file="$(find sia20_moveit_config)/config/trajectory_control.yaml" command="load"/>
-	<node name="sia20_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/sia20" args="sia20_joint_controller joint_state_controller"/>
+	<!--rosparam file="$(find sia20_moveit_config)/config/trajectory_control.yaml" command="load"/-->
+	<!--node name="sia20_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/sia20" args="sia20_joint_controller joint_state_controller"/-->
+	<include file="$(find sia20_control)/launch/sia20_control.launch" />
 
 	<!-- MoveIt! -->
 	<include file="$(find sia20_moveit_config)/launch/move_group.launch">
