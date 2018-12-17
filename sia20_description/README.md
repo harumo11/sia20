@@ -15,7 +15,5 @@
 ```gazebo.launch``` is  launch file for verificating robot model in gazebo.
 - gazebo.launch
 	- [include] include gazebo_ros/launch/empty_world.launch
-	- [arg] model <- sia20_description/robots/sia20.urdf.xacro
 	- [param server] robot_description <- xacro sia20_description/robots/sia20.urdf.xacro
 	- [node] spawn_model <- model in gazebo
-	- [include] include sia20_control/launch/sia20_control.launch
