@@ -44,3 +44,12 @@
 	- [include] include sia20_moveit_config/launch/ompl_pipeline_pipeline.launch.xml (ここで読み込むファイルを変更すると，異なるプランニングパイプラインが使用できる)
 
 
+### sia20_moveit.launch
+```sia20_moveit.launch``` is a file for moving in gazebo and giving command from rviz.
+- sia20_moving.launch
+	- [include] include sia20_gazebo/launch/gazebo.launch
+	- [include] include sia20_moveit_config/launch/planning_context.launch
+	- [node] sia20_controller_spawner
+	- [include] include sia20_moveit_config/launch/move_group.launch
+	- [include] sia20_moveit_config/launch/moveit_rviz.launch
+
