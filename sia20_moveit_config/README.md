@@ -32,8 +32,15 @@
 
 ### trajectory_execution.launch
 
-- [param server] moveit_manage_controllers = true (MoveItにcontrollerのロード・アンロード・スイッチを許可する)
-- [param server] trajectory_execution/allowed_execution_duration_scaling = 1.2 (trajectoryの実行にかかる時間にこの係数が掛けられる)
-- [param srever] trajectory_execution/allowed_goal_duration_margin = 0.5 (起動のキャンセルを取りがする前に予想される実行時間を超えることを許可する？)
-- [param server] trajectory_execution/allowed_start_tolerance = 0.01 (計算されたtrajectoryの最初の位置と現在の位置のズレをどれくらい許容するか)
-- [include] sia20_moveit_config/launch/sia20_moveit_controller_manager.launch.xml(moveit_controller_managerのパラメータ)
+- trajectory_execution.launch
+	- [param server] moveit_manage_controllers = true (MoveItにcontrollerのロード・アンロード・スイッチを許可する)
+	- [param server] trajectory_execution/allowed_execution_duration_scaling = 1.2 (trajectoryの実行にかかる時間にこの係数が掛けられる)
+	- [param srever] trajectory_execution/allowed_goal_duration_margin = 0.5 (起動のキャンセルを取りがする前に予想される実行時間を超えることを許可する？)
+	- [param server] trajectory_execution/allowed_start_tolerance = 0.01 (計算されたtrajectoryの最初の位置と現在の位置のズレをどれくらい許容するか)
+	- [include] sia20_moveit_config/launch/sia20_moveit_controller_manager.launch.xml(moveit_controller_managerのパラメータ)
+
+### planning_execution.launch
+-planning_execution.launch
+	- [include] include sia20_moveit_config/launch/ompl_pipeline_pipeline.launch.xml (ここで読み込むファイルを変更すると，異なるプランニングパイプラインが使用できる)
+
+
