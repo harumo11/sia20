@@ -2,13 +2,8 @@
 
 A goal of sia20 package is to provide functions in order to control sia20(d/f).
 
-## FIXME
+![demo1](https://github.com/harumo11/sia20/blob/media/gazebo-moveit-rviz.gif)
 
-```
-roslaunch sia20_description gazebo.launch
-roslaunch sia20_moveit_config moveit_rviz.launch
-```
-```
 ```
 Robot semantic description not found. Did you forget to define or remap '/robot_description_semantic'?
 ```
