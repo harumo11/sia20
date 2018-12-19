@@ -17,11 +17,11 @@ sia20:
             - joint_t
 
         gains:
-            joint_s: {p: 1000, i: 800, d: 200}
-            joint_l: {p: 1000, i: 800, d: 200}
-            joint_e: {p: 1000, i: 800, d: 200}
-            joint_u: {p: 1000, i: 800, d: 200}
-            joint_r: {p: 1000, i: 800, d: 200}
-            joint_b: {p: 1000, i: 800, d: 200}
-            joint_t: {p: 1000, i: 800, d: 200}
+            joint_s: {p: 5000, i: 800, d: 100}
+            joint_l: {p: 5000, i: 800, d: 100}
+            joint_e: {p: 5000, i: 800, d: 100}
+            joint_u: {p: 5000, i: 800, d: 100}
+            joint_r: {p: 5000, i: 800, d: 100}
+            joint_b: {p: 5000, i: 800, d: 100}
+            joint_t: {p: 5000, i: 800, d: 100}
 

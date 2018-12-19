@@ -1,6 +1,6 @@
 <launch>
 	<!-- gazebo -->
-	<include file="$(find sia20_description)/launch/gazebo.launch" />
+	<include file="$(find sia20_gazebo)/launch/gazebo.launch" />
 
 	<!-- controllers -->
 	<include file="$(find sia20_control)/launch/sia20_control.launch" />

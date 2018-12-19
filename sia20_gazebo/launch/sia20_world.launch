@@ -1,3 +1,4 @@
+<? xml="version" ?>
 <launch>
 
 	<!-- We create empty world, changing only the name of the world to be launch -->
