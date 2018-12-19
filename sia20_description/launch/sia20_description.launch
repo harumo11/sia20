@@ -1,0 +1,5 @@
+<launch>
+	<!-- load sia20 urdf to ros parameter server as robot_description -->
+	<arg name="model" default="$(find sia20_description)/robots/sia20.urdf.xacro"/>
+	<param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+</launch>

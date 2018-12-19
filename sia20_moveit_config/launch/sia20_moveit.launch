@@ -1,4 +1,7 @@
 <launch>
+	<!-- robot_description -->
+	<include file="$(find sia20_description)/launch/sia20_description.launch" />
+
 	<!-- gazebo -->
 	<include file="$(find sia20_gazebo)/launch/gazebo.launch" />
 
