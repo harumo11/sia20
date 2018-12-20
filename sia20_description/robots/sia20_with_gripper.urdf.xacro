@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- include robot -->
+	<xacro:include filename="$(find sia20_description)/robots/sia20.urdf.xacro" />
+
+	<!-- include gripper -->
+	<xacro:include filename="$(find sia20_description)/robots/gripper.urdf.xacro" />
+
+	<!-- concatenate gripper to robot -->
+	<xacro:gripper prefix="left" />
+
+</robot>
