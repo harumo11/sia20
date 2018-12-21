@@ -2,7 +2,7 @@
 <robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 	<!-- include common macro file-->
-	<xacro:include filename="common.urdf.xacro" />
+	<!--xacro:include filename="common.urdf.xacro" /-->
 
 	<link name="left_gripper">
 		<collision>

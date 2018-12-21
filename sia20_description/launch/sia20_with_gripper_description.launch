@@ -1,4 +1,3 @@
-<? xml version="1.0"?>
 <launch>
 	<!-- load sia20 urdf to ros parameter server as robot_description -->
 	<arg name="model" default="$(find sia20_description)/robots/sia20_with_gripper.urdf.xacro"/>
