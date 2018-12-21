@@ -1,0 +1,31 @@
+sia20:
+    # Publish all joint state ---------------------------
+    joint_state_controller:
+        type: joint_state_controller/JointStateController
+        publish_rate: 100
+
+    # Position Controllers ------------------------------
+    sia20_joint_controller:
+        type: effort_controllers/JointTrajectoryController
+        joints:
+            - joint_s
+            - joint_l
+            - joint_e
+            - joint_u
+            - joint_r
+            - joint_b
+            - joint_t
+            - wrist_to_l
+            - wrist_to_r
+
+        gains:
+            joint_s: {p: 5000, i: 800, d: 100}
+            joint_l: {p: 5000, i: 800, d: 100}
+            joint_e: {p: 5000, i: 800, d: 100}
+            joint_u: {p: 5000, i: 800, d: 100}
+            joint_r: {p: 5000, i: 800, d: 100}
+            joint_b: {p: 5000, i: 800, d: 100}
+            joint_t: {p: 5000, i: 800, d: 100}
+            wrist_to_l: {p: 5000, i: 800, d: 100}
+            wrist_to_r: {p: 5000, i: 800, d: 100}
+

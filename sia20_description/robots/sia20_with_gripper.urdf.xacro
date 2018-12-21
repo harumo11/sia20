@@ -8,14 +8,49 @@
 	<xacro:include filename="gripper.urdf.xacro" />
 
 	<!-- concatenate gripper to robot -->
-	<joint name="wrist_to_l" type="fixed">
+	<joint name="wrist_to_l" type="revolute">
 		<parent  link="tool0"/>
 		<child link="left_gripper"/>
+		<limit effort="1000" lower="-0.07" upper="0.548" velocity="3"/>
+		<axis xyz="0 0 1"/>
 	</joint>
 
-	<joint name="wrist_to_r" type="fixed">
+	<joint name="wrist_to_r" type="revolute">
 		<parent link="tool0"/>
 		<child link="right_gripper"/>
+		<limit effort="1000" lower="-0.07" upper="0.548" velocity="3"/>
+		<axis xyz="0 0 -1"/>
 	</joint>
+
+	<!-- transmission -->
+	<transmission name="left_gripper_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wrist_to_l">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wrist_to_l_motor">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="right_gripper_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wrist_to_r">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wrist_to_r_motor">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/sia20</robotNamespace>
+		</plugin>
+		<mu1>0.1</mu1>
+		<mu2>0.1</mu2>
+	</gazebo>
 
 </robot>

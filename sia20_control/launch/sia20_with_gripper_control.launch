@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Controllers setting -->
+	<!-- Load joint controller configuration from YAML file to parameter server -->
+	<rosparam file="$(find sia20_control)/config/sia20_with_gripper_control.yaml" command="load" />
+	<rosparam file="$(find sia20_description)/config/joint_names.yaml" command="load" />
+
+	<!-- Spawning controllers -->
+	<!-- Load the controllers -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+		output="screen" ns="/sia20" args="sia20_joint_controller joint_state_controller"/>
+
+	<!-- Convert joint states to TF transforms for rviz, etc -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+		respawn="false" output="screen" >
+		<remap from="/joint_states" to="/sia20/joint_states"/>
+	</node>
+
+</launch>

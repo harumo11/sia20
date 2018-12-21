@@ -6,7 +6,7 @@
 
 	<link name="left_gripper">
 		<collision>
-			<origin rpy="0 0 -1.5708" xyz="0.01 -0.02 0"/>
+			<origin rpy="0 0 -1.5708" xyz="0.013 -0.02 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
@@ -16,7 +16,7 @@
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
-			<origin rpy="0 0 -1.5708" xyz="0.01 -0.02 0"/>
+			<origin rpy="0 0 -1.5708" xyz="0.013 -0.02 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
@@ -25,7 +25,7 @@
 
 	<link name="right_gripper">
 		<collision>
-			<origin rpy="3.14 0 -1.5708" xyz="-0.01 -0.02 0"/>
+			<origin rpy="3.14 0 -1.5708" xyz="-0.013 -0.02 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
@@ -35,7 +35,7 @@
 			<xacro:default_inertial/>
 		</inertial>
 		<visual>
-			<origin rpy="3.14 0 -1.5708" xyz="-0.01 -0.02 0"/>
+			<origin rpy="3.14 0 -1.5708" xyz="-0.013 -0.02 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
