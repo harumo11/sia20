@@ -23,25 +23,72 @@
 		</visual>
 	</link>
 
-	<link name="right_gripper">
-		<collision>
-			<origin rpy="3.14 0 -1.5708" xyz="-0.013 -0.02 0"/>
+	<link name="left_tip">
+		<visual>
+			<origin rpy="0 0 0" xyz="0.09137 0.00495 0"/>
 			<geometry>
-				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
 			</geometry>
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0.09137 0.00495 0"/>
 		</collision>
 		<inertial>
 			<mass value="0.01"/>
-			<xacro:default_inertial/>
+			<inertia ixx="0.1" ixy="0.1" ixz="0.1" iyy="0.1" iyz="0.1" izz="0.1"/>
 		</inertial>
+	</link>
+
+	<joint name="left_tip_joint" type="fixed">
+		<parent link="left_gripper"/>
+		<child  link="left_tip"/>
+	</joint>
+
+
+	<link name="right_gripper">
 		<visual>
 			<origin rpy="3.14 0 -1.5708" xyz="-0.013 -0.02 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
 		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+			</geometry>
+			<origin rpy="3.14 0 -1.5708" xyz="-0.013 -0.02 0"/>
+		</collision>
+		<inertial>
+			<mass value="0.01"/>
+			<xacro:default_inertial/>
+		</inertial>
 	</link>
 
+	<link name="right_tip">
+		<visual>
+			<origin rpy="3.14 0 0" xyz="0.09137 0.00495 0"/>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+			</geometry>
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+			</geometry>
+			<origin rpy="3.14 0 0" xyz="0.09137 0.00495 0"/>
+		</collision>
+		<inertial>
+			<mass value="0.01"/>
+			<inertia ixx="0.1" ixy="0.1" ixz="0.1" iyy="0.1" iyz="0.1" izz="0.1"/>
+		</inertial>
+	</link>
+
+	<joint name="right_tip_joint" type="fixed">
+		<parent link="right_gripper"/>
+		<child  link="right_tip"/>
+	</joint>
+
 </robot>
-
-
