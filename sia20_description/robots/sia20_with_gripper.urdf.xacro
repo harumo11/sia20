@@ -23,6 +23,7 @@
 	</joint>
 
 	<!-- transmission -->
+	<!-- left gripper -->
 	<transmission name="left_gripper_trans">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="wrist_to_l">
@@ -34,6 +35,7 @@
 		</actuator>
 	</transmission>
 
+	<!-- right gripper -->
 	<transmission name="right_gripper_trans">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="wrist_to_r">
