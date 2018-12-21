@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Defitnitions of convinience macro -->
+	<xacro:macro name="default_mesh" params="name">
+		<geometry>
+			<mesh filename="package://sia20_description/meshes/${name}.STL"/>
+		</geometry>
+	</xacro:macro>
+
+	<xacro:macro name="default_inertial">
+		<inertia
+			ixx="0.001"
+			ixy="0.001"
+			ixz="0.001"
+			iyy="0.001"
+			iyz="0.001"
+			izz="0.001"/>
+	</xacro:macro>
+
+	<xacro:macro name="default_origin">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_base_link">
+		<origin xyz="-0.05327 0.066798 0.00014271" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_s">
+        <origin xyz="7.8023E-07 0.18911 -0.015611" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_l">
+        <origin xyz="1.6057E-05 0.10201 0.041335" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_e">
+        <origin xyz="3.9186E-05 0.16471 0.020774" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_u">
+        <origin xyz="-7.9992E-07 0.08472 -0.032542" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_r">
+        <origin xyz="4.8678E-06 0.12569 -0.02028" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_b">
+        <origin xyz="5.1667E-06 0.069849 0.019496" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="inertia_origin_link_t">
+        <origin xyz="-0.00019051 0.0087466 -2.475E-05" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="default_joint_misc">
+		<!--
+		<calibration rising="0" falling="0"/>
+		<dynamics damping="0" fraction="0"/>
+		<safety_controller soft_upper="0" soft_lower="0" k_position="0" k_velocity="0"/>
+		-->
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_s">
+        <origin xyz="0 0 0.112" rpy="1.5708 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_l">
+        <origin xyz="0 0.298 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_e">
+        <origin xyz="0 0.247135547651375 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_u">
+        <origin xyz="0 0.242864452348634 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_r">
+        <origin xyz="0 0.23899999999989 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_b">
+        <origin xyz="0 0.181 0" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="origin_joint_t">
+        <origin xyz="0 0.164069662461231 0.0015" rpy="0 0 0" />
+	</xacro:macro>
+
+	<xacro:macro name="default_transmission" params="suffix">
+		<transmission name="${suffix}_trans">
+			<type>transimission_interface/SimpleTransmission</type>
+			<joint name="${suffix}">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${suffix}_motor">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+	</xacro:macro>
+
+</robot>
