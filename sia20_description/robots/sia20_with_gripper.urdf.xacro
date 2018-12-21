@@ -2,12 +2,20 @@
 <robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 	<!-- include robot -->
-	<xacro:include filename="$(find sia20_description)/robots/sia20.urdf.xacro" />
+	<xacro:include filename="sia20.urdf.xacro" />
 
 	<!-- include gripper -->
-	<xacro:include filename="$(find sia20_description)/robots/gripper.urdf.xacro" />
+	<xacro:include filename="gripper.urdf.xacro" />
 
 	<!-- concatenate gripper to robot -->
-	<xacro:gripper prefix="left" />
+	<joint name="wrist_to_l" type="fixed">
+		<parent  link="tool0"/>
+		<child link="left_gripper"/>
+	</joint>
+
+	<joint name="wrist_to_r" type="fixed">
+		<parent link="tool0"/>
+		<child link="right_gripper"/>
+	</joint>
 
 </robot>

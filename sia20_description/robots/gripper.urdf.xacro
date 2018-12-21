@@ -1,52 +1,47 @@
 <?xml version="1.0"?>
 <robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-	<!-- copied from line 159 11-gripper.urdf.xacro-->
-	<!-- right gripper and left one exist, therfore, macro is made -->
-	<xacro:macro name="gripper" params="prefix">
+	<!-- include common macro file-->
+	<xacro:include filename="common.urdf.xacro" />
 
-		<link name="${prefix}_gripper">
-			<inertial>
-				<xacro:default_origin/>
-				<geometory>
-					<mash filename="package://urdf_tutorial/meshes/l_finger.dae"/>
-				</geometory>
-				<xacro:default_inertial/>
-				<mass value="0.01"/>
-			</inertial>
-			<visual>
-				<origin rpy="0 0 0" xyz="0 0 0"/>
-				<geometory>
-					<mash filename="package://urdf_tutorial/meshes/l_finger.dae"/>
-				</geometory>
-			</visual>
-			<collision>
-				<origin rpy="0 0 0" xyz="0 0 0"/>
-				<geometory>
-					<mash filename="package://urdf_tutorial/meshes/l_finger.dae"/>
-				</geometory>
-			</collision>
-		</link>
-	
-		<joint name="${prefix}_gripper_joint" type="revolute">
-			<axis xyz="0 0 0"/>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<limit effort="1000" lower="0.0" upper="0.548" velocity="1"/>
-			<parent link="tool0"/>
-			<child  link="${prefix}_gripper"/>
-		</joint>
-	
-		<transmission name="${prefix}_gripper_trans" type="SimpleTransmission">
-			<type>transmission_interface/SimpleTransmission</type>
-			<actuator name="${prefix}_gripper_motor">
-				<mechanicalReduction>1</mechanicalReduction>
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</actuator>
-			<joint name="${prefix}_gripper_joint">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-		</transmission>
-	</xacro:macro>
+	<link name="left_gripper">
+		<collision>
+			<origin rpy="0 0 -1.5708" xyz="0.01 -0.02 0"/>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.01"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<origin rpy="0 0 -1.5708" xyz="0.01 -0.02 0"/>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+			</geometry>
+		</visual>
+	</link>
+
+	<link name="right_gripper">
+		<collision>
+			<origin rpy="3.14 0 -1.5708" xyz="-0.01 -0.02 0"/>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.01"/>
+			<xacro:default_inertial/>
+		</inertial>
+		<visual>
+			<origin rpy="3.14 0 -1.5708" xyz="-0.01 -0.02 0"/>
+			<geometry>
+				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+			</geometry>
+		</visual>
+	</link>
+
 </robot>
 
 
