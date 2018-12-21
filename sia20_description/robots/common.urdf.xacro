@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <robot name="sia20" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+	<!-- color of robot. important-->
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+
 	<!-- Defitnitions of convinience macro -->
 	<xacro:macro name="default_mesh" params="name">
 		<geometry>
