@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<robot name="sia20" xmlns:xacro="http://ros.org/wiki/xacro">
-
-<!-- copied from line 159 11-gripper.urdf.xacro-->
-<!-- right gripper and left one exist, therfore, macro is made -->
