@@ -9,15 +9,15 @@
 
 	<!-- concatenate gripper to robot -->
 	<joint name="wrist_to_l" type="revolute">
-		<parent  link="tool0"/>
-		<child link="left_gripper"/>
+		<parent  link="link_t"/>
+		<child   link="left_gripper"/>
 		<limit effort="1000" lower="-0.07" upper="0.548" velocity="3"/>
 		<axis xyz="0 0 1"/>
 	</joint>
 
 	<joint name="wrist_to_r" type="revolute">
-		<parent link="tool0"/>
-		<child link="right_gripper"/>
+		<parent  link="link_t"/>
+		<child   link="right_gripper"/>
 		<limit effort="1000" lower="-0.07" upper="0.548" velocity="3"/>
 		<axis xyz="0 0 -1"/>
 	</joint>
