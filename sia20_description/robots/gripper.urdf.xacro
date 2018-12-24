@@ -50,7 +50,7 @@
 
 	<link name="right_gripper">
 		<visual>
-			<origin rpy="0 0 0" xyz="-0.013 -0.02 0"/>
+			<origin rpy="3.14 0 0" xyz="0 0 0"/>
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
@@ -59,7 +59,7 @@
 			<geometry>
 				<mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
 			</geometry>
-			<origin rpy="0 0 0" xyz="-0.013 -0.02 0"/>
+			<origin rpy="3.14 0 0" xyz="0 0 0"/>
 		</collision>
 		<inertial>
 			<mass value="0.01"/>
