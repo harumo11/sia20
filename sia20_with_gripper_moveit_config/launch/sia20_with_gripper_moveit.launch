@@ -1,0 +1,23 @@
+<launch>
+	<!-- robot_description-->
+	<include file="$(find sia20_description)/launch/sia20_with_gripper_description.launch"/>
+
+	<!--gazebo -->
+	<include file="$(find sia20_gazebo)/launch/gazebo.launch"/>
+
+	<!-- controllers -->
+	<include file="$(find sia20_control)/launch/sia20_with_gripper_control.launch"/>
+
+	<!-- moveit -->
+	<include file="$(find sia20_with_gripper_moveit_config)/launch/planning_context.launch"/>
+
+	<include file="$(find sia20_with_gripper_moveit_config)/launch/move_group.launch">
+		<arg name="fake_execution" value="false"/>
+		<arg name="debug" value="false"/>
+	</include>
+
+	<!-- rivz -->
+	<include file="$(find sia20_with_gripper_moveit_config)/launch/moveit_rviz.launch">
+		<arg name="config" value="true"/>
+	</include>
+</launch>

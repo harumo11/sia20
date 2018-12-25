@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: sia20_description
+    relative_path: robots/sia20_with_gripper.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/sia20.srdf
+  CONFIG:
+    author_name: harumo
+    author_email: s_harumo@hotmail.co.jp
+    generated_timestamp: 1545728317

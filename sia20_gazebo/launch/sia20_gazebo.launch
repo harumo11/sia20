@@ -1,0 +1,22 @@
+<launch>
+
+	<!-- load robot_description of sia20 -->
+	<include file="$(find sia20_description)/launch/sia20_description.launch"/>
+
+	<!-- We create empty world, changing only the name of the world to be launch -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="paused" default="false"/>
+		<arg name="use_sim_time" default="true"/>
+		<arg name="recording" default="false"/>
+		<arg name="debug" default="false"/>
+		<!-- Change default parameters here -->
+	</include>
+
+	<!-- Run a python script to send a service-call to gazebo_ros to spawn URDF of sia20 robot -->
+	<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model sia20 -param robot_description"/>
+
+	<!-- ros_control sia20 launch file -->
+	<include file="$(find sia20_control)/launch/sia20_control.launch"/>
+
+</launch>
+
