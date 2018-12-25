@@ -4,7 +4,6 @@
 	<!-- Controllers setting -->
 	<!-- Load joint controller configuration from YAML file to parameter server -->
 	<rosparam file="$(find sia20_control)/config/sia20_with_gripper_control.yaml" command="load" />
-	<rosparam file="$(find sia20_description)/config/joint_names.yaml" command="load" />
 
 	<!-- Spawning controllers -->
 	<!-- Load the controllers -->

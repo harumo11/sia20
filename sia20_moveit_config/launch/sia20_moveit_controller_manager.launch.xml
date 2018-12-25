@@ -3,6 +3,7 @@
 	<arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager"/>
 	<param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
 
+	<!-- Following four sentence mya be no meaning -->
 	<arg name="use_controller_manager" default="true"/>
 	<param name="use_controller_manager" value="$(arg use_controller_manager)"/>
 
