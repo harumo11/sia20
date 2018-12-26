@@ -1,20 +1,20 @@
-<pre><font color="#8AE234"><b>robot@robot-NG</b></font>:<font color="#729FCF"><b>~</b></font>$ roslaunch sia20_with_gripper_moveit_config sia20_with_gripper_moveit.launch 
+robot@robot-NG:~$ roslaunch sia20_with_gripper_moveit_config sia20_with_gripper_moveit.launch 
 ... logging to /home/robot/.ros/log/79388be0-08df-11e9-b159-309c23cec38a/roslaunch-robot-NG-31749.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &lt;1GB.
+Done checking log file disk usage. Usage is <1GB.
 
-<b>started roslaunch server http://robot-NG:37833/</b>
+started roslaunch server http://robot-NG:37833/
 
 SUMMARY
 ========
 
 PARAMETERS
- * /controller_joint_names: [&apos;joint_s&apos;, &apos;join...
+ * /controller_joint_names: ['joint_s', 'join...
  * /gazebo/enable_ros_network: True
  * /move_group/allow_trajectory_execution: True
  * /move_group/capabilities: 
- * /move_group/controller_list: [{&apos;default&apos;: True...
+ * /move_group/controller_list: [{'default': True...
  * /move_group/controller_manager_name: moveit_simple_con...
  * /move_group/controller_manager_ns: controller_manager
  * /move_group/disable_capabilities: 
@@ -131,16 +131,16 @@ PARAMETERS
  * /move_group/sensors: [{}]
  * /move_group/sia20_arm/default_planner_config: None
  * /move_group/sia20_arm/longest_valid_segment_fraction: 0.005
- * /move_group/sia20_arm/planner_configs: [&apos;SBL&apos;, &apos;EST&apos;, &apos;L...
+ * /move_group/sia20_arm/planner_configs: ['SBL', 'EST', 'L...
  * /move_group/sia20_arm/projection_evaluator: joints(joint_s,jo...
  * /move_group/sia20_gripper/default_planner_config: 
- * /move_group/sia20_gripper/planner_configs: [&apos;SBL&apos;, &apos;EST&apos;, &apos;L...
+ * /move_group/sia20_gripper/planner_configs: ['SBL', 'EST', 'L...
  * /move_group/start_state_max_bounds_error: 0.1
  * /move_group/trajectory_execution/allowed_execution_duration_scaling: 1.2
  * /move_group/trajectory_execution/allowed_goal_duration_margin: 0.5
  * /move_group/trajectory_execution/allowed_start_tolerance: 0.01
  * /move_group/use_controller_manager: True
- * /robot_description: &lt;?xml version=&quot;1....
+ * /robot_description: <?xml version="1....
  * /robot_description_kinematics/sia20_arm/kinematics_solver: kdl_kinematics_pl...
  * /robot_description_kinematics/sia20_arm/kinematics_solver_attempts: 3
  * /robot_description_kinematics/sia20_arm/kinematics_solver_search_resolution: 0.005
@@ -181,7 +181,7 @@ PARAMETERS
  * /robot_description_planning/joint_limits/wrist_to_r/has_velocity_limits: True
  * /robot_description_planning/joint_limits/wrist_to_r/max_acceleration: 0
  * /robot_description_planning/joint_limits/wrist_to_r/max_velocity: 3
- * /robot_description_semantic: &lt;?xml version=&quot;1....
+ * /robot_description_semantic: <?xml version="1....
  * /rosdistro: melodic
  * /rosversion: 1.14.3
  * /rviz_robot_NG_31749_5228019497531705363/sia20_arm/kinematics_solver: kdl_kinematics_pl...
@@ -217,7 +217,7 @@ PARAMETERS
  * /sia20/sia20_joint_controller/gains/wrist_to_r/d: 100
  * /sia20/sia20_joint_controller/gains/wrist_to_r/i: 800
  * /sia20/sia20_joint_controller/gains/wrist_to_r/p: 5000
- * /sia20/sia20_joint_controller/joints: [&apos;joint_l&apos;, &apos;join...
+ * /sia20/sia20_joint_controller/joints: ['joint_l', 'join...
  * /sia20/sia20_joint_controller/type: effort_controller...
  * /use_sim_time: True
 
@@ -233,56 +233,56 @@ NODES
     spawn_model (gazebo_ros/spawn_model)
 
 auto-starting new master
-<b>process[master]: started with pid [31762]</b>
-<b>ROS_MASTER_URI=http://localhost:11311</b>
+process[master]: started with pid [31762]
+ROS_MASTER_URI=http://localhost:11311
 
-<b>setting /run_id to 79388be0-08df-11e9-b159-309c23cec38a</b>
-<b>process[rosout-1]: started with pid [31773]</b>
+setting /run_id to 79388be0-08df-11e9-b159-309c23cec38a
+process[rosout-1]: started with pid [31773]
 started core service [/rosout]
-<b>process[gazebo-2]: started with pid [31780]</b>
-<b>process[gazebo_gui-3]: started with pid [31785]</b>
-<b>process[spawn_model-4]: started with pid [31790]</b>
-<b>process[sia20/controller_spawner-5]: started with pid [31791]</b>
-<b>process[robot_state_publisher-6]: started with pid [31792]</b>
-<b>process[move_group-7]: started with pid [31793]</b>
-<b>process[rviz_robot_NG_31749_5228019497531705363-8]: started with pid [31799]</b>
-[ INFO] [1545809152.532833177]: Loading robot model &apos;sia20&apos;...
+process[gazebo-2]: started with pid [31780]
+process[gazebo_gui-3]: started with pid [31785]
+process[spawn_model-4]: started with pid [31790]
+process[sia20/controller_spawner-5]: started with pid [31791]
+process[robot_state_publisher-6]: started with pid [31792]
+process[move_group-7]: started with pid [31793]
+process[rviz_robot_NG_31749_5228019497531705363-8]: started with pid [31799]
+[ INFO] [1545809152.532833177]: Loading robot model 'sia20'...
 [ INFO] [1545809152.620227295]: rviz version 1.13.1
 [ INFO] [1545809152.620291534]: compiled against Qt version 5.9.5
 [ INFO] [1545809152.620305429]: compiled against OGRE version 1.9.0 (Ghadamon)
-[ INFO] [1545809152.622877078]: Loading robot model &apos;sia20&apos;...
+[ INFO] [1545809152.622877078]: Loading robot model 'sia20'...
 libpng warning: iCCP: known incorrect sRGB profile
 libpng warning: iCCP: known incorrect sRGB profile
 [INFO] [1545809152.759587, 0.000000]: Controller Spawner: Waiting for service controller_manager/load_controller
 [ INFO] [1545809152.785983458]: Finished loading Gazebo ROS API Plugin.
 [ INFO] [1545809152.786670621]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
-[ INFO] [1545809152.853647991]: Publishing maintained planning scene on &apos;monitored_planning_scene&apos;
+[ INFO] [1545809152.853647991]: Publishing maintained planning scene on 'monitored_planning_scene'
 [ INFO] [1545809152.855704544]: MoveGroup debug mode is ON
-<font color="#34E2E2">Starting context monitors...</font>
+Starting context monitors...
 [ INFO] [1545809152.855726529]: Starting scene monitor
-[ INFO] [1545809152.857430430]: Listening to &apos;/planning_scene&apos;
+[ INFO] [1545809152.857430430]: Listening to '/planning_scene'
 [ INFO] [1545809152.857448051]: Starting world geometry monitor
-[ INFO] [1545809152.859144851]: Listening to &apos;/collision_object&apos; using message notifier with target frame &apos;world &apos;
-[ INFO] [1545809152.860651185]: Listening to &apos;/planning_scene_world&apos; for planning scene world geometry
-<font color="#CC0000">[ERROR] [1545809152.861187067]: No sensor plugin specified for octomap updater 0; ignoring.</font>
+[ INFO] [1545809152.859144851]: Listening to '/collision_object' using message notifier with target frame 'world '
+[ INFO] [1545809152.860651185]: Listening to '/planning_scene_world' for planning scene world geometry
+[ERROR] [1545809152.861187067]: No sensor plugin specified for octomap updater 0; ignoring.
 [ INFO] [1545809152.888639143]: Finished loading Gazebo ROS API Plugin.
 [ INFO] [1545809152.889201942]: waitForService: Service [/gazebo_gui/set_physics_properties] has not been advertised, waiting...
-[ INFO] [1545809152.936533960]: Listening to &apos;/attached_collision_object&apos; for attached collision objects
-<font color="#34E2E2">Context monitors started.</font>
+[ INFO] [1545809152.936533960]: Listening to '/attached_collision_object' for attached collision objects
+Context monitors started.
 [ INFO] [1545809152.958855319]: Initializing OMPL interface using ROS parameters
-<font color="#CC0000">[ERROR] [1545809152.960358610]: Could not find the planner configuration &apos;None&apos; on the param server</font>
-[ INFO] [1545809152.974076382]: Using planning interface &apos;OMPL&apos;
-[ INFO] [1545809152.977338187]: Param &apos;default_workspace_bounds&apos; was not set. Using default value: 10
-[ INFO] [1545809152.977587480]: Param &apos;start_state_max_bounds_error&apos; was set to 0.1
-[ INFO] [1545809152.977834397]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
-[ INFO] [1545809152.978083177]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
-[ INFO] [1545809152.978338978]: Param &apos;jiggle_fraction&apos; was set to 0.05
-[ INFO] [1545809152.978586681]: Param &apos;max_sampling_attempts&apos; was not set. Using default value: 100
-[ INFO] [1545809152.978607322]: Using planning request adapter &apos;Add Time Parameterization&apos;
-[ INFO] [1545809152.978615462]: Using planning request adapter &apos;Fix Workspace Bounds&apos;
-[ INFO] [1545809152.978622313]: Using planning request adapter &apos;Fix Start State Bounds&apos;
-[ INFO] [1545809152.978633252]: Using planning request adapter &apos;Fix Start State In Collision&apos;
-[ INFO] [1545809152.978642529]: Using planning request adapter &apos;Fix Start State Path Constraints&apos;
+[ERROR] [1545809152.960358610]: Could not find the planner configuration 'None' on the param server
+[ INFO] [1545809152.974076382]: Using planning interface 'OMPL'
+[ INFO] [1545809152.977338187]: Param 'default_workspace_bounds' was not set. Using default value: 10
+[ INFO] [1545809152.977587480]: Param 'start_state_max_bounds_error' was set to 0.1
+[ INFO] [1545809152.977834397]: Param 'start_state_max_dt' was not set. Using default value: 0.5
+[ INFO] [1545809152.978083177]: Param 'start_state_max_dt' was not set. Using default value: 0.5
+[ INFO] [1545809152.978338978]: Param 'jiggle_fraction' was set to 0.05
+[ INFO] [1545809152.978586681]: Param 'max_sampling_attempts' was not set. Using default value: 100
+[ INFO] [1545809152.978607322]: Using planning request adapter 'Add Time Parameterization'
+[ INFO] [1545809152.978615462]: Using planning request adapter 'Fix Workspace Bounds'
+[ INFO] [1545809152.978622313]: Using planning request adapter 'Fix Start State Bounds'
+[ INFO] [1545809152.978633252]: Using planning request adapter 'Fix Start State In Collision'
+[ INFO] [1545809152.978642529]: Using planning request adapter 'Fix Start State Path Constraints'
 [INFO] [1545809153.156553, 0.000000]: Loading model XML from ros parameter robot_description
 [INFO] [1545809153.161716, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
 [ INFO] [1545809154.611465498]: Stereo is NOT SUPPORTED
@@ -296,9 +296,9 @@ libpng warning: iCCP: known incorrect sRGB profile
 [ INFO] [1545809155.278436023, 0.164000000]: Starting gazebo_ros_control plugin in namespace: /sia20
 [ INFO] [1545809155.278837536, 0.164000000]: gazebo_ros_control plugin is waiting for model URDF in parameter [/robot_description] on the ROS param server.
 [ INFO] [1545809155.391684036, 0.164000000]: Loaded gazebo_ros_control.
-<b>[spawn_model-4] process has finished cleanly</b>
-<b>log file: /home/robot/.ros/log/79388be0-08df-11e9-b159-309c23cec38a/spawn_model-4*.log</b>
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+[spawn_model-4] process has finished cleanly
+log file: /home/robot/.ros/log/79388be0-08df-11e9-b159-309c23cec38a/spawn_model-4*.log
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn't match SamplesPerPixel. Defining non-color channels as ExtraSamples..
 [INFO] [1545809155.468234, 0.241000]: Controller Spawner: Waiting for service controller_manager/switch_controller
 [INFO] [1545809155.469427, 0.242000]: Controller Spawner: Waiting for service controller_manager/unload_controller
 [INFO] [1545809155.470681, 0.243000]: Loading controller: sia20_joint_controller
@@ -360,7 +360,7 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn't match SamplesPerPixel. Defining non-color channels as ExtraSamples..
 TIFFFieldWithTag: Internal error, unknown tag 0x829a.
 TIFFFieldWithTag: Internal error, unknown tag 0x829d.
 TIFFFieldWithTag: Internal error, unknown tag 0x8822.
@@ -422,14 +422,14 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa420.
 [INFO] [1545809155.582765, 0.355000]: Loading controller: joint_state_controller
 [INFO] [1545809155.587708, 0.360000]: Controller Spawner: Loaded controllers: sia20_joint_controller, joint_state_controller
 [INFO] [1545809155.589616, 0.362000]: Started controllers: sia20_joint_controller, joint_state_controller
-[ INFO] [1545809158.536588180, 3.300000000]: Loading robot model &apos;sia20&apos;...
-[ INFO] [1545809158.604881990, 3.369000000]: Loading robot model &apos;sia20&apos;...
+[ INFO] [1545809158.536588180, 3.300000000]: Loading robot model 'sia20'...
+[ INFO] [1545809158.604881990, 3.369000000]: Loading robot model 'sia20'...
 [ INFO] [1545809158.841953239, 3.605000000]: Starting scene monitor
-[ INFO] [1545809158.843684718, 3.607000000]: Listening to &apos;/move_group/monitored_planning_scene&apos;
+[ INFO] [1545809158.843684718, 3.607000000]: Listening to '/move_group/monitored_planning_scene'
 [ INFO] [1545809158.844025091, 3.607000000]: waitForService: Service [/get_planning_scene] has not been advertised, waiting...
-<font color="#C4A000">[ WARN] [1545809160.422039210, 5.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up</font>
+[ WARN] [1545809160.422039210, 5.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up
 [ INFO] [1545809163.871403094, 8.620000000]: Failed to call service get_planning_scene, have you launched move_group? at /tmp/binarydeb/ros-melodic-moveit-ros-planning-0.10.5/planning_scene_monitor/src/planning_scene_monitor.cpp:502
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn't match SamplesPerPixel. Defining non-color channels as ExtraSamples..
 TIFFFieldWithTag: Internal error, unknown tag 0x829a.
 TIFFFieldWithTag: Internal error, unknown tag 0x829d.
 TIFFFieldWithTag: Internal error, unknown tag 0x8822.
@@ -488,7 +488,7 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn't match SamplesPerPixel. Defining non-color channels as ExtraSamples..
 TIFFFieldWithTag: Internal error, unknown tag 0x829a.
 TIFFFieldWithTag: Internal error, unknown tag 0x829d.
 TIFFFieldWithTag: Internal error, unknown tag 0x8822.
@@ -547,22 +547,22 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-[ INFO] [1545809164.030420014, 8.780000000]: Constructing new MoveGroup connection for group &apos;sia20_arm&apos; in namespace &apos;&apos;
-<font color="#C4A000">[ WARN] [1545809166.437638988, 11.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up</font>
-<font color="#CC0000">[ERROR] [1545809172.454741749, 17.182000000]: Action client not connected: /sia20/sia20_joint_controller/follow_joint_controller</font>
+[ INFO] [1545809164.030420014, 8.780000000]: Constructing new MoveGroup connection for group 'sia20_arm' in namespace ''
+[ WARN] [1545809166.437638988, 11.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up
+[ERROR] [1545809172.454741749, 17.182000000]: Action client not connected: /sia20/sia20_joint_controller/follow_joint_controller
 [ INFO] [1545809172.501410119, 17.229000000]: Returned 0 controllers in list
 [ INFO] [1545809172.514718157, 17.242000000]: Trajectory execution is managing controllers
-<font color="#34E2E2">Loading &apos;move_group/ApplyPlanningSceneService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/ClearOctomapService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupCartesianPathService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupExecuteTrajectoryAction&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupGetPlanningSceneService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupKinematicsService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupMoveAction&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupPickPlaceAction&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupPlanService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupQueryPlannersService&apos;...</font>
-<font color="#34E2E2">Loading &apos;move_group/MoveGroupStateValidationService&apos;...</font>
+Loading 'move_group/ApplyPlanningSceneService'...
+Loading 'move_group/ClearOctomapService'...
+Loading 'move_group/MoveGroupCartesianPathService'...
+Loading 'move_group/MoveGroupExecuteTrajectoryAction'...
+Loading 'move_group/MoveGroupGetPlanningSceneService'...
+Loading 'move_group/MoveGroupKinematicsService'...
+Loading 'move_group/MoveGroupMoveAction'...
+Loading 'move_group/MoveGroupPickPlaceAction'...
+Loading 'move_group/MoveGroupPlanService'...
+Loading 'move_group/MoveGroupQueryPlannersService'...
+Loading 'move_group/MoveGroupStateValidationService'...
 [ INFO] [1545809172.588839810, 17.317000000]: 
 
 ********************************************************
@@ -583,22 +583,22 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa420.
 [ INFO] [1545809172.588962123, 17.317000000]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
 [ INFO] [1545809172.588996212, 17.317000000]: MoveGroup context initialization complete
 
-<font color="#8AE234">You can start planning now!</font>
+You can start planning now!
 
 [ INFO] [1545809173.510591780, 18.235000000]: Ready to take commands for planning group sia20_arm.
 [ INFO] [1545809173.510714059, 18.235000000]: Looking around: no
 [ INFO] [1545809173.510791752, 18.235000000]: Replanning: no
-<font color="#C4A000">[ WARN] [1545809173.518704112, 18.243000000]: Interactive marker &apos;EE:goal_link_t&apos; contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.</font>
-[ INFO] [1545809181.151005345, 25.854000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
+[ WARN] [1545809173.518704112, 18.243000000]: Interactive marker 'EE:goal_link_t' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
+[ INFO] [1545809181.151005345, 25.854000000]: Didn't received robot state (joint angles) with recent timestamp within 1 seconds.
 Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545809181.151085424, 25.854000000]: Failed to fetch current robot state.</font>
+[ WARN] [1545809181.151085424, 25.854000000]: Failed to fetch current robot state.
 [ INFO] [1545809181.151284498, 25.854000000]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
 [ INFO] [1545809181.151649082, 25.855000000]: Planning attempt 1 of at most 1
-QObject::connect: Cannot queue arguments of type &apos;QVector&lt;int&gt;&apos;
-(Make sure &apos;QVector&lt;int&gt;&apos; is registered using qRegisterMetaType().)
-QObject::connect: Cannot queue arguments of type &apos;QVector&lt;int&gt;&apos;
-(Make sure &apos;QVector&lt;int&gt;&apos; is registered using qRegisterMetaType().)
-[ INFO] [1545809181.153814601, 25.857000000]: Planner configuration &apos;sia20_arm&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
+QObject::connect: Cannot queue arguments of type 'QVector<int>'
+(Make sure 'QVector<int>' is registered using qRegisterMetaType().)
+QObject::connect: Cannot queue arguments of type 'QVector<int>'
+(Make sure 'QVector<int>' is registered using qRegisterMetaType().)
+[ INFO] [1545809181.153814601, 25.857000000]: Planner configuration 'sia20_arm' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
 [ INFO] [1545809181.155279390, 25.858000000]: RRTConnect: Starting planning with 1 states already in datastructure
 [ INFO] [1545809181.155454273, 25.859000000]: RRTConnect: Starting planning with 1 states already in datastructure
 [ INFO] [1545809181.155579417, 25.859000000]: RRTConnect: Starting planning with 1 states already in datastructure
@@ -624,9 +624,26 @@ QObject::connect: Cannot queue arguments of type &apos;QVector&lt;int&gt;&apos;
 [ INFO] [1545809181.189269195, 25.892000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.005525 seconds
 [ INFO] [1545809181.203213724, 25.907000000]: SimpleSetup: Path simplification took 0.013748 seconds and changed from 4 to 2 states
 [ INFO] [1545809181.205643774, 25.909000000]: Returned 0 controllers in list
-<font color="#CC0000">[ERROR] [1545809181.205690023, 25.909000000]: Unable to identify any set of controllers that can actuate the specified joints: [ joint_b joint_e joint_l joint_r joint_s joint_t joint_u ]</font>
-<font color="#CC0000">[ERROR] [1545809181.205709864, 25.909000000]: Known controllers and their joints:</font>
+[ERROR] [1545809181.205690023, 25.909000000]: Unable to identify any set of controllers that can actuate the specified joints: [ joint_b joint_e joint_l joint_r joint_s joint_t joint_u ]
+[ERROR] [1545809181.205709864, 25.909000000]: Known controllers and their joints:
 
-<font color="#CC0000">[ERROR] [1545809181.205735016, 25.909000000]: Apparently trajectory initialization failed</font>
+[ERROR] [1545809181.205735016, 25.909000000]: Apparently trajectory initialization failed
 [ INFO] [1545809181.231182520, 25.935000000]: ABORTED: Solution found but controller failed during execution
-</pre>
+^C[rviz_robot_NG_31749_5228019497531705363-8] killing on exit
+[move_group-7] killing on exit
+[sia20/controller_spawner-5] killing on exit
+[robot_state_publisher-6] killing on exit
+[gazebo_gui-3] killing on exit
+[gazebo-2] killing on exit
+[INFO] [1545809218.154486, 62.768000]: Shutting down spawner. Stopping and unloading controllers...
+[INFO] [1545809218.156575, 62.770000]: Stopping all controllers...
+[gazebo_gui-3] escalating to SIGTERM
+[gazebo-2] escalating to SIGTERM
+[sia20/controller_spawner-5] escalating to SIGTERM
+[WARN] [1545809233.185640, 62.771000]: Controller Spawner error while taking down controllers: transport error completing service call: receive_once[/sia20/controller_manager/switch_controller]: unexpected error [Errno 4] Interrupted system call
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+done
+
