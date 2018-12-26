@@ -255,7 +255,7 @@
 	<!-- ros_control_plugin-->
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<robotNamespace></robotNamespace>
+			<robotNamespace>/sia20</robotNamespace>
 		</plugin>
 		<mu1>0.1</mu1>
 		<mu2>0.1</mu2>

@@ -37,13 +37,3 @@ joint_limits:
     max_velocity: 2.2698
     has_acceleration_limits: false
     max_acceleration: 0
-  wrist_to_l:
-    has_velocity_limits: true
-    max_velocity: 3
-    has_acceleration_limits: false
-    max_acceleration: 0
-  wrist_to_r:
-    has_velocity_limits: true
-    max_velocity: 3
-    has_acceleration_limits: false
-    max_acceleration: 0

@@ -8,7 +8,3 @@ controller_list:
       - joint_r
       - joint_b
       - joint_t
-  - name: fake_sia20_gripper_controller
-    joints:
-      - wrist_to_l
-      - wrist_to_r
