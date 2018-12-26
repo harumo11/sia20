@@ -1,10 +1,10 @@
-<pre><font color="#8AE234"><b>harumo@harumo-thinkpad-x1</b></font>:<font color="#729FCF"><b>~/catkin_ws/src/sia20/sia20_with_gripper_moveit_config/launch</b></font>$ roslaunch sia20_with_gripper_moveit_config sia20_with_gripper_moveit.launch 
-... logging to /home/harumo/.ros/log/2d72c7b0-078c-11e9-828b-48a472993dfb/roslaunch-harumo-thinkpad-x1-3721.log
+<pre><font color="#8AE234"><b>robot@robot-NG</b></font>:<font color="#729FCF"><b>~</b></font>$ roslaunch sia20_with_gripper_moveit_config sia20_with_gripper_moveit.launch 
+... logging to /home/robot/.ros/log/79388be0-08df-11e9-b159-309c23cec38a/roslaunch-robot-NG-31749.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
 Done checking log file disk usage. Usage is &lt;1GB.
 
-<b>started roslaunch server http://harumo-thinkpad-x1:44977/</b>
+<b>started roslaunch server http://robot-NG:37833/</b>
 
 SUMMARY
 ========
@@ -15,6 +15,8 @@ PARAMETERS
  * /move_group/allow_trajectory_execution: True
  * /move_group/capabilities: 
  * /move_group/controller_list: [{&apos;default&apos;: True...
+ * /move_group/controller_manager_name: moveit_simple_con...
+ * /move_group/controller_manager_ns: controller_manager
  * /move_group/disable_capabilities: 
  * /move_group/jiggle_fraction: 0.05
  * /move_group/max_range: 5.0
@@ -126,17 +128,18 @@ PARAMETERS
  * /move_group/planning_scene_monitor/publish_state_updates: True
  * /move_group/planning_scene_monitor/publish_transforms_updates: True
  * /move_group/request_adapters: default_planner_r...
- * /move_group/sensors: [{&apos;point_subsampl...
+ * /move_group/sensors: [{}]
  * /move_group/sia20_arm/default_planner_config: None
  * /move_group/sia20_arm/longest_valid_segment_fraction: 0.005
  * /move_group/sia20_arm/planner_configs: [&apos;SBL&apos;, &apos;EST&apos;, &apos;L...
  * /move_group/sia20_arm/projection_evaluator: joints(joint_s,jo...
- * /move_group/sia20_gripper/default_planner_config: None
+ * /move_group/sia20_gripper/default_planner_config: 
  * /move_group/sia20_gripper/planner_configs: [&apos;SBL&apos;, &apos;EST&apos;, &apos;L...
  * /move_group/start_state_max_bounds_error: 0.1
  * /move_group/trajectory_execution/allowed_execution_duration_scaling: 1.2
  * /move_group/trajectory_execution/allowed_goal_duration_margin: 0.5
  * /move_group/trajectory_execution/allowed_start_tolerance: 0.01
+ * /move_group/use_controller_manager: True
  * /robot_description: &lt;?xml version=&quot;1....
  * /robot_description_kinematics/sia20_arm/kinematics_solver: kdl_kinematics_pl...
  * /robot_description_kinematics/sia20_arm/kinematics_solver_attempts: 3
@@ -181,10 +184,10 @@ PARAMETERS
  * /robot_description_semantic: &lt;?xml version=&quot;1....
  * /rosdistro: melodic
  * /rosversion: 1.14.3
- * /rviz_harumo_thinkpad_x1_3721_2619852778860002016/sia20_arm/kinematics_solver: kdl_kinematics_pl...
- * /rviz_harumo_thinkpad_x1_3721_2619852778860002016/sia20_arm/kinematics_solver_attempts: 3
- * /rviz_harumo_thinkpad_x1_3721_2619852778860002016/sia20_arm/kinematics_solver_search_resolution: 0.005
- * /rviz_harumo_thinkpad_x1_3721_2619852778860002016/sia20_arm/kinematics_solver_timeout: 0.005
+ * /rviz_robot_NG_31749_5228019497531705363/sia20_arm/kinematics_solver: kdl_kinematics_pl...
+ * /rviz_robot_NG_31749_5228019497531705363/sia20_arm/kinematics_solver_attempts: 3
+ * /rviz_robot_NG_31749_5228019497531705363/sia20_arm/kinematics_solver_search_resolution: 0.005
+ * /rviz_robot_NG_31749_5228019497531705363/sia20_arm/kinematics_solver_timeout: 0.005
  * /sia20/joint_state_controller/publish_rate: 100
  * /sia20/joint_state_controller/type: joint_state_contr...
  * /sia20/sia20_joint_controller/gains/joint_b/d: 100
@@ -214,7 +217,7 @@ PARAMETERS
  * /sia20/sia20_joint_controller/gains/wrist_to_r/d: 100
  * /sia20/sia20_joint_controller/gains/wrist_to_r/i: 800
  * /sia20/sia20_joint_controller/gains/wrist_to_r/p: 5000
- * /sia20/sia20_joint_controller/joints: [&apos;joint_s&apos;, &apos;join...
+ * /sia20/sia20_joint_controller/joints: [&apos;joint_l&apos;, &apos;join...
  * /sia20/sia20_joint_controller/type: effort_controller...
  * /use_sim_time: True
 
@@ -226,83 +229,206 @@ NODES
     gazebo_gui (gazebo_ros/gzclient)
     move_group (moveit_ros_move_group/move_group)
     robot_state_publisher (robot_state_publisher/robot_state_publisher)
-    rviz_harumo_thinkpad_x1_3721_2619852778860002016 (rviz/rviz)
+    rviz_robot_NG_31749_5228019497531705363 (rviz/rviz)
     spawn_model (gazebo_ros/spawn_model)
 
 auto-starting new master
-<b>process[master]: started with pid [3734]</b>
+<b>process[master]: started with pid [31762]</b>
 <b>ROS_MASTER_URI=http://localhost:11311</b>
 
-<b>setting /run_id to 2d72c7b0-078c-11e9-828b-48a472993dfb</b>
-<b>process[rosout-1]: started with pid [3745]</b>
+<b>setting /run_id to 79388be0-08df-11e9-b159-309c23cec38a</b>
+<b>process[rosout-1]: started with pid [31773]</b>
 started core service [/rosout]
-<b>process[gazebo-2]: started with pid [3752]</b>
-<b>process[gazebo_gui-3]: started with pid [3757]</b>
-<b>process[spawn_model-4]: started with pid [3762]</b>
-<b>process[sia20/controller_spawner-5]: started with pid [3763]</b>
-<b>process[robot_state_publisher-6]: started with pid [3764]</b>
-<b>process[move_group-7]: started with pid [3765]</b>
-<b>process[rviz_harumo_thinkpad_x1_3721_2619852778860002016-8]: started with pid [3768]</b>
-[ INFO] [1545663426.077238766]: Loading robot model &apos;sia20&apos;...
-[ INFO] [1545663426.078701580]: No root/virtual joint specified in SRDF. Assuming fixed joint
-qt5ct: using qt5ct plugin
-[ INFO] [1545663426.177426297]: rviz version 1.13.1
-[ INFO] [1545663426.177567399]: compiled against Qt version 5.9.5
-[ INFO] [1545663426.177596826]: compiled against OGRE version 1.9.0 (Ghadamon)
-[ INFO] [1545663426.238726322]: Loading robot model &apos;sia20&apos;...
-[ INFO] [1545663426.238755472]: No root/virtual joint specified in SRDF. Assuming fixed joint
+<b>process[gazebo-2]: started with pid [31780]</b>
+<b>process[gazebo_gui-3]: started with pid [31785]</b>
+<b>process[spawn_model-4]: started with pid [31790]</b>
+<b>process[sia20/controller_spawner-5]: started with pid [31791]</b>
+<b>process[robot_state_publisher-6]: started with pid [31792]</b>
+<b>process[move_group-7]: started with pid [31793]</b>
+<b>process[rviz_robot_NG_31749_5228019497531705363-8]: started with pid [31799]</b>
+[ INFO] [1545809152.532833177]: Loading robot model &apos;sia20&apos;...
+[ INFO] [1545809152.620227295]: rviz version 1.13.1
+[ INFO] [1545809152.620291534]: compiled against Qt version 5.9.5
+[ INFO] [1545809152.620305429]: compiled against OGRE version 1.9.0 (Ghadamon)
+[ INFO] [1545809152.622877078]: Loading robot model &apos;sia20&apos;...
 libpng warning: iCCP: known incorrect sRGB profile
 libpng warning: iCCP: known incorrect sRGB profile
-[INFO] [1545663426.301108, 0.000000]: Controller Spawner: Waiting for service controller_manager/load_controller
-[ INFO] [1545663426.455008397]: Stereo is NOT SUPPORTED
-[ INFO] [1545663426.455892675]: OpenGl version: 3 (GLSL 1.3).
-qt5ct: D-Bus global menu: no
-libpng warning: iCCP: known incorrect sRGB profile
-[ INFO] [1545663426.581221400]: Publishing maintained planning scene on &apos;monitored_planning_scene&apos;
-[ INFO] [1545663426.583762740]: MoveGroup debug mode is ON
+[INFO] [1545809152.759587, 0.000000]: Controller Spawner: Waiting for service controller_manager/load_controller
+[ INFO] [1545809152.785983458]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1545809152.786670621]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[ INFO] [1545809152.853647991]: Publishing maintained planning scene on &apos;monitored_planning_scene&apos;
+[ INFO] [1545809152.855704544]: MoveGroup debug mode is ON
 <font color="#34E2E2">Starting context monitors...</font>
-[ INFO] [1545663426.583807141]: Starting scene monitor
-[ INFO] [1545663426.586481947]: Listening to &apos;/planning_scene&apos;
-[ INFO] [1545663426.586521460]: Starting world geometry monitor
-[ INFO] [1545663426.589003948]: Finished loading Gazebo ROS API Plugin.
-[ INFO] [1545663426.589228373]: Listening to &apos;/collision_object&apos; using message notifier with target frame &apos;world &apos;
-[ INFO] [1545663426.590554192]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
-[ INFO] [1545663426.591976407]: Listening to &apos;/planning_scene_world&apos; for planning scene world geometry
-[ INFO] [1545663426.619855000]: Finished loading Gazebo ROS API Plugin.
-[ INFO] [1545663426.620711136]: waitForService: Service [/gazebo_gui/set_physics_properties] has not been advertised, waiting...
-[INFO] [1545663426.963917, 0.000000]: Loading model XML from ros parameter robot_description
-[INFO] [1545663426.970976, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
-[ INFO] [1545663427.044020044, 0.021000000]: waitForService: Service [/gazebo/set_physics_properties] is now available.
-[ INFO] [1545663427.059010234, 0.035000000]: Physics dynamic reconfigure ready.
-[ INFO] [1545663427.095434039]: Listening to &apos;/head_mount_kinect/depth_registered/points&apos; using message filter with target frame &apos;world &apos;
-[ INFO] [1545663427.102052062]: Listening to &apos;/attached_collision_object&apos; for attached collision objects
+[ INFO] [1545809152.855726529]: Starting scene monitor
+[ INFO] [1545809152.857430430]: Listening to &apos;/planning_scene&apos;
+[ INFO] [1545809152.857448051]: Starting world geometry monitor
+[ INFO] [1545809152.859144851]: Listening to &apos;/collision_object&apos; using message notifier with target frame &apos;world &apos;
+[ INFO] [1545809152.860651185]: Listening to &apos;/planning_scene_world&apos; for planning scene world geometry
+<font color="#CC0000">[ERROR] [1545809152.861187067]: No sensor plugin specified for octomap updater 0; ignoring.</font>
+[ INFO] [1545809152.888639143]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1545809152.889201942]: waitForService: Service [/gazebo_gui/set_physics_properties] has not been advertised, waiting...
+[ INFO] [1545809152.936533960]: Listening to &apos;/attached_collision_object&apos; for attached collision objects
 <font color="#34E2E2">Context monitors started.</font>
-[ INFO] [1545663427.146443429]: Initializing OMPL interface using ROS parameters
-<font color="#CC0000">[ERROR] [1545663427.148702253]: Could not find the planner configuration &apos;None&apos; on the param server</font>
-<font color="#CC0000">[ERROR] [1545663427.157294200]: Could not find the planner configuration &apos;None&apos; on the param server</font>
-[ INFO] [1545663427.170905901]: Using planning interface &apos;OMPL&apos;
-[ INFO] [1545663427.182848471]: Param &apos;default_workspace_bounds&apos; was not set. Using default value: 10
-[ INFO] [1545663427.183265318]: Param &apos;start_state_max_bounds_error&apos; was set to 0.1
-[ INFO] [1545663427.183568652]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
-[ INFO] [1545663427.183930065]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
-[ INFO] [1545663427.184259335]: Param &apos;jiggle_fraction&apos; was set to 0.05
-[ INFO] [1545663427.184538966]: Param &apos;max_sampling_attempts&apos; was not set. Using default value: 100
-[ INFO] [1545663427.184569899]: Using planning request adapter &apos;Add Time Parameterization&apos;
-[ INFO] [1545663427.184582673]: Using planning request adapter &apos;Fix Workspace Bounds&apos;
-[ INFO] [1545663427.184593508]: Using planning request adapter &apos;Fix Start State Bounds&apos;
-[ INFO] [1545663427.184604655]: Using planning request adapter &apos;Fix Start State In Collision&apos;
-[ INFO] [1545663427.184615124]: Using planning request adapter &apos;Fix Start State Path Constraints&apos;
-[INFO] [1545663427.273604, 0.245000]: Calling service /gazebo/spawn_urdf_model
-[INFO] [1545663427.476294, 0.346000]: Spawn status: SpawnModel: Successfully spawned entity
-[ INFO] [1545663427.601853164, 0.346000000]: Loading gazebo_ros_control plugin
-[ INFO] [1545663427.601969900, 0.346000000]: Starting gazebo_ros_control plugin in namespace: /sia20
-[ INFO] [1545663427.602405942, 0.346000000]: gazebo_ros_control plugin is waiting for model URDF in parameter [/robot_description] on the ROS param server.
-[ INFO] [1545663427.729634773, 0.346000000]: Loaded gazebo_ros_control.
+[ INFO] [1545809152.958855319]: Initializing OMPL interface using ROS parameters
+<font color="#CC0000">[ERROR] [1545809152.960358610]: Could not find the planner configuration &apos;None&apos; on the param server</font>
+[ INFO] [1545809152.974076382]: Using planning interface &apos;OMPL&apos;
+[ INFO] [1545809152.977338187]: Param &apos;default_workspace_bounds&apos; was not set. Using default value: 10
+[ INFO] [1545809152.977587480]: Param &apos;start_state_max_bounds_error&apos; was set to 0.1
+[ INFO] [1545809152.977834397]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
+[ INFO] [1545809152.978083177]: Param &apos;start_state_max_dt&apos; was not set. Using default value: 0.5
+[ INFO] [1545809152.978338978]: Param &apos;jiggle_fraction&apos; was set to 0.05
+[ INFO] [1545809152.978586681]: Param &apos;max_sampling_attempts&apos; was not set. Using default value: 100
+[ INFO] [1545809152.978607322]: Using planning request adapter &apos;Add Time Parameterization&apos;
+[ INFO] [1545809152.978615462]: Using planning request adapter &apos;Fix Workspace Bounds&apos;
+[ INFO] [1545809152.978622313]: Using planning request adapter &apos;Fix Start State Bounds&apos;
+[ INFO] [1545809152.978633252]: Using planning request adapter &apos;Fix Start State In Collision&apos;
+[ INFO] [1545809152.978642529]: Using planning request adapter &apos;Fix Start State Path Constraints&apos;
+[INFO] [1545809153.156553, 0.000000]: Loading model XML from ros parameter robot_description
+[INFO] [1545809153.161716, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
+[ INFO] [1545809154.611465498]: Stereo is NOT SUPPORTED
+[ INFO] [1545809154.612427370]: OpenGl version: 4.6 (GLSL 4.6).
+libpng warning: iCCP: known incorrect sRGB profile
+[ INFO] [1545809154.943097285, 0.022000000]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[INFO] [1545809154.968194, 0.000000]: Calling service /gazebo/spawn_urdf_model
+[ INFO] [1545809154.979335188, 0.057000000]: Physics dynamic reconfigure ready.
+[INFO] [1545809155.180740, 0.164000]: Spawn status: SpawnModel: Successfully spawned entity
+[ INFO] [1545809155.278367318, 0.164000000]: Loading gazebo_ros_control plugin
+[ INFO] [1545809155.278436023, 0.164000000]: Starting gazebo_ros_control plugin in namespace: /sia20
+[ INFO] [1545809155.278837536, 0.164000000]: gazebo_ros_control plugin is waiting for model URDF in parameter [/robot_description] on the ROS param server.
+[ INFO] [1545809155.391684036, 0.164000000]: Loaded gazebo_ros_control.
 <b>[spawn_model-4] process has finished cleanly</b>
-<b>log file: /home/harumo/.ros/log/2d72c7b0-078c-11e9-828b-48a472993dfb/spawn_model-4*.log</b>
-[INFO] [1545663427.811748, 0.427000]: Controller Spawner: Waiting for service controller_manager/switch_controller
-[INFO] [1545663427.815848, 0.432000]: Controller Spawner: Waiting for service controller_manager/unload_controller
-[INFO] [1545663427.817843, 0.434000]: Loading controller: sia20_joint_controller
+<b>log file: /home/robot/.ros/log/79388be0-08df-11e9-b159-309c23cec38a/spawn_model-4*.log</b>
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+[INFO] [1545809155.468234, 0.241000]: Controller Spawner: Waiting for service controller_manager/switch_controller
+[INFO] [1545809155.469427, 0.242000]: Controller Spawner: Waiting for service controller_manager/unload_controller
+[INFO] [1545809155.470681, 0.243000]: Loading controller: sia20_joint_controller
+TIFFFieldWithTag: Internal error, unknown tag 0x829a.
+TIFFFieldWithTag: Internal error, unknown tag 0x829d.
+TIFFFieldWithTag: Internal error, unknown tag 0x8822.
+TIFFFieldWithTag: Internal error, unknown tag 0x8824.
+TIFFFieldWithTag: Internal error, unknown tag 0x8827.
+TIFFFieldWithTag: Internal error, unknown tag 0x8828.
+TIFFFieldWithTag: Internal error, unknown tag 0x9000.
+TIFFFieldWithTag: Internal error, unknown tag 0x9003.
+TIFFFieldWithTag: Internal error, unknown tag 0x9004.
+TIFFFieldWithTag: Internal error, unknown tag 0x9101.
+TIFFFieldWithTag: Internal error, unknown tag 0x9102.
+TIFFFieldWithTag: Internal error, unknown tag 0x9201.
+TIFFFieldWithTag: Internal error, unknown tag 0x9202.
+TIFFFieldWithTag: Internal error, unknown tag 0x9203.
+TIFFFieldWithTag: Internal error, unknown tag 0x9204.
+TIFFFieldWithTag: Internal error, unknown tag 0x9205.
+TIFFFieldWithTag: Internal error, unknown tag 0x9206.
+TIFFFieldWithTag: Internal error, unknown tag 0x9207.
+TIFFFieldWithTag: Internal error, unknown tag 0x9208.
+TIFFFieldWithTag: Internal error, unknown tag 0x9209.
+TIFFFieldWithTag: Internal error, unknown tag 0x920a.
+TIFFFieldWithTag: Internal error, unknown tag 0x9214.
+TIFFFieldWithTag: Internal error, unknown tag 0x927c.
+TIFFFieldWithTag: Internal error, unknown tag 0x9286.
+TIFFFieldWithTag: Internal error, unknown tag 0x9290.
+TIFFFieldWithTag: Internal error, unknown tag 0x9291.
+TIFFFieldWithTag: Internal error, unknown tag 0x9292.
+TIFFFieldWithTag: Internal error, unknown tag 0xa000.
+TIFFFieldWithTag: Internal error, unknown tag 0xa001.
+TIFFFieldWithTag: Internal error, unknown tag 0xa002.
+TIFFFieldWithTag: Internal error, unknown tag 0xa003.
+TIFFFieldWithTag: Internal error, unknown tag 0xa004.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20b.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20c.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20e.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20f.
+TIFFFieldWithTag: Internal error, unknown tag 0xa210.
+TIFFFieldWithTag: Internal error, unknown tag 0xa214.
+TIFFFieldWithTag: Internal error, unknown tag 0xa215.
+TIFFFieldWithTag: Internal error, unknown tag 0xa217.
+TIFFFieldWithTag: Internal error, unknown tag 0xa300.
+TIFFFieldWithTag: Internal error, unknown tag 0xa301.
+TIFFFieldWithTag: Internal error, unknown tag 0xa302.
+TIFFFieldWithTag: Internal error, unknown tag 0xa401.
+TIFFFieldWithTag: Internal error, unknown tag 0xa402.
+TIFFFieldWithTag: Internal error, unknown tag 0xa403.
+TIFFFieldWithTag: Internal error, unknown tag 0xa404.
+TIFFFieldWithTag: Internal error, unknown tag 0xa405.
+TIFFFieldWithTag: Internal error, unknown tag 0xa406.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa408.
+TIFFFieldWithTag: Internal error, unknown tag 0xa409.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40a.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40b.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa420.
+TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
+TIFFFieldWithTag: Internal error, unknown tag 0x829a.
+TIFFFieldWithTag: Internal error, unknown tag 0x829d.
+TIFFFieldWithTag: Internal error, unknown tag 0x8822.
+TIFFFieldWithTag: Internal error, unknown tag 0x8824.
+TIFFFieldWithTag: Internal error, unknown tag 0x8827.
+TIFFFieldWithTag: Internal error, unknown tag 0x8828.
+TIFFFieldWithTag: Internal error, unknown tag 0x9000.
+TIFFFieldWithTag: Internal error, unknown tag 0x9003.
+TIFFFieldWithTag: Internal error, unknown tag 0x9004.
+TIFFFieldWithTag: Internal error, unknown tag 0x9101.
+TIFFFieldWithTag: Internal error, unknown tag 0x9102.
+TIFFFieldWithTag: Internal error, unknown tag 0x9201.
+TIFFFieldWithTag: Internal error, unknown tag 0x9202.
+TIFFFieldWithTag: Internal error, unknown tag 0x9203.
+TIFFFieldWithTag: Internal error, unknown tag 0x9204.
+TIFFFieldWithTag: Internal error, unknown tag 0x9205.
+TIFFFieldWithTag: Internal error, unknown tag 0x9206.
+TIFFFieldWithTag: Internal error, unknown tag 0x9207.
+TIFFFieldWithTag: Internal error, unknown tag 0x9208.
+TIFFFieldWithTag: Internal error, unknown tag 0x9209.
+TIFFFieldWithTag: Internal error, unknown tag 0x920a.
+TIFFFieldWithTag: Internal error, unknown tag 0x9214.
+TIFFFieldWithTag: Internal error, unknown tag 0x927c.
+TIFFFieldWithTag: Internal error, unknown tag 0x9286.
+TIFFFieldWithTag: Internal error, unknown tag 0x9290.
+TIFFFieldWithTag: Internal error, unknown tag 0x9291.
+TIFFFieldWithTag: Internal error, unknown tag 0x9292.
+TIFFFieldWithTag: Internal error, unknown tag 0xa000.
+TIFFFieldWithTag: Internal error, unknown tag 0xa001.
+TIFFFieldWithTag: Internal error, unknown tag 0xa002.
+TIFFFieldWithTag: Internal error, unknown tag 0xa003.
+TIFFFieldWithTag: Internal error, unknown tag 0xa004.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20b.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20c.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20e.
+TIFFFieldWithTag: Internal error, unknown tag 0xa20f.
+TIFFFieldWithTag: Internal error, unknown tag 0xa210.
+TIFFFieldWithTag: Internal error, unknown tag 0xa214.
+TIFFFieldWithTag: Internal error, unknown tag 0xa215.
+TIFFFieldWithTag: Internal error, unknown tag 0xa217.
+TIFFFieldWithTag: Internal error, unknown tag 0xa300.
+TIFFFieldWithTag: Internal error, unknown tag 0xa301.
+TIFFFieldWithTag: Internal error, unknown tag 0xa302.
+TIFFFieldWithTag: Internal error, unknown tag 0xa401.
+TIFFFieldWithTag: Internal error, unknown tag 0xa402.
+TIFFFieldWithTag: Internal error, unknown tag 0xa403.
+TIFFFieldWithTag: Internal error, unknown tag 0xa404.
+TIFFFieldWithTag: Internal error, unknown tag 0xa405.
+TIFFFieldWithTag: Internal error, unknown tag 0xa406.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa408.
+TIFFFieldWithTag: Internal error, unknown tag 0xa409.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40a.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40b.
+TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa407.
+TIFFFieldWithTag: Internal error, unknown tag 0xa420.
+[INFO] [1545809155.582765, 0.355000]: Loading controller: joint_state_controller
+[INFO] [1545809155.587708, 0.360000]: Controller Spawner: Loaded controllers: sia20_joint_controller, joint_state_controller
+[INFO] [1545809155.589616, 0.362000]: Started controllers: sia20_joint_controller, joint_state_controller
+[ INFO] [1545809158.536588180, 3.300000000]: Loading robot model &apos;sia20&apos;...
+[ INFO] [1545809158.604881990, 3.369000000]: Loading robot model &apos;sia20&apos;...
+[ INFO] [1545809158.841953239, 3.605000000]: Starting scene monitor
+[ INFO] [1545809158.843684718, 3.607000000]: Listening to &apos;/move_group/monitored_planning_scene&apos;
+[ INFO] [1545809158.844025091, 3.607000000]: waitForService: Service [/get_planning_scene] has not been advertised, waiting...
+<font color="#C4A000">[ WARN] [1545809160.422039210, 5.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up</font>
+[ INFO] [1545809163.871403094, 8.620000000]: Failed to call service get_planning_scene, have you launched move_group? at /tmp/binarydeb/ros-melodic-moveit-ros-planning-0.10.5/planning_scene_monitor/src/planning_scene_monitor.cpp:502
 TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
 TIFFFieldWithTag: Internal error, unknown tag 0x829a.
 TIFFFieldWithTag: Internal error, unknown tag 0x829d.
@@ -421,142 +547,11 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa407.
 TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-[INFO] [1545663427.999061, 0.615000]: Loading controller: joint_state_controller
-[INFO] [1545663428.006075, 0.622000]: Controller Spawner: Loaded controllers: sia20_joint_controller, joint_state_controller
-[INFO] [1545663428.010094, 0.626000]: Started controllers: sia20_joint_controller, joint_state_controller
-[ INFO] [1545663428.223216761, 0.837000000]: Added FollowJointTrajectory controller for /sia20/sia20_joint_controller
-[ INFO] [1545663430.641494893, 3.185000000]: Loading robot model &apos;sia20&apos;...
-[ INFO] [1545663430.641564941, 3.185000000]: No root/virtual joint specified in SRDF. Assuming fixed joint
-[ INFO] [1545663430.846464341, 3.386000000]: Loading robot model &apos;sia20&apos;...
-[ INFO] [1545663430.846550247, 3.386000000]: No root/virtual joint specified in SRDF. Assuming fixed joint
-[ INFO] [1545663431.351460510, 3.885000000]: Starting scene monitor
-[ INFO] [1545663431.356911655, 3.890000000]: Listening to &apos;/move_group/monitored_planning_scene&apos;
-[ INFO] [1545663431.358555415, 3.892000000]: waitForService: Service [/get_planning_scene] has not been advertised, waiting...
-<font color="#C4A000">[ WARN] [1545663433.377507582, 5.856000000]: Waiting for hand_controller/gripper_action to come up</font>
-[ INFO] [1545663436.503991495, 8.903000000]: Failed to call service get_planning_scene, have you launched move_group? at /tmp/binarydeb/ros-melodic-moveit-ros-planning-0.10.5/planning_scene_monitor/src/planning_scene_monitor.cpp:502
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
-TIFFFieldWithTag: Internal error, unknown tag 0x829a.
-TIFFFieldWithTag: Internal error, unknown tag 0x829d.
-TIFFFieldWithTag: Internal error, unknown tag 0x8822.
-TIFFFieldWithTag: Internal error, unknown tag 0x8824.
-TIFFFieldWithTag: Internal error, unknown tag 0x8827.
-TIFFFieldWithTag: Internal error, unknown tag 0x8828.
-TIFFFieldWithTag: Internal error, unknown tag 0x9000.
-TIFFFieldWithTag: Internal error, unknown tag 0x9003.
-TIFFFieldWithTag: Internal error, unknown tag 0x9004.
-TIFFFieldWithTag: Internal error, unknown tag 0x9101.
-TIFFFieldWithTag: Internal error, unknown tag 0x9102.
-TIFFFieldWithTag: Internal error, unknown tag 0x9201.
-TIFFFieldWithTag: Internal error, unknown tag 0x9202.
-TIFFFieldWithTag: Internal error, unknown tag 0x9203.
-TIFFFieldWithTag: Internal error, unknown tag 0x9204.
-TIFFFieldWithTag: Internal error, unknown tag 0x9205.
-TIFFFieldWithTag: Internal error, unknown tag 0x9206.
-TIFFFieldWithTag: Internal error, unknown tag 0x9207.
-TIFFFieldWithTag: Internal error, unknown tag 0x9208.
-TIFFFieldWithTag: Internal error, unknown tag 0x9209.
-TIFFFieldWithTag: Internal error, unknown tag 0x920a.
-TIFFFieldWithTag: Internal error, unknown tag 0x9214.
-TIFFFieldWithTag: Internal error, unknown tag 0x927c.
-TIFFFieldWithTag: Internal error, unknown tag 0x9286.
-TIFFFieldWithTag: Internal error, unknown tag 0x9290.
-TIFFFieldWithTag: Internal error, unknown tag 0x9291.
-TIFFFieldWithTag: Internal error, unknown tag 0x9292.
-TIFFFieldWithTag: Internal error, unknown tag 0xa000.
-TIFFFieldWithTag: Internal error, unknown tag 0xa001.
-TIFFFieldWithTag: Internal error, unknown tag 0xa002.
-TIFFFieldWithTag: Internal error, unknown tag 0xa003.
-TIFFFieldWithTag: Internal error, unknown tag 0xa004.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20b.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20c.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20e.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20f.
-TIFFFieldWithTag: Internal error, unknown tag 0xa210.
-TIFFFieldWithTag: Internal error, unknown tag 0xa214.
-TIFFFieldWithTag: Internal error, unknown tag 0xa215.
-TIFFFieldWithTag: Internal error, unknown tag 0xa217.
-TIFFFieldWithTag: Internal error, unknown tag 0xa300.
-TIFFFieldWithTag: Internal error, unknown tag 0xa301.
-TIFFFieldWithTag: Internal error, unknown tag 0xa302.
-TIFFFieldWithTag: Internal error, unknown tag 0xa401.
-TIFFFieldWithTag: Internal error, unknown tag 0xa402.
-TIFFFieldWithTag: Internal error, unknown tag 0xa403.
-TIFFFieldWithTag: Internal error, unknown tag 0xa404.
-TIFFFieldWithTag: Internal error, unknown tag 0xa405.
-TIFFFieldWithTag: Internal error, unknown tag 0xa406.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa408.
-TIFFFieldWithTag: Internal error, unknown tag 0xa409.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40a.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40b.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-TIFFReadDirectory: Warning, Sum of Photometric type-related color channels and ExtraSamples doesn&apos;t match SamplesPerPixel. Defining non-color channels as ExtraSamples..
-TIFFFieldWithTag: Internal error, unknown tag 0x829a.
-TIFFFieldWithTag: Internal error, unknown tag 0x829d.
-TIFFFieldWithTag: Internal error, unknown tag 0x8822.
-TIFFFieldWithTag: Internal error, unknown tag 0x8824.
-TIFFFieldWithTag: Internal error, unknown tag 0x8827.
-TIFFFieldWithTag: Internal error, unknown tag 0x8828.
-TIFFFieldWithTag: Internal error, unknown tag 0x9000.
-TIFFFieldWithTag: Internal error, unknown tag 0x9003.
-TIFFFieldWithTag: Internal error, unknown tag 0x9004.
-TIFFFieldWithTag: Internal error, unknown tag 0x9101.
-TIFFFieldWithTag: Internal error, unknown tag 0x9102.
-TIFFFieldWithTag: Internal error, unknown tag 0x9201.
-TIFFFieldWithTag: Internal error, unknown tag 0x9202.
-TIFFFieldWithTag: Internal error, unknown tag 0x9203.
-TIFFFieldWithTag: Internal error, unknown tag 0x9204.
-TIFFFieldWithTag: Internal error, unknown tag 0x9205.
-TIFFFieldWithTag: Internal error, unknown tag 0x9206.
-TIFFFieldWithTag: Internal error, unknown tag 0x9207.
-TIFFFieldWithTag: Internal error, unknown tag 0x9208.
-TIFFFieldWithTag: Internal error, unknown tag 0x9209.
-TIFFFieldWithTag: Internal error, unknown tag 0x920a.
-TIFFFieldWithTag: Internal error, unknown tag 0x9214.
-TIFFFieldWithTag: Internal error, unknown tag 0x927c.
-TIFFFieldWithTag: Internal error, unknown tag 0x9286.
-TIFFFieldWithTag: Internal error, unknown tag 0x9290.
-TIFFFieldWithTag: Internal error, unknown tag 0x9291.
-TIFFFieldWithTag: Internal error, unknown tag 0x9292.
-TIFFFieldWithTag: Internal error, unknown tag 0xa000.
-TIFFFieldWithTag: Internal error, unknown tag 0xa001.
-TIFFFieldWithTag: Internal error, unknown tag 0xa002.
-TIFFFieldWithTag: Internal error, unknown tag 0xa003.
-TIFFFieldWithTag: Internal error, unknown tag 0xa004.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20b.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20c.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20e.
-TIFFFieldWithTag: Internal error, unknown tag 0xa20f.
-TIFFFieldWithTag: Internal error, unknown tag 0xa210.
-TIFFFieldWithTag: Internal error, unknown tag 0xa214.
-TIFFFieldWithTag: Internal error, unknown tag 0xa215.
-TIFFFieldWithTag: Internal error, unknown tag 0xa217.
-TIFFFieldWithTag: Internal error, unknown tag 0xa300.
-TIFFFieldWithTag: Internal error, unknown tag 0xa301.
-TIFFFieldWithTag: Internal error, unknown tag 0xa302.
-TIFFFieldWithTag: Internal error, unknown tag 0xa401.
-TIFFFieldWithTag: Internal error, unknown tag 0xa402.
-TIFFFieldWithTag: Internal error, unknown tag 0xa403.
-TIFFFieldWithTag: Internal error, unknown tag 0xa404.
-TIFFFieldWithTag: Internal error, unknown tag 0xa405.
-TIFFFieldWithTag: Internal error, unknown tag 0xa406.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa408.
-TIFFFieldWithTag: Internal error, unknown tag 0xa409.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40a.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40b.
-TIFFFieldWithTag: Internal error, unknown tag 0xa40c.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa407.
-TIFFFieldWithTag: Internal error, unknown tag 0xa420.
-[ INFO] [1545663436.874612359, 9.266000000]: Constructing new MoveGroup connection for group &apos;sia20_arm&apos; in namespace &apos;&apos;
-<font color="#C4A000">[ WARN] [1545663439.508473707, 11.856000000]: Waiting for hand_controller/gripper_action to come up</font>
-<font color="#CC0000">[ERROR] [1545663445.590508626, 17.857000000]: Action client not connected: hand_controller/gripper_action</font>
-[ INFO] [1545663445.648694190, 17.913000000]: Returned 1 controllers in list
-[ INFO] [1545663445.676516694, 17.941000000]: Trajectory execution is managing controllers
+[ INFO] [1545809164.030420014, 8.780000000]: Constructing new MoveGroup connection for group &apos;sia20_arm&apos; in namespace &apos;&apos;
+<font color="#C4A000">[ WARN] [1545809166.437638988, 11.181000000]: Waiting for /sia20/sia20_joint_controller/follow_joint_controller to come up</font>
+<font color="#CC0000">[ERROR] [1545809172.454741749, 17.182000000]: Action client not connected: /sia20/sia20_joint_controller/follow_joint_controller</font>
+[ INFO] [1545809172.501410119, 17.229000000]: Returned 0 controllers in list
+[ INFO] [1545809172.514718157, 17.242000000]: Trajectory execution is managing controllers
 <font color="#34E2E2">Loading &apos;move_group/ApplyPlanningSceneService&apos;...</font>
 <font color="#34E2E2">Loading &apos;move_group/ClearOctomapService&apos;...</font>
 <font color="#34E2E2">Loading &apos;move_group/MoveGroupCartesianPathService&apos;...</font>
@@ -568,7 +563,7 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa420.
 <font color="#34E2E2">Loading &apos;move_group/MoveGroupPlanService&apos;...</font>
 <font color="#34E2E2">Loading &apos;move_group/MoveGroupQueryPlannersService&apos;...</font>
 <font color="#34E2E2">Loading &apos;move_group/MoveGroupStateValidationService&apos;...</font>
-[ INFO] [1545663445.853941544, 18.114000000]: 
+[ INFO] [1545809172.588839810, 17.317000000]: 
 
 ********************************************************
 * MoveGroup using: 
@@ -585,210 +580,53 @@ TIFFFieldWithTag: Internal error, unknown tag 0xa420.
 *     - StateValidationService
 ********************************************************
 
-[ INFO] [1545663445.854043390, 18.114000000]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
-[ INFO] [1545663445.854080102, 18.114000000]: MoveGroup context initialization complete
+[ INFO] [1545809172.588962123, 17.317000000]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
+[ INFO] [1545809172.588996212, 17.317000000]: MoveGroup context initialization complete
 
 <font color="#8AE234">You can start planning now!</font>
 
-[ INFO] [1545663446.871084812, 19.070000000]: Ready to take commands for planning group sia20_arm.
-[ INFO] [1545663446.871239645, 19.070000000]: Looking around: no
-[ INFO] [1545663446.871418124, 19.070000000]: Replanning: no
-<font color="#C4A000">[ WARN] [1545663446.887266904, 19.084000000]: Interactive marker &apos;EE:goal_link_t&apos; contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.</font>
-[ INFO] [1545663451.261290768, 23.297000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
+[ INFO] [1545809173.510591780, 18.235000000]: Ready to take commands for planning group sia20_arm.
+[ INFO] [1545809173.510714059, 18.235000000]: Looking around: no
+[ INFO] [1545809173.510791752, 18.235000000]: Replanning: no
+<font color="#C4A000">[ WARN] [1545809173.518704112, 18.243000000]: Interactive marker &apos;EE:goal_link_t&apos; contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.</font>
+[ INFO] [1545809181.151005345, 25.854000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
 Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545663451.261412798, 23.298000000]: Failed to fetch current robot state.</font>
-[ INFO] [1545663451.261701827, 23.298000000]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
-[ INFO] [1545663451.262037672, 23.298000000]: Planning attempt 1 of at most 1
+<font color="#C4A000">[ WARN] [1545809181.151085424, 25.854000000]: Failed to fetch current robot state.</font>
+[ INFO] [1545809181.151284498, 25.854000000]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
+[ INFO] [1545809181.151649082, 25.855000000]: Planning attempt 1 of at most 1
 QObject::connect: Cannot queue arguments of type &apos;QVector&lt;int&gt;&apos;
 (Make sure &apos;QVector&lt;int&gt;&apos; is registered using qRegisterMetaType().)
 QObject::connect: Cannot queue arguments of type &apos;QVector&lt;int&gt;&apos;
 (Make sure &apos;QVector&lt;int&gt;&apos; is registered using qRegisterMetaType().)
-[ INFO] [1545663451.269170795, 23.305000000]: Planner configuration &apos;sia20_arm&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
-[ INFO] [1545663451.273528350, 23.309000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.273754301, 23.310000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.273935424, 23.310000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.274061231, 23.310000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.290917777, 23.323000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.294180460, 23.327000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.294749824, 23.327000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663451.296607960, 23.327000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.297232332, 23.331000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.024860 seconds
-[ INFO] [1545663451.298137069, 23.332000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.298242753, 23.332000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.298401593, 23.332000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.306389587, 23.340000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.307475109, 23.341000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.308315500, 23.341000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663451.308586824, 23.341000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.315799879, 23.349000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.316073393, 23.350000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.018241 seconds
-[ INFO] [1545663451.316380520, 23.350000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.316481809, 23.350000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663451.323797712, 23.356000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663451.324523203, 23.356000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663451.324870806, 23.357000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.008553 seconds
-[ INFO] [1545663451.368314536, 23.398000000]: SimpleSetup: Path simplification took 0.042816 seconds and changed from 4 to 2 states
-[ INFO] [1545663452.376150259, 24.391000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
-Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545663452.376397344, 24.391000000]: Failed to validate trajectory: couldn&apos;t receive full current joint state within 1s</font>
-[ INFO] [1545663452.406883792, 24.419000000]: ABORTED: Solution found but controller failed during execution
-[ INFO] [1545663525.424545745, 96.065000000]: Stopping scene monitor
-[ INFO] [1545663525.426560109, 96.068000000]: Starting scene monitor
-[ INFO] [1545663525.430043351, 96.072000000]: Listening to &apos;/move_group/monitored_planning_scene&apos;
-[ INFO] [1545663562.806081990, 132.045000000]: No active joints or end effectors found for group &apos;sia20_gripper&apos;. Make sure that kinematics.yaml is loaded in this node&apos;s namespace.
-[ INFO] [1545663562.806474505, 132.046000000]: Constructing new MoveGroup connection for group &apos;sia20_gripper&apos; in namespace &apos;&apos;
-[ INFO] [1545663563.079852061, 132.309000000]: Ready to take commands for planning group sia20_gripper.
-[ INFO] [1545663563.079988485, 132.309000000]: Looking around: no
-[ INFO] [1545663563.080052508, 132.309000000]: Replanning: no
-[ INFO] [1545663573.947864526, 142.789000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
-Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545663573.948004371, 142.789000000]: Failed to fetch current robot state.</font>
-[ INFO] [1545663573.948131311, 142.789000000]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
-[ INFO] [1545663573.948625926, 142.789000000]: Planning attempt 1 of at most 1
-[ INFO] [1545663573.950138223, 142.791000000]: Planner configuration &apos;sia20_gripper&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
-[ INFO] [1545663573.950833396, 142.792000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.950997948, 142.792000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.951088444, 142.792000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.951205424, 142.792000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.965189192, 142.802000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.965351333, 142.802000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.965541573, 142.802000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.965648248, 142.802000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.966274296, 142.802000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.015717 seconds
-[ INFO] [1545663573.966769352, 142.802000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.967456425, 142.808000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.967650261, 142.808000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.967781339, 142.808000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.970641619, 142.811000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.971596569, 142.812000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.972238395, 142.812000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.973303235, 142.814000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.974335935, 142.815000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.007646 seconds
-[ INFO] [1545663573.974710676, 142.815000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.974804805, 142.815000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663573.977936891, 142.818000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.978274492, 142.818000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663573.981251584, 142.821000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.006550 seconds
-[ INFO] [1545663574.019741418, 142.857000000]: SimpleSetup: Path simplification took 0.038204 seconds and changed from 5 to 2 states
-[ INFO] [1545663574.024915091, 142.862000000]: Returned 1 controllers in list
-<font color="#CC0000">[ERROR] [1545663574.025066003, 142.862000000]: Unable to identify any set of controllers that can actuate the specified joints: [ wrist_to_l wrist_to_r ]</font>
-<font color="#CC0000">[ERROR] [1545663574.025180511, 142.862000000]: Known controllers and their joints:</font>
-<font color="#CC0000">controller &apos;/sia20/sia20_joint_controller&apos; controls joints:</font>
-<font color="#CC0000">  joint_b</font>
-<font color="#CC0000">  joint_e</font>
-<font color="#CC0000">  joint_l</font>
-<font color="#CC0000">  joint_r</font>
-<font color="#CC0000">  joint_s</font>
-<font color="#CC0000">  joint_t</font>
-<font color="#CC0000">  joint_u</font>
+[ INFO] [1545809181.153814601, 25.857000000]: Planner configuration &apos;sia20_arm&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1545809181.155279390, 25.858000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.155454273, 25.859000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.155579417, 25.859000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.155689947, 25.859000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.171394934, 25.875000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.171527432, 25.875000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.172005956, 25.875000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.176681549, 25.880000000]: RRTConnect: Created 6 states (4 start + 2 goal)
+[ INFO] [1545809181.176939745, 25.880000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.022149 seconds
+[ INFO] [1545809181.177393314, 25.881000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.177518857, 25.881000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.177598334, 25.881000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.177673958, 25.881000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.182634881, 25.886000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.182777644, 25.886000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.183224558, 25.887000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.183326954, 25.887000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.183523861, 25.887000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.006231 seconds
+[ INFO] [1545809181.183831792, 25.887000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.183950118, 25.887000000]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1545809181.188851814, 25.892000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.189079432, 25.892000000]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1545809181.189269195, 25.892000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.005525 seconds
+[ INFO] [1545809181.203213724, 25.907000000]: SimpleSetup: Path simplification took 0.013748 seconds and changed from 4 to 2 states
+[ INFO] [1545809181.205643774, 25.909000000]: Returned 0 controllers in list
+<font color="#CC0000">[ERROR] [1545809181.205690023, 25.909000000]: Unable to identify any set of controllers that can actuate the specified joints: [ joint_b joint_e joint_l joint_r joint_s joint_t joint_u ]</font>
+<font color="#CC0000">[ERROR] [1545809181.205709864, 25.909000000]: Known controllers and their joints:</font>
 
-<font color="#CC0000">[ERROR] [1545663574.025275247, 142.862000000]: Apparently trajectory initialization failed</font>
-[ INFO] [1545663574.045177918, 142.881000000]: ABORTED: Solution found but controller failed during execution
-[ INFO] [1545663577.020733397, 145.749000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
-Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545663577.020879696, 145.749000000]: Failed to fetch current robot state.</font>
-[ INFO] [1545663577.020988217, 145.749000000]: Combined planning and execution request received for MoveGroup action. Forwarding to planning and execution pipeline.
-[ INFO] [1545663577.021084108, 145.749000000]: Planning attempt 1 of at most 1
-[ INFO] [1545663577.021696527, 145.750000000]: Planner configuration &apos;sia20_gripper&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
-[ INFO] [1545663577.022244539, 145.751000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.022354967, 145.751000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.022455049, 145.751000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.022610084, 145.751000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.036626888, 145.761000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.038863473, 145.767000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.039836726, 145.768000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.042342111, 145.770000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.042609360, 145.771000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.020556 seconds
-[ INFO] [1545663577.043044898, 145.771000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.043151555, 145.771000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.043247167, 145.771000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.043350231, 145.771000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.046390128, 145.773000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.046813176, 145.773000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.047710825, 145.775000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.047906604, 145.775000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.051312319, 145.779000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.008340 seconds
-[ INFO] [1545663577.051976179, 145.779000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.052091871, 145.780000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663577.056340099, 145.781000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.057991700, 145.784000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663577.059559911, 145.787000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.007632 seconds
-[ INFO] [1545663577.100493041, 145.825000000]: SimpleSetup: Path simplification took 0.040666 seconds and changed from 5 to 2 states
-[ INFO] [1545663577.106466481, 145.831000000]: Returned 1 controllers in list
-<font color="#CC0000">[ERROR] [1545663577.106639535, 145.831000000]: Unable to identify any set of controllers that can actuate the specified joints: [ wrist_to_l wrist_to_r ]</font>
-<font color="#CC0000">[ERROR] [1545663577.106737319, 145.831000000]: Known controllers and their joints:</font>
-<font color="#CC0000">controller &apos;/sia20/sia20_joint_controller&apos; controls joints:</font>
-<font color="#CC0000">  joint_b</font>
-<font color="#CC0000">  joint_e</font>
-<font color="#CC0000">  joint_l</font>
-<font color="#CC0000">  joint_r</font>
-<font color="#CC0000">  joint_s</font>
-<font color="#CC0000">  joint_t</font>
-<font color="#CC0000">  joint_u</font>
-
-<font color="#CC0000">[ERROR] [1545663577.106872958, 145.831000000]: Apparently trajectory initialization failed</font>
-[ INFO] [1545663577.115187445, 145.839000000]: ABORTED: Solution found but controller failed during execution
-[ INFO] [1545663584.182333297, 152.621000000]: Didn&apos;t received robot state (joint angles) with recent timestamp within 1 seconds.
-Check clock synchronization if your are running ROS across multiple machines!
-<font color="#C4A000">[ WARN] [1545663584.182449587, 152.621000000]: Failed to fetch current robot state.</font>
-[ INFO] [1545663584.182617649, 152.621000000]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
-[ INFO] [1545663584.183467675, 152.622000000]: Planner configuration &apos;sia20_gripper&apos; will use planner &apos;geometric::RRTConnect&apos;. Additional configuration parameters will be set when the planner is constructed.
-[ INFO] [1545663584.184237179, 152.623000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.184367062, 152.623000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.184486887, 152.623000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.184608185, 152.623000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.208536386, 152.645000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663584.209473060, 152.646000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663584.209871123, 152.646000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.210511962, 152.647000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.211097426, 152.648000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.027067 seconds
-[ INFO] [1545663584.211847984, 152.649000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.211960559, 152.649000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.212226594, 152.649000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.212410528, 152.649000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.215263492, 152.649000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.216985388, 152.649000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.217327497, 152.651000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.218319480, 152.651000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663584.218873208, 152.652000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.007163 seconds
-[ INFO] [1545663584.219220635, 152.652000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.219306875, 152.653000000]: RRTConnect: Starting planning with 1 states already in datastructure
-[ INFO] [1545663584.223232585, 152.656000000]: RRTConnect: Created 5 states (2 start + 3 goal)
-[ INFO] [1545663584.225178317, 152.658000000]: RRTConnect: Created 6 states (2 start + 4 goal)
-[ INFO] [1545663584.227425108, 152.660000000]: ParallelPlan::solve(): Solution found by one or more threads in 0.008199 seconds
-[ INFO] [1545663584.255845180, 152.686000000]: SimpleSetup: Path simplification took 0.028213 seconds and changed from 4 to 2 states
-[ INFO] [1545663585.803389943, 154.173000000]: Execution request received
-[ INFO] [1545663585.803496635, 154.173000000]: Returned 1 controllers in list
-<font color="#CC0000">[ERROR] [1545663585.803552363, 154.173000000]: Unable to identify any set of controllers that can actuate the specified joints: [ wrist_to_l wrist_to_r ]</font>
-<font color="#CC0000">[ERROR] [1545663585.803606753, 154.173000000]: Known controllers and their joints:</font>
-<font color="#CC0000">controller &apos;/sia20/sia20_joint_controller&apos; controls joints:</font>
-<font color="#CC0000">  joint_b</font>
-<font color="#CC0000">  joint_e</font>
-<font color="#CC0000">  joint_l</font>
-<font color="#CC0000">  joint_r</font>
-<font color="#CC0000">  joint_s</font>
-<font color="#CC0000">  joint_t</font>
-<font color="#CC0000">  joint_u</font>
-
-[ INFO] [1545663585.819308606, 154.189000000]: ABORTED: Solution found but controller failed during execution
-[ INFO] [1545663617.333944043, 184.970000000]: Stopping scene monitor
-<font color="#C4A000">[ WARN] [1545663617.415228523, 185.050000000]: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.</font>
-<b>[rviz_harumo_thinkpad_x1_3721_2619852778860002016-8] process has finished cleanly</b>
-<b>log file: /home/harumo/.ros/log/2d72c7b0-078c-11e9-828b-48a472993dfb/rviz_harumo_thinkpad_x1_3721_2619852778860002016-8*.log</b>
-^C[move_group-7] killing on exit
-[robot_state_publisher-6] killing on exit
-[sia20/controller_spawner-5] killing on exit
-[gazebo_gui-3] killing on exit
-[gazebo-2] killing on exit
-[INFO] [1545663622.621947, 190.194000]: Shutting down spawner. Stopping and unloading controllers...
-[INFO] [1545663622.626262, 190.196000]: Stopping all controllers...
-<font color="#CC0000">[sia20/controller_spawner-5] escalating to SIGTERM</font>
-<font color="#CC0000">[gazebo_gui-3] escalating to SIGTERM</font>
-<font color="#CC0000">[gazebo-2] escalating to SIGTERM</font>
-<font color="#C4A000">[WARN] [1545663637.655376, 190.196000]: Controller Spawner error while taking down controllers: transport error completing service call: receive_once[/sia20/controller_manager/switch_controller]: unexpected error [Errno 4] Interrupted system call</font>
-[rosout-1] killing on exit
-[master] killing on exit
-shutting down processing monitor...
-... shutting down processing monitor complete
-<b>done</b>
+<font color="#CC0000">[ERROR] [1545809181.205735016, 25.909000000]: Apparently trajectory initialization failed</font>
+[ INFO] [1545809181.231182520, 25.935000000]: ABORTED: Solution found but controller failed during execution
 </pre>
