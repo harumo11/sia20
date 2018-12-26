@@ -28,4 +28,3 @@ sia20:
             joint_t: {p: 5000, i: 800, d: 100}
             wrist_to_l: {p: 5000, i: 800, d: 100}
             wrist_to_r: {p: 5000, i: 800, d: 100}
-
