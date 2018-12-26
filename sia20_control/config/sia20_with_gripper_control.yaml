@@ -17,7 +17,6 @@ sia20:
             - joint_t
             - wrist_to_l
             - wrist_to_r
-
         gains:
             joint_s: {p: 5000, i: 800, d: 100}
             joint_l: {p: 5000, i: 800, d: 100}
