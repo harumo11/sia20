@@ -1,0 +1,5 @@
+<launch>
+	<!-- load tool broom urdf to ros parameter server as tool_description -->
+	<arg name="model" default="$(find sia20_gazebo)/urdf/broom.urdf"/>
+	<param name="tool_description" textfile="$(arg model)"/>
+</launch>

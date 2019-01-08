@@ -22,7 +22,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://broom/meshes/broom_foot.STL" />
+          filename="package://broom/broom_foot.STL" />
       </geometry>
       <material
         name="">
@@ -36,7 +36,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://broom/meshes/broom_foot.STL" />
+          filename="package://broom/broom_foot.STL" />
       </geometry>
     </collision>
   </link>
@@ -62,7 +62,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://broom/meshes/broom_head.STL" />
+          filename="package://broom/broom_head.STL" />
       </geometry>
       <material
         name="">
@@ -76,7 +76,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://broom/meshes/broom_head.STL" />
+          filename="package://broom/broom_head.STL" />
       </geometry>
     </collision>
   </link>

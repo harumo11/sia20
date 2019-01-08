@@ -3,7 +3,10 @@
   <!-- load robot_description of sia20-->
   <include file="$(find sia20_description)/launch/sia20_with_gripper_description.launch"/>
 
-  <!-- launch empty gazebo world-->
+  <!-- load tool_description of broom -->
+  <include file="$(find sia20_gazebo)/launch/tool_broom_description.launch"/>
+
+  <!-- launch gazebo world-->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
 	<arg name="world_name" value="$(find sia20_gazebo)/worlds/sim.world"/>
 	<arg name="paused" default="false"/>
@@ -14,7 +17,10 @@
   </include>
 
   <!-- spawn robot model into gazebo-->
-  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -model sia20 -param robot_description -z 1.0" respawn="false" output="screen" />
+  <node name="spawn_model_robot" pkg="gazebo_ros" type="spawn_model" args="-urdf -model sia20 -param robot_description -z 1.0" respawn="false" output="screen" />
+
+  <!-- spawn tool model into gazebo-->
+  <node name="spawn_model_tool" pkg="gazebo_ros" type="spawn_model" args="-urdf -model tool -param tool_description -z 1.0" respawn="false" output="screen" />
 
   <!-- load controller -->
   <include file="$(find sia20_control)/launch/sia20_with_gripper_control.launch"/>
