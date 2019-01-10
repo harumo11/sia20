@@ -1,0 +1,12 @@
+<launch>
+	<node name="tf_footprint_base"
+		  pkg="tf"
+		  type="static_transform_publisher"
+		  args="0 0 0 0 0 0 base_link base_footprint 10"/>
+	
+	<node
+		name="spawn_model"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-file $(find sia20_gazebo)/urdf/broom.urdf -urdf -model broom -x 2 -y 0 -z 1.1 -P -1.57" output="screen" />
+</launch>
