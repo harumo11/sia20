@@ -9,12 +9,12 @@
       <mass
         value="0.3" />
       <inertia
-        ixx="0.001"
-        ixy="0.001"
-        ixz="0.001"
-        iyy="0.001"
-        iyz="0.001"
-        izz="0.001" />
+        ixx="1"
+        ixy="1"
+        ixz="1"
+        iyy="1"
+        iyz="1"
+        izz="1" />
     </inertial>
     <visual>
       <origin
@@ -49,12 +49,12 @@
       <mass
         value="0.3" />
       <inertia
-        ixx="0.001"
-        ixy="0.001"
-        ixz="0.001"
-        iyy="0.001"
-        iyz="0.001"
-        izz="0.001" />
+        ixx="1"
+        ixy="1"
+        ixz="1"
+        iyy="1"
+        iyz="1"
+        izz="1" />
     </inertial>
     <visual>
       <origin

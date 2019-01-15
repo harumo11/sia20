@@ -3,7 +3,7 @@
 	<include file="$(find sia20_description)/launch/sia20_with_gripper_description.launch"/>
 
 	<!-- gazwebo -->
-	<include file="$(find sia20_gazebo)/launch/gazebo.launch"/>
+	<include file="$(find sia20_gazebo)/launch/sia20_with_gripper_gazebo.launch"/>
 
 	<!-- controllers -->
 	<include file="$(find sia20_control)/launch/sia20_with_gripper_control.launch"/>

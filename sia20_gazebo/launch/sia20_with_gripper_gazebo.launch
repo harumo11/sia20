@@ -24,6 +24,6 @@
   <!--node name="spawn_model_tool" pkg="gazebo_ros" type="spawn_model" args="-urdf -model tool -param tool_description -z 1.0" respawn="false" output="screen" /-->
 
   <!-- load controller -->
-  <include file="$(find sia20_control)/launch/sia20_with_gripper_control.launch"/>
+  <!--include file="$(find sia20_control)/launch/sia20_with_gripper_control.launch"/-->
 
 </launch>
