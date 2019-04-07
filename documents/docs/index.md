@@ -1,17 +1,21 @@
-# Welcome to MkDocs
+# ROS for SIA20 
 
-For full documentation visit [mkdocs.org](https://mkdocs.org).
+Welcome to ROS for SIA20.
+This documents explain for how to use SIA20 robot arm with ROS.
+This documents contains some tutorials from basic to advanced.
+If you get a issue, **PLEASE feel free to contact me from [ISSUE PAGE](https://github.com/harumo11/sia20/issues).**
 
-## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+## Who maintain this project?
+This project is maintained by Harumo Sasatake at Toyohashi University of Tech (Japan).
 
-## Project layout
+## Tutorials
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+This documents are written in English and Japanese.
+
+!!! English tutorial
+	Click here!
+
+!!! Japanese tutorial
+	Click here!
+

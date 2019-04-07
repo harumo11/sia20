@@ -1,1 +1,23 @@
-site_name: My Docs
+site_name: SIA20 
+site_description: Explanation for SIA20 with ROS
+site_author: Harumo Sasatake
+
+theme:
+    material
+
+markdown_extensions:
+    - admonition:
+    - pymdownx.superfences:
+        custom_fences:
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:pymdownx.superfences.fence_div_format
+
+extra_css:
+    - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
+
+extra_javascript:
+    - 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+    - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
+
