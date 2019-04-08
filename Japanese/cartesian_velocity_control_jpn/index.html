@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -44,12 +44,12 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
     
-      <script src="../../assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -62,6 +62,9 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+      
     
     
   </head>
@@ -99,22 +102,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                SIA20
-              </span>
-              <span class="md-header-nav__topic">
-                Cartesian Velocity Control
-              </span>
-            
+            <span class="md-header-nav__topic">
+              SIA20
+            </span>
+            <span class="md-header-nav__topic">
+              Cartesian Velocity Control
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -137,7 +137,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -239,10 +238,37 @@
     SIA20の制御メッセージの流れ
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="実機" class="md-nav__link">
+    実機
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="シミュレータ" class="md-nav__link">
+    シミュレータ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sia20sia20_joint_controllercommand" title="/sia20/sia20_joint_controller/commandの中身" class="md-nav__link">
+    /sia20/sia20_joint_controller/commandの中身
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" title="やること" class="md-nav__link">
+  <a href="#_3" title="やること" class="md-nav__link">
     やること
   </a>
   
@@ -289,10 +315,37 @@
     SIA20の制御メッセージの流れ
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="実機" class="md-nav__link">
+    実機
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="シミュレータ" class="md-nav__link">
+    シミュレータ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sia20sia20_joint_controllercommand" title="/sia20/sia20_joint_controller/commandの中身" class="md-nav__link">
+    /sia20/sia20_joint_controller/commandの中身
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" title="やること" class="md-nav__link">
+  <a href="#_3" title="やること" class="md-nav__link">
     やること
   </a>
   
@@ -325,16 +378,44 @@
 </ul>
 </div>
 <h2 id="sia20">SIA20の制御メッセージの流れ</h2>
+<h3 id="_1">実機</h3>
 <div class="mermaid">graph TD;
 MoveIt! -- Follow Joint Trajectory &lt;br&gt; ACTIONLIB MESSAGE --&gt; motoman_control_node;
 motoman_control_node -- JointTrajectory &lt;br&gt; TOPIC MESSAGE --&gt; motoman_driver;
 motoman_driver -- simple message &lt;br&gt; ROS-I PROTCOL --&gt; SIA20;</div>
 
+<h3 id="_2">シミュレータ</h3>
+<div class="mermaid">graph TD;
+rqt_joint_trajectory_controller -- /sia20/sia20_joint_controller/command &lt;br&gt; TOPIC MESSAGE --&gt; gazebo;
+rviz -- /execute_trajectory/action_topics &lt;br&gt; ACTIONLIB MESSAGE --&gt; /move_group;
+/move_group -- /sia20/sia20_joint_controller/follow_joint_trajectory/action_topic --&gt; gazebo;
+gazebo -- /sia20/joint_states TOPIC MESSAGE --&gt; /move_group;</div>
+
+<h3 id="sia20sia20_joint_controllercommand">/sia20/sia20_joint_controller/commandの中身</h3>
+<p>メッセージタイプは<code>trajectory_msgs/JointTrajectory</code></p>
+<div class="highlight"><pre><span></span>header: 
+  seq: 10473
+  stamp: 
+    secs: 0
+    nsecs:         0
+  frame_id: &#39;&#39;
+joint_names: [joint_b, joint_e, joint_l, joint_r, joint_s, joint_t, joint_u]
+points: 
+  - 
+    positions: [-0.998296, 0.77142, -0.85, -2.56, -3.06, -2.73, -1.84]
+    velocities: []
+    accelerations: []
+    effort: []
+    time_from_start: 
+      secs: 1
+      nsecs:         0
+</pre></div>
+
 <p><code>rqt_joint_trajectory_controller</code>というrqtのプラグインを入れることによって
 <code>JointTrajectory</code>のトピック(各関節ごとの値)をrqtから送ることができる．
 これと同様のプログラムをC++で作成することから始め用と思う．</p>
 <p>このプログラムは<code>sia20_control</code>に入れておこうと思う．</p>
-<h2 id="_1">やること</h2>
+<h2 id="_3">やること</h2>
 <ol>
 <li>rqt_joint_trajectory_controllerが内部で何をやっているのかを調べる</li>
 <li>nishida_labの<code>motoman_control_node</code>がどのように'JointTrajectory`メッセージを作成しているのかを調べる</li>
@@ -389,15 +470,13 @@ motoman_driver -- simple message &lt;br&gt; ROS-I PROTCOL --&gt; SIA20;</div>
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
@@ -406,9 +485,6 @@ motoman_driver -- simple message &lt;br&gt; ROS-I PROTCOL --&gt; SIA20;</div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
         <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-      
-    
-    
       
     
   </body>
