@@ -20,13 +20,7 @@ motoman_driver -- simple message <br> ROS-I PROTCOL --> SIA20;
 
 ### シミュレータ
 
-```mermaid
-graph TD;
-rqt_joint_trajectory_controller -- /sia20/sia20_joint_controller/command <br> TOPIC MESSAGE --> gazebo;
-rviz -- /execute_trajectory/action_topics <br> ACTIONLIB MESSAGE --> /move_group;
-/move_group -- /sia20/sia20_joint_controller/follow_joint_trajectory/action_topic --> gazebo;
-gazebo -- /sia20/joint_states TOPIC MESSAGE --> /move_group;
-```
+![image](../image/command_flow_simulation.png)
 
 ### /sia20/sia20_joint_controller/commandの中身
 
@@ -58,3 +52,34 @@ points:
 このプログラムは`sia20_control`に入れておこうと思う．
 
 
+## sequential_ik_solverとjoint__trajectory_publisherの設計
+
+![image](../image/command_flow_cartesian_velocity_control.svg)
+
+### sequential_ik_solver
+
+現在の手先位置からの差分を入力とし，逐次的にIKを解き，次の時刻で目指すべき
+各関節の値( `JointTrajectory` トピック)を出力するノードの設計．
+
+#### アルゴリズム
+
+1. rosパラメータサーバから下記の要素を見つける
+	- コントローラ名
+	- JointTrajectoryのトピック名
+
+1. 6要素(x,y,z,r,p,w)を持つ配列を受け取る
+2. MoveIt!でIKを解く
+3. JointTrajectoryトピックにしてパブリッシュ
+
+### joint_trajectory_publisher
+
+現在の角度からの差分を入力とし，それを`JointTrajectory`トピックに変換し出力するノードの設計．
+
+#### アルゴリズム
+
+1. rosパラメータサーバから下記の要素を見つける
+	- コントローラ名
+	- JointTrajectoryのトピック名
+
+1. 7要素(s,l,e,u,r,b,tの変位)を持つ配列を受け取る
+3. JointTrajectoryトピックにしてパブリッシュ
