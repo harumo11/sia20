@@ -22,9 +22,4 @@ motoman_driver -- simple message <br> ROS-I PROTCOL --> SIA20;
 
 このプログラムは`sia20_control`に入れておこうと思う．
 
-## やること
-
-1. rqt_joint_trajectory_controllerが内部で何をやっているのかを調べる
-2. nishida_labの`motoman_control_node`がどのように'JointTrajectory`メッセージを作成しているのかを調べる
-2. C++でパッケージを作成
 
