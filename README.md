@@ -2,6 +2,8 @@
 
 A goal of sia20 package is to provide functions in order to control sia20(d/f).
 
+## [DOCUMENT](https://harumo11.github.io/sia20/)
+
 ![demo1](https://github.com/harumo11/sia20/blob/media/gazebo-moveit-rviz.gif)
 ![image1](https://github.com/harumo11/sia20/blob/media/gazebo-moveit-rviz.png)
 
