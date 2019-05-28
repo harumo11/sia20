@@ -9,6 +9,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   trajectory_msgs
+  moveit_ros_planning_interface
+  moveit_core
+  moveit_msgs
+  tf2
 )
 
 catkin_package()
@@ -18,4 +22,7 @@ include_directories(
 )
 
 add_executable(joint_trajectory_publisher src/joint_trajectory_publisher.cpp)
+add_executable(sequential_ik_solver src/sequential_ik_solver.cpp)
+
 target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
+target_link_libraries(sequential_ik_solver ${catkin_LIBRARIES})

@@ -2,7 +2,7 @@ sia20:
     # Publish all joint state ---------------------------
     joint_state_controller:
         type: joint_state_controller/JointStateController
-        publish_rate: 100
+        publish_rate: 1000
 
     # Position Controllers ------------------------------
     sia20_joint_controller:
