@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	ros::AsyncSpinner spinner(3);
 	spinner.start();
 	std::cout << "Is start spinner? " << std::boolalpha << spinner.canStart() << std::endl;
-	const std::string PLANNING_GROUP = "panda_arm";
+	const std::string PLANNING_GROUP = "sia20_arm";
 	moveit::planning_interface::MoveGroupInterface move_group(PLANNING_GROUP);
 	//move_group.setEndEffectorLink("link_t");
 	std::cout << "end effector name is " << move_group.getEndEffector() << std::endl;

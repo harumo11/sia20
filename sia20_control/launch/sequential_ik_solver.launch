@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Launch sequential_ik_solver -->
+	<node name="sequential_ik_solver" pkg="sia20_control" type="sequential_ik_solver" respawn="false"
+		output="screen" >
+		<remap from="/joint_states" to="/sia20/joint_states" />
+	</node>
+</launch>
