@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 
 project(sia20_control)
+set(CMAKE_EXPORT_COMPILE_COMMAND ON)
 
 find_package(catkin REQUIRED COMPONENTS
   controller_manager
@@ -23,6 +24,8 @@ include_directories(
 
 add_executable(joint_trajectory_publisher src/joint_trajectory_publisher.cpp)
 add_executable(sequential_ik_solver src/sequential_ik_solver.cpp)
+add_executable(ds4totwist src/ds4totwist.cpp)
 
 target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
 target_link_libraries(sequential_ik_solver ${catkin_LIBRARIES})
+target_link_libraries(ds4totwist ${catkin_LIBRARIES})
