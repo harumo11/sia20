@@ -16,6 +16,7 @@ public:
 	geometry_msgs::Twist get();
 };
 
+// callback is called when target velocity command is arrived.
 void TargetVelocity::call_back(const geometry_msgs::TwistConstPtr target_velocity_data){
 	// Move listened data to memeber 
 	this->linear = target_velocity_data->linear;
@@ -23,6 +24,7 @@ void TargetVelocity::call_back(const geometry_msgs::TwistConstPtr target_velocit
 	this->print_data();
 }
 
+// get target velocity data
 geometry_msgs::Twist TargetVelocity::get(){
 	geometry_msgs::Twist twist;
 	twist.linear = this->linear;
@@ -31,6 +33,7 @@ geometry_msgs::Twist TargetVelocity::get(){
 	return twist;
 }
 
+// print target velocity data
 void TargetVelocity::print_data(){
 	ROS_INFO_STREAM("Target velocity : " << "x : " << this->linear.x  << "\t"
 	                                     << "y : " << this->linear.y  << "\t"
@@ -41,24 +44,29 @@ void TargetVelocity::print_data(){
 										 );
 }
 
+
+// current position pluse target velocity equals next target position.
 geometry_msgs::PoseStamped calc_next_position(geometry_msgs::PoseStamped x, geometry_msgs::Twist velocity){
+	// Header
+	x.header.stamp = ros::Time::now();
+
 	// Add next position
 	x.pose.position.x += velocity.linear.x;
 	x.pose.position.y += velocity.linear.y;
 	x.pose.position.z += velocity.linear.z;
 
-	// Convert angler
-	tf2::Quaternion quat1;
-	tf2::Quaternion quat2;
-	quat1.setRPY(velocity.angular.x, velocity.angular.y, velocity.angular.z);
-	quat2.setValue(x.pose.orientation.x, x.pose.orientation.y, x.pose.orientation.z, x.pose.orientation.w);
+	//// Convert angler
+	//tf2::Quaternion quat1;
+	//tf2::Quaternion quat2;
+	//quat1.setRPY(velocity.angular.x, velocity.angular.y, velocity.angular.z);
+	//quat2.setValue(x.pose.orientation.x, x.pose.orientation.y, x.pose.orientation.z, x.pose.orientation.w);
 
-	// Add next orientation
-	tf2::Quaternion quat3 = quat1 + quat2;
-	x.pose.orientation.x = quat3.x();
-	x.pose.orientation.y = quat3.y();
-	x.pose.orientation.z = quat3.z();
-	x.pose.orientation.w = quat3.w();
+	//// Add next orientation
+	//tf2::Quaternion quat3 = quat1 + quat2;
+	//x.pose.orientation.x = quat3.x();
+	//x.pose.orientation.y = quat3.y();
+	//x.pose.orientation.z = quat3.z();
+	//x.pose.orientation.w = quat3.w();
 
 	return x;
 }
@@ -89,9 +97,9 @@ int main(int argc, char* argv[])
 	robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
 	ROS_INFO("Model frame : %s", kinematic_model->getModelFrame().c_str());
 	robot_state::RobotStatePtr kinematic_state(new robot_state::RobotState(kinematic_model));
-	kinematic_state->setToDefaultValues();
-	const robot_state::JointModelGroup* joint_model_goup = kinematic_model->getJointModelGroup("sia20_arm");
-	auto joint_names = joint_model_goup->getVariableNames();
+	//kinematic_state->setToDefaultValues();
+	const robot_state::JointModelGroup* joint_model_group = kinematic_model->getJointModelGroup("sia20_arm");
+	auto joint_names = joint_model_group->getVariableNames();
 	int name_itr = 0;
 	for (auto&& e : joint_names){
 		std::cout << "Joint" << name_itr << "\t" << e << std::endl;
@@ -102,22 +110,27 @@ int main(int argc, char* argv[])
 	ros::Subscriber subscriber = node_handle.subscribe("target_velocity", 1, &TargetVelocity::call_back, &target_velocity);
 
 	// Publisher Inistialize
-	ros::Publisher publisher = node_handle.advertise<trajectory_msgs::JointTrajectory>("/sia20/sia20_joint_controller/command", 1);
-	ros::Publisher publisher_debug = node_handle.advertise<geometry_msgs::PoseStamped>("/sia20/target_position", 1);
+	ros::Publisher publisher = node_handle.advertise<trajectory_msgs::JointTrajectory>("/sia20/sia20_joint_controller/command", 10);
+	ros::Publisher publisher_debug = node_handle.advertise<geometry_msgs::PoseStamped>("/sia20/target_position", 10);
+	ros::Publisher publisher_debug_current_pose = node_handle.advertise<geometry_msgs::PoseStamped>("/sia20/current_position",10);
 
 
 	while (ros::ok()) {
+		joint_model_group = kinematic_model->getJointModelGroup("sia20_arm");
+
 		// Get current pose x
-		ROS_INFO_STREAM(move_group.getCurrentPose());
+		ROS_INFO_STREAM("current pose" << move_group.getCurrentPose());
+		publisher_debug_current_pose.publish(move_group.getCurrentPose());
 		auto x = move_group.getCurrentPose();
 		auto x_next_ = calc_next_position(x, target_velocity.get());
 		publisher_debug.publish(x_next_);
 		geometry_msgs::Pose x_next;
 		x_next = x_next_.pose;
+		std::cout << "[x_next] " << x_next << std::endl;
 
 		// Solve IK
-		bool found_ik = kinematic_state->setFromDiffIK(joint_model_goup, target_velocity.get(), "link_t", timeout);
-		//bool found_ik = kinematic_state->setFromIK(joint_model_goup, x_next);
+		//bool found_ik = kinematic_state->setFromDiffIK(joint_model_group, target_velocity.get(), "tool0", timeout);
+		bool found_ik = kinematic_state->setFromIK(joint_model_group, x_next);
 
 
 		// Can solve IK in successfuly
@@ -132,7 +145,7 @@ int main(int argc, char* argv[])
 			joint_trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
 			std::vector<double> joint_values;
 			trajectory_msgs::JointTrajectoryPoint joint_trajectory_points;
-			kinematic_state->copyJointGroupPositions(joint_model_goup, joint_values);
+			kinematic_state->copyJointGroupPositions(joint_model_group, joint_values);
 			for (auto&& e : joint_values){
 				joint_trajectory_points.positions.push_back(e);
 				joint_trajectory_points.time_from_start = ros::Duration(0.001);
