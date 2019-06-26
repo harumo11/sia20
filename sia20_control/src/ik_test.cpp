@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 			joint_trajectory_messages.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
 			joint_trajectory_messages.header.stamp = ros::Time::now();
 			trajectory_msgs::JointTrajectoryPoint joint_trajectory_points;
-			joint_trajectory_points.time_from_start = ros::Duration(0.0001);
+			joint_trajectory_points.time_from_start = ros::Duration(0.1);
 
 			kinematic_state->copyJointGroupPositions(joint_model_group, joint_values);
 			for (auto&& joint : joint_values){
