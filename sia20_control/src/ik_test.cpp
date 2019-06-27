@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 
+#include <eigen3/Eigen/Geometry>
+#include <eigen3/Eigen/Dense>
+
 #include <geometry_msgs/Twist.h>
 #include <trajectory_msgs/JointTrajectory.h>
 
@@ -8,8 +11,25 @@
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_state/robot_state.h>
 
-#include <tf2/LinearMath/Quaternion.h>
-#include <tf2/LinearMath/Matrix3x3.h>
+Eigen::Vector3d rad2deg(Eigen::Vector3d rad){
+	return (108.0 / M_PI) * rad;
+}
+
+Eigen::Quaterniond rpy2q(Eigen::Vector3d rpy){
+	Eigen::Quaterniond q = Eigen::AngleAxisd(rpy[0], Eigen::Vector3d::UnitX())
+					     * Eigen::AngleAxisd(rpy[1], Eigen::Vector3d::UnitY())
+	 				     * Eigen::AngleAxisd(rpy[2], Eigen::Vector3d::UnitZ());
+	return q;
+}
+
+Eigen::Vector3d q2rpy(Eigen::Quaterniond q){
+	return q.matrix().eulerAngles(0,1,2);
+}
+
+Eigen::Vector3d q2rpy2deg(Eigen::Quaterniond q){
+	return rad2deg(q2rpy(q));
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +54,10 @@ int main(int argc, char* argv[])
 	auto joint_model_group = kinematic_model->getJointModelGroup(planning_group);
 
 	// timer
-	ros::Rate timer(1);
+	ros::Rate timer(0.3);
+
+	// iterration
+	int itr = 0;
 
 	while (ros::ok()) {
 		// get current pose (quaternion)
@@ -47,14 +70,22 @@ int main(int argc, char* argv[])
 		std::cout << "[translation] : " << tip_state.translation() << std::endl;
 		std::cout << "[rotation] : " << tip_state.rotation() << std::endl;
 
-		// convert from quaternion to RPY
-		tf2::Quaternion quat(current_pose.pose.orientation.x, current_pose.pose.orientation.y, current_pose.pose.orientation.z, current_pose.pose.orientation.w);
-		double roll, pitch, yaw;
-		tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);
-		std::cout << "roll : " << roll << " pitch : " << pitch << " yaw : " << yaw << std::endl;
+		// convert from quaternion to RPY to print
+		Eigen::Quaterniond current_quat(current_pose.pose.orientation.w, current_pose.pose.orientation.x, current_pose.pose.orientation.y, current_pose.pose.orientation.z);
+		Eigen::Vector3d current_quat_rpy = q2rpy(current_quat);
 
 		// Publish next pose
-		current_pose.pose.position.z -= 0.1;
+		// pose
+		current_pose.pose.position.z -= 0.01;
+		// orientation
+		double three_degree_in_rad = 0.0523;
+		current_quat_rpy[2] += three_degree_in_rad;
+		Eigen::Quaterniond next_quat = rpy2q(current_quat_rpy);
+		current_pose.pose.orientation.x = next_quat.x();
+		current_pose.pose.orientation.y = next_quat.y();
+		current_pose.pose.orientation.z = next_quat.z();
+		current_pose.pose.orientation.w = next_quat.w();
+		// publish
 		debug_publisher_next_pose.publish(current_pose);
 
 		// calc ik
@@ -87,6 +118,11 @@ int main(int argc, char* argv[])
 		}
 
 		timer.sleep();
+
+		// end evaluation
+		if (itr++ > 10) {
+			break;
+		}
 	}
 
 
