@@ -77,6 +77,7 @@ int main(int argc, char* argv[])
 		// Publish next pose
 		// pose
 		current_pose.pose.position.z -= 0.01;
+		current_pose.pose.position.x -= 0.01;
 		// orientation
 		double three_degree_in_rad = 0.0523;
 		current_quat_rpy[2] += three_degree_in_rad;
@@ -120,7 +121,7 @@ int main(int argc, char* argv[])
 		timer.sleep();
 
 		// end evaluation
-		if (itr++ > 10) {
+		if (itr++ > 20) {
 			break;
 		}
 	}

@@ -48,7 +48,7 @@ geometry_msgs::Twist TargetVelocity::get(){
 
 // print target velocity data
 void TargetVelocity::print_data(){
-	ROS_INFO_STREAM("Target velocity : " << "x :" << this->linear.x  << "\t"
+	ROS_DEBUG_STREAM_THROTTLE(10, "Target velocity : " << "x :" << this->linear.x  << "\t"
 	                                     << "y : " << this->linear.y  << "\t"
 	                                     << "z : " << this->linear.z  << "\t"
 	                                     << "r : " << this->angular.x << "\t"
