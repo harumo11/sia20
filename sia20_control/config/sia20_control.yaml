@@ -2,11 +2,11 @@ sia20:
     # Publish all joint state ---------------------------
     joint_state_controller:
         type: joint_state_controller/JointStateController
-        publish_rate: 50
+        publish_rate: 100
 
     # Position Controllers ------------------------------
     sia20_joint_controller:
-        type: velocity_controllers/JointTrajectoryController
+        type: effort_controllers/JointTrajectoryController
         joints:
             - joint_s
             - joint_l
@@ -17,21 +17,21 @@ sia20:
             - joint_t
 
         gains:
-            joint_s: {p: 5000, i: 800, d: 0}
-            joint_l: {p: 5000, i: 800, d: 0}
-            joint_e: {p: 5000, i: 800, d: 0}
-            joint_u: {p: 5000, i: 800, d: 0}
-            joint_r: {p: 5000, i: 800, d: 0}
-            joint_b: {p: 5000, i: 800, d: 0}
-            joint_t: {p: 5000, i: 800, d: 0}
+            joint_s: {p: 5000, i: 700, d: 500}
+            joint_l: {p: 5000, i: 700, d: 500}
+            joint_e: {p: 5000, i: 700, d: 500}
+            joint_u: {p: 5000, i: 700, d: 500}
+            joint_r: {p: 5000, i: 700, d: 500}
+            joint_b: {p: 5000, i: 700, d: 500}
+            joint_t: {p: 5000, i: 700, d: 500}
 
     gazebo_ros_control:
         pid_gains:
-            joint_s: {p: 5000, i: 800, d: 0}
-            joint_l: {p: 5000, i: 800, d: 0}
-            joint_e: {p: 5000, i: 800, d: 0}
-            joint_u: {p: 5000, i: 800, d: 0}
-            joint_r: {p: 5000, i: 800, d: 0}
-            joint_b: {p: 5000, i: 800, d: 0}
-            joint_t: {p: 5000, i: 800, d: 0}
+            joint_s: {p: 5000, i: 500, d: 500}
+            joint_l: {p: 5000, i: 500, d: 500}
+            joint_e: {p: 5000, i: 500, d: 500}
+            joint_u: {p: 5000, i: 500, d: 500}
+            joint_r: {p: 5000, i: 500, d: 500}
+            joint_b: {p: 5000, i: 500, d: 500}
+            joint_t: {p: 5000, i: 500, d: 500}
 
