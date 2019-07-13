@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <ros/ros.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <sensor_msgs/JointState.h>
@@ -28,13 +29,13 @@ int main(int argc, char* argv[])
 	ROS_INFO_STREAM("JointTrajectoryPublisher starts");
 
 	// Async spinner starts
-	//ros::AsyncSpinner spinner(1);
-	//spinner.start();
-	//ROS_INFO_STREAM("AsyncSpinner starts");
+	ros::AsyncSpinner spinner(1);
+	spinner.start();
+	ROS_INFO_STREAM("AsyncSpinner starts");
 	
 	// Prepare Loop timer
-	ros::Rate timer(1);
-	timer.sleep();
+	ros::Rate short_timer(1);
+	ros::Rate timer(0.1);
 
 	// Joint state listener starts
 	JointStateListener joint_state_listener;
@@ -43,7 +44,7 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < 5; i++) {
 		ros::spinOnce();
 		ROS_INFO_STREAM("Initial spin");
-		timer.sleep();
+		short_timer.sleep();
 	}
 
 
@@ -66,7 +67,8 @@ int main(int argc, char* argv[])
 		ROS_INFO_STREAM("Prepared publishing message");
 
 		// Add velocity to JointTrajectoryPoint
-		joint_trajectory_point.velocities = {0, 0, 0, 0, 0, 0, 0.10472};
+		//joint_trajectory_point.velocities = {0, 0, 0, 0, 0, 0, 0.10472};
+		joint_trajectory_point.velocities = {0, 0, 0, 0, 0, 0, 0};
 		ROS_INFO_STREAM("Set velocity in publising message");
 
 		// added link_t angle value
@@ -90,15 +92,15 @@ int main(int argc, char* argv[])
 		joint_trajectory_msgs.points.push_back(joint_trajectory_point);
 
 		// Next position
-		joint_trajectory_point.positions[6] += 0.0523599;
-		joint_trajectory_point.time_from_start = ros::Duration(0.01);
+		joint_trajectory_point.positions[6] += 1 * (M_PI/180);
+		joint_trajectory_point.time_from_start = ros::Duration(0.05);
 		joint_trajectory_msgs.points.push_back(joint_trajectory_point);
 
 		joint_trajectory_publisher.publish(joint_trajectory_msgs);
 
 		timer.sleep();
 		ROS_INFO("Publish once");
-		ros::spinOnce();
+		//ros::spinOnce();
 	}
 
 	return 0;

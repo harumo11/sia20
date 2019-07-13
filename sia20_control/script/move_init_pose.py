@@ -80,12 +80,12 @@ group.go()
 #aa = raw_input('press enter to continue')"""
 
 joint_goal = [0, 0, 0, 0, 0, 0]
-joint_goal[0] = -0.5371
+joint_goal[0] = -0.5371 - 0.15
 joint_goal[1] = 0.003181
 joint_goal[2] = 0.7051
-joint_goal[3] = 3.141592
-joint_goal[4] = 1.5708
-joint_goal[5] = 0
+joint_goal[3] = -3.141592/2 #Roll
+joint_goal[4] = 1.22173 #Pitch
+joint_goal[5] = 3.141592/2 #Yaw
 
 group.set_pose_target(joint_goal)
 group.go()
