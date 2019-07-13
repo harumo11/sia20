@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/opt/ros/melodic/include",
+                "/home/harumo/catkin_ws/devel/include",
+                "/home/harumo/catkin_ws/src/industrial_core/industrial_robot_client/include",
+                "/home/harumo/catkin_ws/src/industrial_core/industrial_trajectory_filters/include",
+                "/home/harumo/catkin_ws/src/industrial_core/industrial_utils/include",
+                "/home/harumo/catkin_ws/src/motoman/motoman_driver/include",
+                "/home/harumo/catkin_ws/src/industrial_core/simple_message/include",
+                "/usr/include",
+                "/usr/include/eigen3"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/clang"
+        }
+    ],
+    "version": 4
+}
