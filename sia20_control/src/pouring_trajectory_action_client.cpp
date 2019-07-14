@@ -79,8 +79,8 @@ control_msgs::FollowJointTrajectoryGoal RobotArm::arm_extension_trajectory(senso
 	goal.trajectory.joint_names.push_back("joint_t");
 	ROS_INFO_STREAM("Goal trajctory gets joint names");
 
-	// We will have 700 waypoints in this goal trajectory
-	const int data_size = 700;
+	// We will have 140 waypoints in this goal trajectory
+	const int data_size = 140;
 	goal.trajectory.points.resize(data_size);
 
 	// Initial trajectory point which is recieved
@@ -120,8 +120,8 @@ control_msgs::FollowJointTrajectoryGoal RobotArm::arm_extension_trajectory(senso
 		// Set velocity of joint_t from data file
 		goal.trajectory.points[index].velocities[joint_t] = angular_velocity_vec[index] * M_PI/180;
 		// Set timing of moving from data file
-		//goal.trajectory.points[index].time_from_start = ros::Duration(timing_vec[index-1]) + ros::Duration(index);
-		goal.trajectory.points[index].time_from_start = ros::Duration(timing_vec[index]) + ros::Duration(index*0.05);
+		//goal.trajectory.points[index].time_from_start = ros::Duration(timing_vec[index]) + ros::Duration(index*0.1);
+		goal.trajectory.points[index].time_from_start = ros::Duration(timing_vec[index]);
 	}
 	ROS_INFO_STREAM("Goal trajectory gets all data");
 
@@ -173,7 +173,7 @@ void JointStateListener::call_back(const sensor_msgs::JointState msgs){
 int main(int argc, char* argv[])
 {
 	// Read csv data
-	std::ifstream file("/home/harumo/opt/Pouring/poursim_qrmax2_theta0_20_Sz_20.csv");
+	std::ifstream file("/home/harumo/opt/Pouring/poursim_qrmax2_theta0_20_Sz_20_time_0.1.csv");
 	if (file.is_open()) {
 		ROS_INFO_STREAM("File is opend");
 	}
@@ -200,7 +200,7 @@ int main(int argc, char* argv[])
 	
 	// Display data file
 	ROS_INFO_STREAM("Display data file [time, angle, angular velocity]");
-	for (int i = 0; i < 700; i++) {
+	for (int i = 0; i < 140; i++) {
 		ROS_INFO_STREAM(timing_vector[i] << " " << angle_vector[i] << " " << angular_velocity_vector[i]);
 	}
 
