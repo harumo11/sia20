@@ -49,7 +49,7 @@
 		<parent link="base_link"/>
 		<child  link="link_s"/>
 		<axis xyz="0 1 0"/>
-		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="2.2698"/>
+		<limit lower="-3.1415" upper="3.1415" effort="1000" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_s"/>
@@ -80,7 +80,7 @@
 		<parent link="link_s"/>
 		<child  link="link_l"/>
 		<axis xyz="0 0 1"/>
-		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="2.2698"/>
+		<limit lower="-1.9198" upper="1.9198" effort="1000" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_l"/>
@@ -110,7 +110,7 @@
 		<parent link="link_l"/>
 		<child  link="link_e"/>
 		<axis xyz="0 1 0"/>
-		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
+		<limit lower="-2.967" upper="2.967" effort="1000" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_e"/>
@@ -140,7 +140,7 @@
 		<parent link="link_e"/>
 		<child  link="link_u"/>
 		<axis xyz="0 0 1"/>
-		<limit lower="-2.967" upper="2.967" effort="100" velocity="2.2698"/>
+		<limit lower="-2.967" upper="2.967" effort="1000" velocity="2.2698"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_u"/>
@@ -170,7 +170,7 @@
 		<parent link="link_u"/>
 		<child  link="link_r"/>
 		<axis xyz="0 1 0"/>
-		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="3.4906"/>
+		<limit lower="-3.1415" upper="3.1415" effort="1000" velocity="3.4906"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_r"/>
@@ -200,7 +200,7 @@
 		<parent link="link_r"/>
 		<child  link="link_b"/>
 		<axis xyz="0 0 1"/>
-		<limit lower="-1.9198" upper="1.9198" effort="100" velocity="3.4906"/>
+		<limit lower="-1.9198" upper="1.9198" effort="1000" velocity="3.4906"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_b"/>
@@ -230,7 +230,7 @@
 		<parent link="link_b"/>
 		<child  link="link_t"/>
 		<axis xyz="0 1 0"/>
-		<limit lower="-3.1415" upper="3.1415" effort="100" velocity="7.0"/>
+		<limit lower="-3.1415" upper="3.1415" effort="1000" velocity="7.0"/>
 		<xacro:default_joint_misc/>
 	</joint>
 	<xacro:default_transmission suffix="joint_t"/>

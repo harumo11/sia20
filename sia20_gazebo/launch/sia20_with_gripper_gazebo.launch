@@ -5,7 +5,7 @@
 
   <!-- load tool_description of broom -->
   <!--include file="$(find sia20_gazebo)/launch/tool_broom_description.launch"/-->
-  <include file="$(find sia20_gazebo)/launch/broom.launch"/>
+  <!--include file="$(find sia20_gazebo)/launch/broom.launch"/-->
 
   <!-- launch gazebo world-->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
