@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_msgs
   gazebo_msgs
   tf2
+  gazebo_ros_link_attacher
 )
 
 catkin_package()

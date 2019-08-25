@@ -11,6 +11,7 @@
 #include <moveit/robot_state/robot_state.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 
+#include "/home/harumo/catkin_ws/devel/include/gazebo_ros_link_attacher/Attach.h"
 #include "quaternion_utility.hpp"
 
 //sを観測する関数(ハンド以外)
@@ -59,7 +60,7 @@ std::vector<geometry_msgs::Pose> observe(ros::ServiceClient gazebo_client){
 
 void hand_action(bool& is_hand_open, ros::Publisher right_hand, ros::Publisher left_hand){
 
-	ros::Rate timer(1);
+	ros::Rate timer(2);
 	std_msgs::Float64 torque;
 	if (is_hand_open == true){
 		torque.data = -1000;
@@ -72,7 +73,7 @@ void hand_action(bool& is_hand_open, ros::Publisher right_hand, ros::Publisher l
 	is_hand_open = !is_hand_open;
 	std::cout << "is_hand_open" << std::boolalpha << is_hand_open << std::endl;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		right_hand.publish(torque);
 		left_hand.publish(torque);
@@ -219,17 +220,35 @@ int main(int argc, char* argv[])
 	//ハンドを閉じる
 	hand_action(is_hand_open, r_hand_controller, l_hand_controller);
 	ROS_INFO_STREAM("9. Opening hand");
+	//ハンドとtoolを固定する
+	ros::ServiceClient hand_client = node_handler.serviceClient<gazebo_ros_link_attacher::Attach>("/link_attacher_node/attach");
+	hand_client.waitForExistence();
+	gazebo_ros_link_attacher::Attach attach_srv;
+	attach_srv.request.model_name_1 = "sia20";
+	attach_srv.request.link_name_1  = "link_t";
+	attach_srv.request.model_name_2 = "tool1";
+	attach_srv.request.link_name_2  = "link";
+	if(hand_client.call(attach_srv)){
+		ROS_INFO_STREAM("tool is attached to hand");
+	}
+	else{
+		ROS_WARN_STREAM("tool can't be attached to hand");
+	}
 
 	//sとaを保存
 	save_log(log_file, link_pose, is_hand_open, joint_vec);
 	ROS_INFO_STREAM("10. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("10.0. Observing s");
 
 	//move2
 	tool_pose.orientation.w = 0.5444;
 	tool_pose.orientation.x = -0.4362;
 	tool_pose.orientation.y = -0.4733;
 	tool_pose.orientation.z = 0.5377;
-	tool_pose.position.z += 0.05;
+	tool_pose.position.z += 0.1;
 	move_group.setPoseTarget(tool_pose);
 	ROS_INFO_STREAM("10.5. Making the plan to tool1");
 	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
@@ -241,6 +260,61 @@ int main(int argc, char* argv[])
 	//移動
 	move_group.move();
 	ROS_INFO_STREAM("10.7.5. Moving");
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("10.9. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("11. Observing s");
+
+	//target上空に移動するプランを立てる
+	auto target_pose = link_pose[1];
+	target_pose.position.z -= 1.0;
+	target_pose.position.z += 0.3;
+	target_pose.orientation.x = 0.024;
+	target_pose.orientation.y = -0.722;
+	target_pose.orientation.z = -0.01;
+	target_pose.orientation.w = 0.690;
+	move_group.setPoseTarget(target_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to target above");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to target above");
+	}
+
+	//移動
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("11.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("11. Observing s");
+
+	//target側面にtoolが移動するプランを立てる
+	geometry_msgs::Pose side_pose;
+	side_pose.position.x = 0.627;
+	side_pose.position.y = 0.548;
+	side_pose.position.z = 1.747 - 1;
+	side_pose.orientation.x = 0.074;
+	side_pose.orientation.y = -0.015;
+	side_pose.orientation.z = -0.070;
+	side_pose.orientation.w = 0.994;
+	move_group.setPoseTarget(side_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to target side");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to target side");
+	}
+
+	//移動
+	move_group.move();
 
 	return 0;
 }
