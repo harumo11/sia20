@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 	auto joint_model_group = kinematic_model->getJointModelGroup(planning_group);
 
 	// timer
-	ros::Rate timer(0.3);
+	ros::Rate timer(10);
 
 	// iterration
 	int itr = 0;
@@ -77,9 +77,9 @@ int main(int argc, char* argv[])
 		// Publish next pose
 		// pose
 		current_pose.pose.position.z -= 0.01;
-		current_pose.pose.position.x -= 0.01;
+		current_pose.pose.position.x -= 0.005;
 		// orientation
-		double three_degree_in_rad = 0.0523;
+		double three_degree_in_rad = 0.0523/3;
 		current_quat_rpy[2] += three_degree_in_rad;
 		Eigen::Quaterniond next_quat = rpy2q(current_quat_rpy);
 		current_pose.pose.orientation.x = next_quat.x();
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 		timer.sleep();
 
 		// end evaluation
-		if (itr++ > 20) {
+		if (itr++ > 40) {
 			break;
 		}
 	}

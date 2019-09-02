@@ -40,7 +40,7 @@
       <link name="body">
 		<visual name="visual">
 			<material>
-				<ambient>0.5 0.5 0.5 1</ambient>
+				<ambient>0.7 0.4 0.5 1</ambient>
 				<diffuse>0.5 0.5 0.5 1</diffuse>
 				<specular>0.5 0.5 0.5 1</specular>
 				<emissive>0.5 0.5 0.5 1</emissive>
@@ -119,10 +119,10 @@
         </collision>
         <visual name="visual">
 			<material>
-				<ambient>0.7 0.1 0.1 1</ambient>
-		  		<diffuse>0.7 0.1 0.1 1</diffuse>
-     	  		<specular>0.7 0.1 0.1 1</specular>
-		  		<emissive>0.7 0.1 0.1 1</emissive>
+				<ambient>0.1 0.4 0.4 1</ambient>
+		  		<diffuse>0.1 0.4 0.1 1</diffuse>
+     	  		<specular>0.1 0.4 0.1 1</specular>
+		  		<emissive>0.1 0.4 0.1 1</emissive>
 			</material>
 		  	<geometry>
 		  	    <mesh><uri>file://../meshes/tool1.STL</uri></mesh>
@@ -134,7 +134,7 @@
 
   <!-- goal -->
   <model name="goal">
-    <pose>0.6 -0.6 1 0 0 0</pose>
+    <pose>0.7 -0.3 1 0 0 0</pose>
     <static>true</static>
       <link name="link">
         <visual name="visual">
@@ -146,17 +146,18 @@
 		  </material>
           <geometry>
             <box>
-              <size>0.2 0.2 0.01</size>
+              <size>0.25 0.25 0.01</size>
             </box>
           </geometry>
         </visual>
       </link>
     </model>
+
 	<physics type='ode'>
 		<ode>
 			<solver>
 				<type>quick</type>
-				<iters>100</iters>
+				<iters>10</iters>
 				<precon_iters>0</precon_iters>
 				<sor>1.000</sor>
 			</solver>

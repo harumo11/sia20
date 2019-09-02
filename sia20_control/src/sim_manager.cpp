@@ -3,7 +3,10 @@
 #include <fstream>
 #include <ros/ros.h>
 #include <std_msgs/Float64.h>
+#include <std_srvs/Empty.h>
+#include <geometry_msgs/Pose.h>
 #include <gazebo_msgs/GetLinkState.h>
+#include <gazebo_msgs/WorldState.h>
 #include <geometry_msgs/Pose.h>
 
 #include <moveit/move_group_interface/move_group_interface.h>
@@ -60,7 +63,7 @@ std::vector<geometry_msgs::Pose> observe(ros::ServiceClient gazebo_client){
 
 void hand_action(bool& is_hand_open, ros::Publisher right_hand, ros::Publisher left_hand){
 
-	ros::Rate timer(2);
+	ros::Rate timer(5);
 	std_msgs::Float64 torque;
 	if (is_hand_open == true){
 		torque.data = -1000;
@@ -159,8 +162,7 @@ int main(int argc, char* argv[])
 	}
 
 	//file
-	std::ofstream log_file;
-	log_file.open("/home/harumo/catkin_ws/src/sia20/sia20_control/data/log.csv");
+	std::ofstream log_file("/home/harumo/catkin_ws/src/sia20/sia20_control/data/log.csv", std::ios_base::app);
 	//sとaを保存
 	save_log(log_file, link_pose, is_hand_open, joint_vec);
 	ROS_INFO_STREAM("3. s and a are saved");
@@ -272,7 +274,7 @@ int main(int argc, char* argv[])
 	//target上空に移動するプランを立てる
 	auto target_pose = link_pose[1];
 	target_pose.position.z -= 1.0;
-	target_pose.position.z += 0.3;
+	target_pose.position.z += 0.5;
 	target_pose.orientation.x = 0.024;
 	target_pose.orientation.y = -0.722;
 	target_pose.orientation.z = -0.01;
@@ -316,5 +318,141 @@ int main(int argc, char* argv[])
 	//移動
 	move_group.move();
 
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	//tool1がgoalへ移動するようなプランを作る
+	auto slide_pose = side_pose;
+	slide_pose.position.y -= 0.2;
+	move_group.setPoseTarget(slide_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to slide");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to slide");
+	}
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	slide_pose.position.y -= 0.2;
+	move_group.setPoseTarget(slide_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to slide");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to slide");
+	}
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	slide_pose.position.y -= 0.2;
+	move_group.setPoseTarget(slide_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to slide");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to slide");
+	}
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	slide_pose.position.y -= 0.2;
+	move_group.setPoseTarget(slide_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to slide");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to slide");
+	}
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	slide_pose.position.x = 0.578;
+	slide_pose.position.y = -0.44;
+	slide_pose.position.z = 0.759;
+	slide_pose.orientation.x = 0.075;
+	slide_pose.orientation.y = 0.009;
+	slide_pose.orientation.z = -0.391;
+	slide_pose.orientation.w = 0.916;
+	move_group.setPoseTarget(slide_pose);
+	if (move_group.plan(plan_to_tool) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+		ROS_INFO_STREAM("Find path to slide");
+	}
+	else {
+		ROS_WARN_STREAM("Can't find path to slide");
+	}
+	move_group.move();
+
+	//sとaを保存
+	save_log(log_file, link_pose, is_hand_open, joint_vec);
+	ROS_INFO_STREAM("17.. s and a are saved");
+
+	//sを観測
+	link_pose = observe(gazebo_client);
+	ROS_INFO_STREAM("18. Observing s");
+
+	//終了処理，ハンドを開く
+	hand_action(is_hand_open, r_hand_controller, l_hand_controller);
+	//ほうきをはなす
+	ros::ServiceClient hand_client_detach = node_handler.serviceClient<gazebo_ros_link_attacher::Attach>("/link_attacher_node/detach");
+	hand_client_detach.waitForExistence();
+	gazebo_ros_link_attacher::Attach detach_srv;
+	detach_srv.request.model_name_1 = "sia20";
+	detach_srv.request.link_name_1  = "link_t";
+	detach_srv.request.model_name_2 = "tool1";
+	detach_srv.request.link_name_2  = "link";
+	if(hand_client_detach.call(detach_srv)){
+		ROS_INFO_STREAM("tool is detached from hand");
+	}
+	else{
+		ROS_WARN_STREAM("tool can't be detached from hand");
+	}
+
+	//全ての関節を０にする．
+	move_group.setNamedTarget("virtical");
+	move_group.move();
+
+
+	//gazeboにシュミレーションをリセットするrpcを投げる
+	std_srvs::Empty gz_reset_srv;
+	if(ros::service::call("/gazebo/reset_world", gz_reset_srv)){
+		ROS_INFO_STREAM("reset model pose");
+	}
+	else{
+		ROS_WARN_STREAM("can't reset model pose");
+	}
 	return 0;
 }
