@@ -97,7 +97,7 @@
     </model>
 
   <!-- tool1 -->
-  <model name="tool1">
+  <model name="tool2">
     <pose>0.5 -0.5 1.2 0 -1.57 0</pose>
     <static>false</static>
       <link name="link">
@@ -114,7 +114,7 @@
         </inertial>
         <collision name="collision">
 		  	<geometry>
-		  	    <mesh><uri>file://../meshes/tool1.STL</uri></mesh>
+		  	    <mesh><uri>file://../meshes/tool2.STL</uri></mesh>
 		  	</geometry>
         </collision>
         <visual name="visual">
@@ -125,7 +125,7 @@
 		  		<emissive>0.1 0.4 0.1 1</emissive>
 			</material>
 		  	<geometry>
-		  	    <mesh><uri>file://../meshes/tool1.STL</uri></mesh>
+		  	    <mesh><uri>file://../meshes/tool2.STL</uri></mesh>
 		  	</geometry>
 		</visual>
       </link>
