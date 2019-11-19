@@ -1,5 +1,7 @@
 # SIA20 project
 
+# This package is tutorial how to make robot arm ROS package.
+
 A goal of sia20 package is to provide functions in order to control sia20(d/f).
 
 ## [DOCUMENT](https://harumo11.github.io/sia20/)
