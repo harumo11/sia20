@@ -99,10 +99,10 @@
 		<transmission name="${suffix}_trans">
 			<type>transimission_interface/SimpleTransmission</type>
 			<joint name="${suffix}">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="${suffix}_motor">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+				<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>

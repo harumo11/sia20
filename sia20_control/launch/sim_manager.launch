@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Launch sequential_ik_solver -->
+	<node name="sim_manager" pkg="sia20_control" type="sim_manager" respawn="false"
+		output="screen" >
+		<remap from="/joint_states" to="/sia20/joint_states" />
+	</node>
+</launch>

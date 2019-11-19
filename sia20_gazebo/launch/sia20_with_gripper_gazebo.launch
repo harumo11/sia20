@@ -3,10 +3,6 @@
   <!-- load robot_description of sia20-->
   <include file="$(find sia20_description)/launch/sia20_with_gripper_description.launch"/>
 
-  <!-- load tool_description of broom -->
-  <!--include file="$(find sia20_gazebo)/launch/tool_broom_description.launch"/-->
-  <include file="$(find sia20_gazebo)/launch/broom.launch"/>
-
   <!-- launch gazebo world-->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
 	<arg name="world_name" value="$(find sia20_gazebo)/worlds/sim.world"/>

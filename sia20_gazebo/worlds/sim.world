@@ -1,6 +1,7 @@
 <? xml version="1.0"?>
 <sdf version="1.6">
   <world name="default">
+	  <plugin name="ros_link_attacher_plugin" filename="libgazebo_ros_link_attacher.so"/>
     <include>
       <uri>model://ground_plane</uri>
     </include>
@@ -10,7 +11,7 @@
 
 	<!-- desk -->
     <model name="desk">
-      <pose>0.3 0 1  1.570796 0 1.570796</pose>
+      <pose>-0.2 -1 0  1.570796 0 1.570796</pose>
       <static>true</static>
       <link name="body">
 		<visual name="visual">
@@ -32,9 +33,33 @@
 	  </link>
   </model>
 
+	<!-- hausing -->
+    <model name="hausing">
+      <pose>0.0 -0.55 1.05  0 0 1.57</pose>
+      <static>true</static>
+      <link name="body">
+		<visual name="visual">
+			<material>
+				<ambient>0.7 0.4 0.5 1</ambient>
+				<diffuse>0.5 0.5 0.5 1</diffuse>
+				<specular>0.5 0.5 0.5 1</specular>
+				<emissive>0.5 0.5 0.5 1</emissive>
+		  	</material>
+		  	<geometry>
+		  	    <mesh><uri>file://../meshes/hausing.STL</uri></mesh>
+		  	</geometry>
+		</visual>
+		<collision name="collision">
+		  	<geometry>
+		  	    <mesh><uri>file://../meshes/hausing.STL</uri></mesh>
+		  	</geometry>
+		</collision>
+	  </link>
+  </model>
+
   <!-- target -->
   <model name="target">
-    <pose>0.6 0.5 1.05 0 0 0</pose>
+    <pose>0.7 0.55 1.05 0 0 0</pose>
     <static>false</static>
       <link name="link">
         <inertial>
@@ -71,10 +96,45 @@
       </link>
     </model>
 
+  <!-- tool1 -->
+  <model name="tool2">
+    <pose>0.5 -0.5 1.2 0 -1.57 0</pose>
+    <static>false</static>
+      <link name="link">
+        <inertial>
+          <mass>1</mass>
+          <inertia> 
+            <ixx>0.01</ixx>   
+            <ixy>0.0</ixy>        
+            <ixz>0.0</ixz>        
+            <iyy>0.01</iyy>   
+            <iyz>0.0</iyz>        
+            <izz>0.01</izz>   
+          </inertia>
+        </inertial>
+        <collision name="collision">
+		  	<geometry>
+		  	    <mesh><uri>file://../meshes/tool2.STL</uri></mesh>
+		  	</geometry>
+        </collision>
+        <visual name="visual">
+			<material>
+				<ambient>0.1 0.4 0.4 1</ambient>
+		  		<diffuse>0.1 0.4 0.1 1</diffuse>
+     	  		<specular>0.1 0.4 0.1 1</specular>
+		  		<emissive>0.1 0.4 0.1 1</emissive>
+			</material>
+		  	<geometry>
+		  	    <mesh><uri>file://../meshes/tool2.STL</uri></mesh>
+		  	</geometry>
+		</visual>
+      </link>
+    </model>
+
 
   <!-- goal -->
   <model name="goal">
-    <pose>0.3 -0.6 1 0 0 0</pose>
+    <pose>0.7 -0.3 1 0 0 0</pose>
     <static>true</static>
       <link name="link">
         <visual name="visual">
@@ -86,12 +146,29 @@
 		  </material>
           <geometry>
             <box>
-              <size>0.2 0.2 0.01</size>
+              <size>0.25 0.25 0.01</size>
             </box>
           </geometry>
         </visual>
       </link>
     </model>
+
+	<physics type='ode'>
+		<ode>
+			<solver>
+				<type>quick</type>
+				<iters>10</iters>
+				<precon_iters>0</precon_iters>
+				<sor>1.000</sor>
+			</solver>
+			<constraints>
+				<cfm>0.001</cfm>
+				<erp>0.5</erp>
+				<contact_max_correcting_vel>1000.0</contact_max_correcting_vel>
+				<contact_surface_layer>0.00</contact_surface_layer>
+			</constraints>
+		</ode>
+	</physics>
 
   </world>
 
