@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 	ros::Subscriber subscriber = node_handler.subscribe("/joy", 1, &Joy2Twist::call_back, &joy_to_twist);
 
 	// make publisher
-	ros::Publisher publisher = node_handler.advertise<geometry_msgs::Twist>("target_velocity", 1);
+	ros::Publisher publisher = node_handler.advertise<geometry_msgs::Twist>("/pose_following/cmd_vel", 1);
 	ros::Rate timer(100);
 
 	while (ros::ok()) {
