@@ -94,6 +94,25 @@ int main(int argc, char* argv[])
 		target_link_t.child_frame_id = "target_link_t";
 		target_link_t.header.frame_id = "link_t";
 		target_link_t.header.stamp = ros::Time::now();
+		auto target_link_t_y = target_link_t.transform.translation.y;
+		auto target_link_t_x = target_link_t.transform.translation.x;
+		target_link_t.transform.translation.x = -1 * target_link_t_y;
+		target_link_t.transform.translation.y = -1 * target_link_t_x;
+		target_link_t.transform.translation.z = -1 * target_link_t.transform.translation.z;
+		auto target_link_t_q_x = target_link_t.transform.rotation.x;
+		auto target_link_t_q_y = target_link_t.transform.rotation.y;
+		target_link_t.transform.rotation.x = -1 * target_link_t_q_y;
+		target_link_t.transform.rotation.y = -1 * target_link_t_q_x;
+		target_link_t.transform.rotation.z = -1 * target_link_t.transform.rotation.z;
+		ROS_INFO_STREAM(target_link_t.transform.rotation);
+		// HTC Viveの座標系とロボットの座標系を一致させるためにx軸回りに180度回転させる
+		//tf2::Quaternion q_roll_pi, q_orig;
+		//q_roll_pi.setRPY(M_PI, 0, 0);
+		//tf2::convert(target_link_t.transform.rotation, q_orig);
+		//q_orig = q_roll_pi * q_orig;
+		//q_orig.normalize();
+		//tf2::convert(q_orig, target_link_t.transform.rotation);
+		// tfに送信
 		target_link_t_broadcaster.sendTransform(target_link_t);
 		
 		timer.sleep();
