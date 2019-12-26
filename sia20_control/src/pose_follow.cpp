@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	// rosの設定
 	ros::init(argc, argv, "pose_follow_node");
 	ros::NodeHandle node_handler;
-	ros::AsyncSpinner spinner(2);
+	ros::AsyncSpinner spinner(3);
 	spinner.start();
 	ros::Rate timer(50);
 
@@ -40,12 +40,13 @@ int main(int argc, char* argv[])
 	// HTC Viveの現在位置をtfで読むための準備
 	tf2_ros::Buffer tf_controller_buffer;
 	tf2_ros::TransformListener tf_controller_listener(tf_controller_buffer);
+	tf2_ros::TransformBroadcaster target_link_t_broadcaster; 
 
 	// HTC Viveの大きな丸ボタンが押された位置を{local_controller}フレームとして記録するための準備
 	tf2_ros::StaticTransformBroadcaster static_controller_broadcaster;	// {world}からみた{controller}への変換行列をtfに流すためのクラス
 	
 	while (node_handler.ok()) {
-		ROS_INFO_STREAM(vive_controller_listener.state);	// HTC Viveの現在のボタン状況を表示
+		//ROS_INFO_STREAM(vive_controller_listener.state);	// HTC Viveの現在のボタン状況を表示
 		// コントローラのtriger押されたら{local_controller_frame}を作成する．
 		// {local_controller_frame} : viveコントローラの初期位置の座標
 		
@@ -89,27 +90,11 @@ int main(int argc, char* argv[])
 		}
 
 		// 手先目標位置を現在の手先位置とコントローラの変位から計算する
-		ROS_INFO_STREAM(transform_local_controller_to_controller);
-		geometry_msgs::TransformStamped target_link_t;
-		// 位置
-		target_link_t.transform.translation.x = frame_link_t.transform.translation.x + transform_local_controller_to_controller.transform.translation.x;
-		target_link_t.transform.translation.y = frame_link_t.transform.translation.y + transform_local_controller_to_controller.transform.translation.y;
-		target_link_t.transform.translation.z = frame_link_t.transform.translation.z + transform_local_controller_to_controller.transform.translation.z;
-		// 姿勢
-		tf2::Quaternion frame_link_t_quat, transform_local_controller_to_controller_quat;
-		tf2::fromMsg(frame_link_t.transform.rotation, frame_link_t_quat);	// 計算のためgeometry_msgsをtfの型に変換
-		tf2::fromMsg(transform_local_controller_to_controller.transform.rotation, transform_local_controller_to_controller_quat); // 計算のためgeometry_msgsをtfの型に変換
-		tf2::Quaternion target_link_t_quat = transform_local_controller_to_controller_quat * frame_link_t_quat;	// 回転を計算する．rotation * originの順で掛け合わせる
-		target_link_t_quat.normalize();
-		target_link_t.transform.rotation = tf2::toMsg(target_link_t_quat);	// tfの型からgeometry_msgsの型に再変換
-
-		// {link_base}からみた{link_t_target}をtfに送信
-		tf2_ros::TransformBroadcaster target_link_t_broadcaster; 
+		auto target_link_t = transform_local_controller_to_controller;
+		target_link_t.child_frame_id = "target_link_t";
+		target_link_t.header.frame_id = "link_t";
 		target_link_t.header.stamp = ros::Time::now();
-		target_link_t.header.frame_id = "base_link";
-		target_link_t.child_frame_id  = "link_t_target";
 		target_link_t_broadcaster.sendTransform(target_link_t);
-		ROS_INFO_STREAM(target_link_t);
 		
 		timer.sleep();
 	}
