@@ -2,6 +2,7 @@
 #include <sensor_msgs/Joy.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/robot_model_loader/robot_model_loader.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/transform_broadcaster.h>
@@ -23,6 +24,10 @@ int main(int argc, char* argv[])
 {
 	const std::string vive_id = "controller_LHR_066549FF";
 	const std::string vive_controller_topic_name = "/vive/" + vive_id + "/joy";
+	
+	// MoveItの設定
+	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
+	const robot_state::JointModelGroup* joint_model_group = move_group.getCurrentState()->getJointModelGroup("manipulator");
 
 	// rosの設定
 	ros::init(argc, argv, "pose_follow_node");
@@ -44,6 +49,11 @@ int main(int argc, char* argv[])
 
 	// HTC Viveの大きな丸ボタンが押された位置を{local_controller}フレームとして記録するための準備
 	tf2_ros::StaticTransformBroadcaster static_controller_broadcaster;	// {world}からみた{controller}への変換行列をtfに流すためのクラス
+
+	// joint_trajectory用の時刻
+	auto start_time = ros::Time::now();
+	bool is_first_cycle = true;
+	auto joint_streaming_publisher = node_handler.advertise<trajectory_msgs::JointTrajectory>("joint_path_command", 1);
 	
 	while (node_handler.ok()) {
 		//ROS_INFO_STREAM(vive_controller_listener.state);	// HTC Viveの現在のボタン状況を表示
@@ -91,8 +101,8 @@ int main(int argc, char* argv[])
 
 		// 手先目標位置を現在の手先位置とコントローラの変位から計算する
 		auto target_link_t = transform_local_controller_to_controller;
-		target_link_t.child_frame_id = "target_link_t";
 		target_link_t.header.frame_id = "link_t";
+		target_link_t.child_frame_id = "target_link_t";
 		target_link_t.header.stamp = ros::Time::now();
 		auto target_link_t_y = target_link_t.transform.translation.y;
 		auto target_link_t_x = target_link_t.transform.translation.x;
@@ -105,20 +115,56 @@ int main(int argc, char* argv[])
 		target_link_t.transform.rotation.y = -1 * target_link_t_q_x;
 		target_link_t.transform.rotation.z = -1 * target_link_t.transform.rotation.z;
 		ROS_INFO_STREAM(target_link_t.transform.rotation);
-		// HTC Viveの座標系とロボットの座標系を一致させるためにx軸回りに180度回転させる
-		//tf2::Quaternion q_roll_pi, q_orig;
-		//q_roll_pi.setRPY(M_PI, 0, 0);
-		//tf2::convert(target_link_t.transform.rotation, q_orig);
-		//q_orig = q_roll_pi * q_orig;
-		//q_orig.normalize();
-		//tf2::convert(q_orig, target_link_t.transform.rotation);
-		// tfに送信
 		target_link_t_broadcaster.sendTransform(target_link_t);
 		
+		// {base_link}からみた{target_link_t}の値を取得する．
+		geometry_msgs::TransformStamped transform_base_link_to_target_link_t;
+		try {
+			transform_base_link_to_target_link_t = tf_controller_buffer.lookupTransform("base_link", "target_link_t", ros::Time(0));
+		} catch (tf2::TransformException& ex) {
+			ROS_WARN_STREAM(ex.what());
+			continue;
+		}
+		
+		// {base_link}からみた{target_link_t}を目標としてプランニングを行う
+		//// 目標座標をgeometry::TransformStampedをgeometry_msgs::Poseに変換
+		geometry_msgs::Pose target_pose;
+		target_pose.position.x = transform_base_link_to_target_link_t.transform.translation.x;
+		target_pose.position.y = transform_base_link_to_target_link_t.transform.translation.y;
+		target_pose.position.z = transform_base_link_to_target_link_t.transform.translation.z;
+		target_pose.orientation = transform_base_link_to_target_link_t.transform.rotation;
+		move_group.setPoseTarget(target_pose);
+		//// プランニングを行う
+		moveit::planning_interface::MoveGroupInterface::Plan plan;
+		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+			ROS_INFO_STREAM("Planning Success");
+		}
+		else {
+			ROS_WARN_STREAM("Planning Failed");
+		}
+		
+		// 作成したプランから関節角度を取り出す
+		trajectory_msgs::JointTrajectoryPoint target_trajectory_point;
+		target_trajectory_point.positions = plan.trajectory_.joint_trajectory.points.at(9).positions; 	// 関節角度を取り出す
+		target_trajectory_point.velocities = plan.trajectory_.joint_trajectory.points.at(9).velocities; // 関節速度を取り出す
+		//// time_from_startを設定
+		if (is_first_cycle)
+		{
+			target_trajectory_point.time_from_start = ros::Duration(0.0);
+		}
+		else
+		{
+			target_trajectory_point.time_from_start = ros::Time::now() - start_time;
+		}
+		trajectory_msgs::JointTrajectory target_trajectory;
+		target_trajectory.header.stamp = ros::Time::now();
+		target_trajectory.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+		target_trajectory.points.push_back(target_trajectory_point);
+		joint_streaming_publisher.publish(target_trajectory);
+		ROS_INFO_STREAM("joint_path_command is published");
+
 		timer.sleep();
 	}
-
-
 
 	return 0;
 }
