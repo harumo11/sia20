@@ -25,16 +25,13 @@ int main(int argc, char* argv[])
 	const std::string vive_id = "controller_LHR_066549FF";
 	const std::string vive_controller_topic_name = "/vive/" + vive_id + "/joy";
 	
-	// MoveItの設定
-	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
-	const robot_state::JointModelGroup* joint_model_group = move_group.getCurrentState()->getJointModelGroup("manipulator");
 
 	// rosの設定
 	ros::init(argc, argv, "pose_follow_node");
 	ros::NodeHandle node_handler;
-	ros::AsyncSpinner spinner(3);
+	ros::AsyncSpinner spinner(1);
 	spinner.start();
-	ros::Rate timer(50);
+	ros::Rate timer(10);
 
 	// HTC Viveから出ているJoyトピックを読むための準備
 	ViveControllerListener vive_controller_listener;
@@ -53,7 +50,11 @@ int main(int argc, char* argv[])
 	// joint_trajectory用の時刻
 	auto start_time = ros::Time::now();
 	bool is_first_cycle = true;
-	auto joint_streaming_publisher = node_handler.advertise<trajectory_msgs::JointTrajectory>("joint_path_command", 1);
+	//ros::Publisher joint_streaming_publisher = node_handler.advertise<trajectory_msgs::JointTrajectory>("joint_path_command", 1);
+	
+	// MoveItの設定
+	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
+	const robot_state::JointModelGroup* joint_model_group = move_group.getCurrentState()->getJointModelGroup("manipulator");
 	
 	while (node_handler.ok()) {
 		//ROS_INFO_STREAM(vive_controller_listener.state);	// HTC Viveの現在のボタン状況を表示
@@ -134,34 +135,35 @@ int main(int argc, char* argv[])
 		target_pose.position.z = transform_base_link_to_target_link_t.transform.translation.z;
 		target_pose.orientation = transform_base_link_to_target_link_t.transform.rotation;
 		move_group.setPoseTarget(target_pose);
-		//// プランニングを行う
+		// プランニングを行う
 		moveit::planning_interface::MoveGroupInterface::Plan plan;
 		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
 			ROS_INFO_STREAM("Planning Success");
+			move_group.move();
 		}
 		else {
 			ROS_WARN_STREAM("Planning Failed");
 		}
 		
 		// 作成したプランから関節角度を取り出す
-		trajectory_msgs::JointTrajectoryPoint target_trajectory_point;
-		target_trajectory_point.positions = plan.trajectory_.joint_trajectory.points.at(9).positions; 	// 関節角度を取り出す
-		target_trajectory_point.velocities = plan.trajectory_.joint_trajectory.points.at(9).velocities; // 関節速度を取り出す
-		//// time_from_startを設定
-		if (is_first_cycle)
-		{
-			target_trajectory_point.time_from_start = ros::Duration(0.0);
-		}
-		else
-		{
-			target_trajectory_point.time_from_start = ros::Time::now() - start_time;
-		}
-		trajectory_msgs::JointTrajectory target_trajectory;
-		target_trajectory.header.stamp = ros::Time::now();
-		target_trajectory.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-		target_trajectory.points.push_back(target_trajectory_point);
-		joint_streaming_publisher.publish(target_trajectory);
-		ROS_INFO_STREAM("joint_path_command is published");
+		//trajectory_msgs::JointTrajectoryPoint target_trajectory_point;
+		//target_trajectory_point.positions = plan.trajectory_.joint_trajectory.points.at(9).positions; 	// 関節角度を取り出す
+		//target_trajectory_point.velocities = plan.trajectory_.joint_trajectory.points.at(9).velocities; // 関節速度を取り出す
+		////// time_from_startを設定
+		//if (is_first_cycle)
+		//{
+		//	target_trajectory_point.time_from_start = ros::Duration(0.0);
+		//}
+		//else
+		//{
+		//	target_trajectory_point.time_from_start = ros::Time::now() - start_time;
+		//}
+		//trajectory_msgs::JointTrajectory target_trajectory;
+		//target_trajectory.header.stamp = ros::Time::now();
+		//target_trajectory.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+		//target_trajectory.points.push_back(target_trajectory_point);
+		////joint_streaming_publisher.publish(target_trajectory);
+		//ROS_INFO_STREAM("joint_path_command is published");
 
 		timer.sleep();
 	}
