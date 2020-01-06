@@ -53,7 +53,6 @@ int main(int argc, char* argv[])
 	const auto start_time = ros::Time::now();
 	bool is_first_cycle = true;
 	//// 現在位置の送信
-	int iter = 0;
 	const auto current_joint_values = move_group.getCurrentJointValues();
 	trajectory_msgs::JointTrajectory trajectory_msgs;
 	trajectory_msgs::JointTrajectoryPoint trajectory_point_msgs;
@@ -70,6 +69,7 @@ int main(int argc, char* argv[])
 	joint_streaming_publisher.publish(trajectory_msgs);
 	ROS_INFO_STREAM("Initial target joints were published");
 	
+	int iter = 0;
 	while (node.ok()) {
 		if (vive_controller.state.buttons.at(2) > 0) {	// もし大きな丸いボタンが押されたら
 			ROS_INFO_STREAM("Vive controller's big circle button is pushed");
@@ -143,42 +143,43 @@ int main(int argc, char* argv[])
 		target_link_t_pose.orientation = tf_base_link_vive_controller.transform.rotation;
 		ROS_INFO_STREAM(target_link_t_pose);
 
-		if (iter % 2 == 0)
-		{
-			const auto current_joint_values = move_group.getCurrentJointValues();
-			trajectory_point_msgs.positions = current_joint_values;
-			trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-			trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
-			trajectory_msgs.header.stamp = ros::Time::now();
-			trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-			trajectory_msgs.points.at(0) = trajectory_point_msgs;
-			joint_streaming_publisher.publish(trajectory_msgs);
-			ROS_INFO_STREAM("Target joints were published" << iter);
-		}
-		else{
+	//	if (iter % 2 == 0)
+	//	{
+	//		const auto current_joint_values = move_group.getCurrentJointValues();
+	//		trajectory_point_msgs.positions = current_joint_values;
+	//		trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
+	//		trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+	//		trajectory_msgs.header.stamp = ros::Time::now();
+	//		trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+	//		trajectory_msgs.points.at(0) = trajectory_point_msgs;
+	//		joint_streaming_publisher.publish(trajectory_msgs);
+	//		ROS_INFO_STREAM("Target joints were published" << iter);
+	//	}
+	//	else{
 			//// planを作成
 			move_group.setPoseTarget(target_link_t_pose);
 			moveit::planning_interface::MoveGroupInterface::Plan plan;
 			if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-				ROS_INFO_STREAM("Planning Success");
-				//// planの一番最後の関節軸の情報を取り出す
-				const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
-				trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
-				trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
-				//trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-				//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
-				trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
-				trajectory_msgs.header.stamp = ros::Time::now();
-				trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-				trajectory_msgs.points.at(0) = trajectory_point_msgs;
-				joint_streaming_publisher.publish(trajectory_msgs);
-				ROS_INFO_STREAM("Target joints were published" << iter);
+				move_group.move();
+				//ROS_INFO_STREAM("Planning Success");
+				////// planの一番最後の関節軸の情報を取り出す
+				//const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
+				//trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
+				//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
+				////trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
+				////trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
+				//trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+				//trajectory_msgs.header.stamp = ros::Time::now();
+				//trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+				//trajectory_msgs.points.at(0) = trajectory_point_msgs;
+				//joint_streaming_publisher.publish(trajectory_msgs);
+				//ROS_INFO_STREAM("Target joints were published" << iter);
 			}
 			else {
 				ROS_WARN_STREAM("Planning Failed");
 				continue;
 			}
-		}	
+	//	}	
 		iter++;
 
 		ROS_INFO_STREAM("ONE CYCLE FINISHED");
