@@ -143,19 +143,6 @@ int main(int argc, char* argv[])
 		moveit::planning_interface::MoveGroupInterface::Plan plan;
 		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
 			move_group.move();
-			//ROS_INFO_STREAM("Planning Success");
-			////// planの一番最後の関節軸の情報を取り出す
-			//const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
-			//trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
-			//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
-			////trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-			////trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
-			//trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
-			//trajectory_msgs.header.stamp = ros::Time::now();
-			//trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-			//trajectory_msgs.points.at(0) = trajectory_point_msgs;
-			//joint_streaming_publisher.publish(trajectory_msgs);
-			//ROS_INFO_STREAM("Target joints were published" << iter);
 		}
 		else {
 			ROS_WARN_STREAM("Planning Failed");
