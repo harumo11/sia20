@@ -1,6 +1,8 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
+#include <std_srvs/Trigger.h>
 #include <geometry_msgs/TransformStamped.h>
+#include <trajectory_msgs/JointTrajectory.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/transform_broadcaster.h>
@@ -27,7 +29,7 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(40);
+	ros::Rate timer(1);
 
 	// HTC Viveの設定
 	const std::string vive_controller_id = "controller_LHR_066549FF";
@@ -45,10 +47,36 @@ int main(int argc, char* argv[])
 
 	// moveitの設定
 	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
+
+	// joint_trajectoryの設定
+	auto joint_streaming_publisher = node.advertise<trajectory_msgs::JointTrajectory>("/joint_command", 1);
+	const auto start_time = ros::Time::now();
+	bool is_first_cycle = true;
+	//// 現在位置の送信
+	int iter = 0;
+	const auto current_joint_values = move_group.getCurrentJointValues();
+	trajectory_msgs::JointTrajectory trajectory_msgs;
+	trajectory_msgs::JointTrajectoryPoint trajectory_point_msgs;
+	////// trajectory_pointの設定
+	for (auto&& joint : current_joint_values){
+		trajectory_point_msgs.positions.push_back(joint);
+		trajectory_point_msgs.velocities.push_back(0);
+	}
+	trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+	////// trajectory_msgsの設定
+	trajectory_msgs.header.stamp = ros::Time::now();
+	trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+	trajectory_msgs.points.push_back(trajectory_point_msgs);
+	joint_streaming_publisher.publish(trajectory_msgs);
+	ROS_INFO_STREAM("Initial target joints were published");
 	
 	while (node.ok()) {
 		if (vive_controller.state.buttons.at(2) > 0) {	// もし大きな丸いボタンが押されたら
-			//ROS_INFO_STREAM("Vive controller's big circle button is pushed");
+			ROS_INFO_STREAM("Vive controller's big circle button is pushed");
+
+			// sia20dをenableにする
+			std_srvs::Trigger robot_enable;
+			ros::service::call("/robot_enable", robot_enable);
 
 			// {world}から見た{controller}より，{local_controller}を生成
 			geometry_msgs::TransformStamped tf_local_controller_frame;
@@ -115,18 +143,45 @@ int main(int argc, char* argv[])
 		target_link_t_pose.orientation = tf_base_link_vive_controller.transform.rotation;
 		ROS_INFO_STREAM(target_link_t_pose);
 
-		//// planを作成
-		move_group.setPoseTarget(target_link_t_pose);
-		moveit::planning_interface::MoveGroupInterface::Plan plan;
-		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-			ROS_INFO_STREAM("Planning Success");
-			move_group.move();
+		if (iter % 2 == 0)
+		{
+			const auto current_joint_values = move_group.getCurrentJointValues();
+			trajectory_point_msgs.positions = current_joint_values;
+			trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
+			trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+			trajectory_msgs.header.stamp = ros::Time::now();
+			trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+			trajectory_msgs.points.at(0) = trajectory_point_msgs;
+			joint_streaming_publisher.publish(trajectory_msgs);
+			ROS_INFO_STREAM("Target joints were published" << iter);
 		}
-		else {
-			ROS_WARN_STREAM("Planning Failed");
-			continue;
-		}
+		else{
+			//// planを作成
+			move_group.setPoseTarget(target_link_t_pose);
+			moveit::planning_interface::MoveGroupInterface::Plan plan;
+			if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+				ROS_INFO_STREAM("Planning Success");
+				//// planの一番最後の関節軸の情報を取り出す
+				const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
+				trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
+				trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
+				//trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
+				//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
+				trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+				trajectory_msgs.header.stamp = ros::Time::now();
+				trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+				trajectory_msgs.points.at(0) = trajectory_point_msgs;
+				joint_streaming_publisher.publish(trajectory_msgs);
+				ROS_INFO_STREAM("Target joints were published" << iter);
+			}
+			else {
+				ROS_WARN_STREAM("Planning Failed");
+				continue;
+			}
+		}	
+		iter++;
 
+		ROS_INFO_STREAM("ONE CYCLE FINISHED");
 		timer.sleep();
 	}
 
