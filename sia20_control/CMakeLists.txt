@@ -26,7 +26,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-#add_executable(joint_trajectory_publisher src/joint_trajectory_publisher.cpp)
+add_executable(joint_trajectory_publisher src/joint_trajectory_publisher.cpp)
 #add_executable(joint_trajectory_publisher_ik src/joint_trajectory_publisher_ik.cpp)
 #add_executable(joint_trajectory_publisher_multi src/joint_trajectory_publisher_multi.cpp)
 #add_executable(joint_trajectory_publisher_pouring src/joint_trajectory_publisher_pouring.cpp)
@@ -44,7 +44,7 @@ add_executable(get_joint_angle src/get_joint_angle.cpp)
 add_executable(pose_follow src/pose_follow.cpp)
 add_executable(pose_follow_fast src/pose_follow_fast.cpp)
 
-#target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
+target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
 #target_link_libraries(joint_trajectory_publisher_ik ${catkin_LIBRARIES})
 #target_link_libraries(joint_trajectory_publisher_multi ${catkin_LIBRARIES})
 #target_link_libraries(joint_trajectory_publisher_pouring ${catkin_LIBRARIES})
