@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 			std_srvs::Trigger robot_enable;
 			ros::service::call("/robot_enable", robot_enable);
 
-			// {world}から見た{controller}より，{local_controller}を生成
+			// {world}から見た{controller}より，staticなフレームである{local_controller}を生成
 			geometry_msgs::TransformStamped tf_local_controller_frame;
 			try {
 				tf_local_controller_frame = tf_buffer.lookupTransform("world", vive_controller_id, ros::Time(0));
@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 				continue;
 			}
 			
-			// {base_link}から見た{link_t}より，{local_link_t}を生成
+			// {base_link}から見た{link_t}より，staticなフレームである{local_link_t}を生成
 			geometry_msgs::TransformStamped tf_local_link_t_frame;
 			try {
 				tf_local_link_t_frame = tf_buffer.lookupTransform("link_t", "base_link", ros::Time(0));
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 			tf_local_link_t_frame.child_frame_id = "base_link";
 			tf_static_broadcaster.sendTransform(tf_local_link_t_frame);
 
-			// {local_controller}と{local_link_t}の関係をtfに登録
+			// {local_controller}と{local_link_t}の関係を同一のフレームとすることをtfに登録
 			geometry_msgs::TransformStamped tf_local_controller_frame_to_local_link_t;
 			tf_local_controller_frame_to_local_link_t.header.frame_id = "local_controller";	// "local_controller"を親フレームとして設定
 			tf_local_controller_frame_to_local_link_t.child_frame_id  = "local_link_t";		// "local_link_t"を子フレームとして登録
@@ -117,13 +117,6 @@ int main(int argc, char* argv[])
 			tf_local_controller_frame_to_local_link_t.transform.rotation.y = 0;
 			tf_local_controller_frame_to_local_link_t.transform.rotation.z = 0;
 			tf_local_controller_frame_to_local_link_t.transform.rotation.w = 1;
-			// TODO Change controller frame to usually one.
-			//tf2::Quaternion quat_local_controller_to_local_link_t, quat_rot;
-			//tf2::convert(tf_local_controller_frame_to_local_link_t.transform.rotation, quat_local_controller_to_local_link_t);
-			//quat_rot.setRPY(M_PI, 0, 0);
-			//quat_local_controller_to_local_link_t = quat_rot * quat_local_controller_to_local_link_t;
-			//quat_local_controller_to_local_link_t.normalize();
-			//tf2::convert(quat_local_controller_to_local_link_t, tf_local_controller_frame_to_local_link_t.transform.rotation);
 			tf_static_broadcaster.sendTransform(tf_local_controller_frame_to_local_link_t);
 		}
 
@@ -131,6 +124,8 @@ int main(int argc, char* argv[])
 		//// {controller}をgeometory::TransformStampedからgeometory_msgs::Poseに型変換
 		geometry_msgs::Pose target_link_t_pose;
 		geometry_msgs::TransformStamped tf_base_link_vive_controller;
+
+		//// {base_link}から見た{controller}の座標変換を計算
 		try {
 			tf_base_link_vive_controller = tf_buffer.lookupTransform("base_link", vive_controller_id, ros::Time(0));
 		} catch (tf2::TransformException& ex) {
@@ -143,43 +138,29 @@ int main(int argc, char* argv[])
 		target_link_t_pose.orientation = tf_base_link_vive_controller.transform.rotation;
 		ROS_INFO_STREAM(target_link_t_pose);
 
-	//	if (iter % 2 == 0)
-	//	{
-	//		const auto current_joint_values = move_group.getCurrentJointValues();
-	//		trajectory_point_msgs.positions = current_joint_values;
-	//		trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-	//		trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
-	//		trajectory_msgs.header.stamp = ros::Time::now();
-	//		trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-	//		trajectory_msgs.points.at(0) = trajectory_point_msgs;
-	//		joint_streaming_publisher.publish(trajectory_msgs);
-	//		ROS_INFO_STREAM("Target joints were published" << iter);
-	//	}
-	//	else{
-			//// planを作成
-			move_group.setPoseTarget(target_link_t_pose);
-			moveit::planning_interface::MoveGroupInterface::Plan plan;
-			if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-				move_group.move();
-				//ROS_INFO_STREAM("Planning Success");
-				////// planの一番最後の関節軸の情報を取り出す
-				//const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
-				//trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
-				//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
-				////trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-				////trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
-				//trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
-				//trajectory_msgs.header.stamp = ros::Time::now();
-				//trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
-				//trajectory_msgs.points.at(0) = trajectory_point_msgs;
-				//joint_streaming_publisher.publish(trajectory_msgs);
-				//ROS_INFO_STREAM("Target joints were published" << iter);
-			}
-			else {
-				ROS_WARN_STREAM("Planning Failed");
-				continue;
-			}
-	//	}	
+		//// planを作成
+		move_group.setPoseTarget(target_link_t_pose);
+		moveit::planning_interface::MoveGroupInterface::Plan plan;
+		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+			move_group.move();
+			//ROS_INFO_STREAM("Planning Success");
+			////// planの一番最後の関節軸の情報を取り出す
+			//const int plan_point_size = plan.trajectory_.joint_trajectory.points.size();
+			//trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
+			//trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.back().velocities;
+			////trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
+			////trajectory_point_msgs.velocities = plan.trajectory_.joint_trajectory.points.at(1).velocities;
+			//trajectory_point_msgs.time_from_start = ros::Time::now() - start_time;
+			//trajectory_msgs.header.stamp = ros::Time::now();
+			//trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
+			//trajectory_msgs.points.at(0) = trajectory_point_msgs;
+			//joint_streaming_publisher.publish(trajectory_msgs);
+			//ROS_INFO_STREAM("Target joints were published" << iter);
+		}
+		else {
+			ROS_WARN_STREAM("Planning Failed");
+			continue;
+		}
 		iter++;
 
 		ROS_INFO_STREAM("ONE CYCLE FINISHED");
