@@ -10,6 +10,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 
+
 // HTC Viveのボタンに関する情報を購読するクラス
 class ViveController {
 	public:
@@ -52,7 +53,7 @@ int main(int argc, char* argv[])
 	auto joint_streaming_publisher = node.advertise<trajectory_msgs::JointTrajectory>("/joint_command", 1);
 	const auto start_time = ros::Time::now();
 	//// 現在位置の送信
-	const auto current_joint_values = move_group.getCurrentJointValues();
+	const auto current_joint_values = move_group.getCurrentJointValues();	
 	trajectory_msgs::JointTrajectory trajectory_msgs;
 	trajectory_msgs::JointTrajectoryPoint trajectory_point_msgs;
 	////// trajectory_pointの設定
@@ -66,10 +67,11 @@ int main(int argc, char* argv[])
 	trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
 	trajectory_msgs.points.push_back(trajectory_point_msgs);
 	joint_streaming_publisher.publish(trajectory_msgs);
-	ROS_INFO_STREAM("Initial target joints were published");
+	ROS_WARN_STREAM("Initial target joints were published");
 	
 	int iter = 0;
-	while (node.ok()) {
+	while (ros::ok()) {
+		mtx.lock();
 		if (vive_controller.state.buttons.at(2) > 0) {	// もし大きな丸いボタンが押されたら
 			ROS_INFO_STREAM("Vive controller's big circle button is pushed");
 
@@ -161,9 +163,8 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		iter++;
-
-		ROS_INFO_STREAM("ONE CYCLE FINISHED");
 		timer.sleep();
+		ROS_INFO_STREAM("ONE CYCLE FINISHED");
 	}
 
 	
