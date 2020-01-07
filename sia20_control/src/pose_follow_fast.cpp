@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(50);
+	ros::Rate timer(40);
 
 	// HTC Viveの設定
 	const std::string vive_controller_id = "controller_LHR_066549FF";
@@ -51,9 +51,11 @@ int main(int argc, char* argv[])
 
 	// joint_trajectoryの設定
 	auto joint_streaming_publisher = node.advertise<trajectory_msgs::JointTrajectory>("/joint_command", 1);
+	ROS_INFO_STREAM("wait 1 sec");
+	ros::Duration(1.0).sleep();
 	const auto start_time = ros::Time::now();
 	//// 現在位置の送信
-	const auto current_joint_values = move_group.getCurrentJointValues();	
+	const std::vector<double> current_joint_values = move_group.getCurrentJointValues();	
 	trajectory_msgs::JointTrajectory trajectory_msgs;
 	trajectory_msgs::JointTrajectoryPoint trajectory_point_msgs;
 	////// trajectory_pointの設定

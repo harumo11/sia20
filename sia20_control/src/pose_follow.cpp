@@ -29,10 +29,11 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(1);
+	ros::Rate timer(30);
 
 	// HTC Viveの設定
-	const std::string vive_controller_id = "controller_LHR_066549FF";
+	//const std::string vive_controller_id = "controller_LHR_066549FF";
+	const std::string vive_controller_id = "controller_LHR_3CCD7CA5";
 	const std::string vive_controller_topic_name = "/vive/" + vive_controller_id + "/joy";
 	ViveController vive_controller;
 	auto vive_controller_subscriber = node.subscribe(vive_controller_topic_name, 1, &ViveController::call_back, &vive_controller);
@@ -142,7 +143,8 @@ int main(int argc, char* argv[])
 		move_group.setPoseTarget(target_link_t_pose);
 		moveit::planning_interface::MoveGroupInterface::Plan plan;
 		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-			move_group.move();
+			//move_group.move();
+			move_group.asyncMove();
 		}
 		else {
 			ROS_WARN_STREAM("Planning Failed");
