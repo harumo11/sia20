@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(10);
+	ros::Rate timer(50);
 
 	// HTC Viveの設定
 	const std::string vive_controller_id = "controller_LHR_066549FF";
@@ -139,6 +139,7 @@ int main(int argc, char* argv[])
 		ROS_INFO_STREAM(target_link_t_pose);
 
 		//// planを作成
+		ros::spinOnce();
 		move_group.setPoseTarget(target_link_t_pose);
 		moveit::planning_interface::MoveGroupInterface::Plan plan;
 		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
