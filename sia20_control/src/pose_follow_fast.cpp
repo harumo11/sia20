@@ -71,7 +71,6 @@ int main(int argc, char* argv[])
 	
 	int iter = 0;
 	while (ros::ok()) {
-		mtx.lock();
 		if (vive_controller.state.buttons.at(2) > 0) {	// もし大きな丸いボタンが押されたら
 			ROS_INFO_STREAM("Vive controller's big circle button is pushed");
 
