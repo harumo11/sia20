@@ -140,6 +140,7 @@ int main(int argc, char* argv[])
 		ROS_INFO_STREAM(target_link_t_pose);
 
 		//// Making plan
+		ros::spinOnce();
 		move_group.setPoseTarget(target_link_t_pose);
 		moveit::planning_interface::MoveGroupInterface::Plan plan;
 		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
