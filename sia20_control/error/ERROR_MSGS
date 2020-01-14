@@ -1,0 +1,246 @@
+robot@robot-NG:~$ roslaunch motoman_sia20d_moveit_config moveit_planning_execution.launch sim:=false controller:=fs100 robot_ip:=10.0.0.2
+... logging to /home/robot/.ros/log/52fec8de-3095-11ea-bfa8-309c23cec38a/roslaunch-robot-NG-17312.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+WARNING: disk usage in log directory [/home/robot/.ros/log] is over 1GB.
+It's recommended that you use the 'rosclean' command.
+
+started roslaunch server http://robot-NG:36287/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /controller_joint_names: ['joint_s', 'join...
+ * /mongo_wrapper_ros_robot_NG_17312_3303416793777848684/database_path: /home/robot/catki...
+ * /mongo_wrapper_ros_robot_NG_17312_3303416793777848684/overwrite: False
+ * /move_group/allow_trajectory_execution: True
+ * /move_group/allowed_execution_duration_scaling: 1.2
+ * /move_group/allowed_goal_duration_margin: 0.5
+ * /move_group/capabilities: move_group/MoveGr...
+ * /move_group/controller_list: [{'action_ns': 'j...
+ * /move_group/jiggle_fraction: 0.05
+ * /move_group/manipulator/longest_valid_segment_fraction: 0.05
+ * /move_group/manipulator/planner_configs: ['SBLkConfigDefau...
+ * /move_group/manipulator/projection_evaluator: joints(joint_s,jo...
+ * /move_group/max_range: 5.0
+ * /move_group/max_safe_path_cost: 1
+ * /move_group/moveit_controller_manager: moveit_simple_con...
+ * /move_group/moveit_manage_controllers: True
+ * /move_group/octomap_resolution: 0.025
+ * /move_group/planner_configs/BKPIECEkConfigDefault/type: geometric::BKPIECE
+ * /move_group/planner_configs/ESTkConfigDefault/type: geometric::EST
+ * /move_group/planner_configs/KPIECEkConfigDefault/type: geometric::KPIECE
+ * /move_group/planner_configs/LBKPIECEkConfigDefault/type: geometric::LBKPIECE
+ * /move_group/planner_configs/PRMkConfigDefault/type: geometric::PRM
+ * /move_group/planner_configs/PRMstarkConfigDefault/type: geometric::PRMstar
+ * /move_group/planner_configs/RRTConnectkConfigDefault/type: geometric::RRTCon...
+ * /move_group/planner_configs/RRTkConfigDefault/type: geometric::RRT
+ * /move_group/planner_configs/RRTstarkConfigDefault/type: geometric::RRTstar
+ * /move_group/planner_configs/SBLkConfigDefault/type: geometric::SBL
+ * /move_group/planner_configs/TRRTkConfigDefault/type: geometric::TRRT
+ * /move_group/planning_plugin: ompl_interface/OM...
+ * /move_group/planning_scene_monitor/publish_geometry_updates: True
+ * /move_group/planning_scene_monitor/publish_planning_scene: True
+ * /move_group/planning_scene_monitor/publish_state_updates: True
+ * /move_group/planning_scene_monitor/publish_transforms_updates: True
+ * /move_group/request_adapters: default_planner_r...
+ * /move_group/start_state_max_bounds_error: 0.1
+ * /robot_description: <?xml version="1....
+ * /robot_description_kinematics/manipulator/kinematics_solver: kdl_kinematics_pl...
+ * /robot_description_kinematics/manipulator/kinematics_solver_attempts: 10
+ * /robot_description_kinematics/manipulator/kinematics_solver_search_resolution: 0.05
+ * /robot_description_kinematics/manipulator/kinematics_solver_timeout: 0.01
+ * /robot_description_planning/joint_limits/joint_b/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_b/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_b/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_b/max_velocity: 3.48
+ * /robot_description_planning/joint_limits/joint_e/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_e/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_e/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_e/max_velocity: 2.96
+ * /robot_description_planning/joint_limits/joint_l/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_l/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_l/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_l/max_velocity: 2.26
+ * /robot_description_planning/joint_limits/joint_r/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_r/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_r/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_r/max_velocity: 3.48
+ * /robot_description_planning/joint_limits/joint_s/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_s/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_s/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_s/max_velocity: 2.26
+ * /robot_description_planning/joint_limits/joint_t/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_t/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_t/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_t/max_velocity: 6.97
+ * /robot_description_planning/joint_limits/joint_u/has_acceleration_limits: True
+ * /robot_description_planning/joint_limits/joint_u/has_velocity_limits: True
+ * /robot_description_planning/joint_limits/joint_u/max_acceleration: 1
+ * /robot_description_planning/joint_limits/joint_u/max_velocity: 2.96
+ * /robot_description_semantic: <?xml version="1....
+ * /robot_ip_address: 10.0.0.2
+ * /rosdistro: melodic
+ * /rosversion: 1.14.3
+ * /rviz_robot_NG_17312_7025465499458344565/manipulator/kinematics_solver: kdl_kinematics_pl...
+ * /rviz_robot_NG_17312_7025465499458344565/manipulator/kinematics_solver_attempts: 10
+ * /rviz_robot_NG_17312_7025465499458344565/manipulator/kinematics_solver_search_resolution: 0.05
+ * /rviz_robot_NG_17312_7025465499458344565/manipulator/kinematics_solver_timeout: 0.01
+ * /warehouse_exec: mongod
+ * /warehouse_host: localhost
+ * /warehouse_port: 33829
+
+NODES
+  /
+    joint_state (motoman_driver/robot_state_bswap)
+    joint_trajectory_action (industrial_robot_client/joint_trajectory_action)
+    mongo_wrapper_ros_robot_NG_17312_3303416793777848684 (warehouse_ros/mongo_wrapper_ros.py)
+    motion_streaming_interface (motoman_driver/motion_streaming_interface_bswap)
+    move_group (moveit_ros_move_group/move_group)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    rviz_robot_NG_17312_7025465499458344565 (rviz/rviz)
+
+ROS_MASTER_URI=http://localhost:11311
+
+process[joint_state-1]: started with pid [17327]
+process[motion_streaming_interface-2]: started with pid [17328]
+process[joint_trajectory_action-3]: started with pid [17329]
+[ERROR] [1578335897.826231495]: Failed to find topic_list parameter
+process[robot_state_publisher-4]: started with pid [17335]
+[ERROR] [1578335897.831244923]: Failed to find topic_list parameter
+process[move_group-5]: started with pid [17341]
+process[rviz_robot_NG_17312_7025465499458344565-6]: started with pid [17351]
+ERROR: cannot launch node of type [warehouse_ros/mongo_wrapper_ros.py]: can't locate node [mongo_wrapper_ros.py] in package [warehouse_ros]
+[ WARN] [1578335897.849943104]: Tried to connect when socket already in connected state
+[ INFO] [1578335897.877341623]: Loading robot model 'motoman_sia20d'...
+[ WARN] [1578335897.914901865]: Kinematics solver doesn't support #attempts anymore, but only a timeout.
+Please remove the parameter '/robot_description_kinematics/manipulator/kinematics_solver_attempts' from your configuration.
+[ INFO] [1578335897.955209336]: rviz version 1.13.6
+[ INFO] [1578335897.955275363]: compiled against Qt version 5.9.5
+[ INFO] [1578335897.955288174]: compiled against OGRE version 1.9.0 (Ghadamon)
+[ INFO] [1578335897.958062170]: Forcing OpenGl version 0.
+[ INFO] [1578335897.998840449]: Publishing maintained planning scene on 'monitored_planning_scene'
+[ INFO] [1578335898.000420115]: MoveGroup debug mode is OFF
+Starting planning scene monitors...
+[ INFO] [1578335898.000441470]: Starting planning scene monitor
+[ INFO] [1578335898.001625214]: Listening to '/planning_scene'
+[ INFO] [1578335898.001637900]: Starting world geometry update monitor for collision objects, attached objects, octomap updates.
+[ INFO] [1578335898.002604761]: Listening to '/collision_object'
+[ INFO] [1578335898.003595758]: Listening to '/planning_scene_world' for planning scene world geometry
+[ INFO] [1578335898.020227643]: Listening to '/attached_collision_object' for attached collision objects
+Planning scene monitors started.
+[ INFO] [1578335898.037231887]: Initializing OMPL interface using ROS parameters
+[ INFO] [1578335898.045796709]: Using planning interface 'OMPL'
+[ INFO] [1578335898.049300533]: Param 'default_workspace_bounds' was not set. Using default value: 10
+[ INFO] [1578335898.049541216]: Param 'start_state_max_bounds_error' was set to 0.1
+[ INFO] [1578335898.049783025]: Param 'start_state_max_dt' was not set. Using default value: 0.5
+[ INFO] [1578335898.050039993]: Param 'start_state_max_dt' was not set. Using default value: 0.5
+[ INFO] [1578335898.050285108]: Param 'jiggle_fraction' was set to 0.05
+[ INFO] [1578335898.050523648]: Param 'max_sampling_attempts' was not set. Using default value: 100
+[ INFO] [1578335898.050564889]: Using planning request adapter 'Add Time Parameterization'
+[ INFO] [1578335898.050580811]: Using planning request adapter 'Fix Workspace Bounds'
+[ INFO] [1578335898.050595364]: Using planning request adapter 'Fix Start State Bounds'
+[ INFO] [1578335898.050611277]: Using planning request adapter 'Fix Start State In Collision'
+[ INFO] [1578335898.050624599]: Using planning request adapter 'Fix Start State Path Constraints'
+[ INFO] [1578335898.286950170]: Added FollowJointTrajectory controller for 
+[ INFO] [1578335898.287018558]: Returned 1 controllers in list
+[ INFO] [1578335898.292975404]: Trajectory execution is managing controllers
+Loading 'move_group/ApplyPlanningSceneService'...
+Loading 'move_group/ClearOctomapService'...
+Loading 'move_group/MoveGroupCartesianPathService'...
+Loading 'move_group/MoveGroupExecuteService'...
+[ERROR] [1578335898.303137714]: Exception while loading move_group capability 'move_group/MoveGroupExecuteService': MultiLibraryClassLoader: Could not create object of class type move_group::MoveGroupExecuteService as no factory exists for it. Make sure that the library exists and was explicitly loaded through MultiLibraryClassLoader::loadLibrary()
+Loading 'move_group/MoveGroupExecuteTrajectoryAction'...
+Loading 'move_group/MoveGroupGetPlanningSceneService'...
+Loading 'move_group/MoveGroupKinematicsService'...
+Loading 'move_group/MoveGroupMoveAction'...
+Loading 'move_group/MoveGroupPickPlaceAction'...
+Loading 'move_group/MoveGroupPlanService'...
+Loading 'move_group/MoveGroupQueryPlannersService'...
+Loading 'move_group/MoveGroupStateValidationService'...
+[ INFO] [1578335898.322593875]: 
+
+********************************************************
+* MoveGroup using: 
+*     - ApplyPlanningSceneService
+*     - ClearOctomapService
+*     - CartesianPathService
+*     - ExecuteTrajectoryAction
+*     - GetPlanningSceneService
+*     - KinematicsService
+*     - MoveAction
+*     - PickPlaceAction
+*     - MotionPlanService
+*     - QueryPlannersService
+*     - StateValidationService
+********************************************************
+
+[ INFO] [1578335898.322625534]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
+[ INFO] [1578335898.322636098]: MoveGroup context initialization complete
+
+You can start planning now!
+
+[ INFO] [1578335898.551265977]: Stereo is NOT SUPPORTED
+[ INFO] [1578335898.551314739]: OpenGl version: 4.6 (GLSL 4.6).
+[ INFO] [1578335901.906563719]: Loading robot model 'motoman_sia20d'...
+[ WARN] [1578335901.933678575]: Kinematics solver doesn't support #attempts anymore, but only a timeout.
+Please remove the parameter '/rviz_robot_NG_17312_7025465499458344565/manipulator/kinematics_solver_attempts' from your configuration.
+[ INFO] [1578335902.028693887]: Starting planning scene monitor
+[ INFO] [1578335902.030404256]: Listening to '/move_group/monitored_planning_scene'
+[ INFO] [1578335902.045418673]: Constructing new MoveGroup connection for group 'manipulator' in namespace ''
+[ INFO] [1578335903.214814867]: Ready to take commands for planning group manipulator.
+[ INFO] [1578335903.214914964]: Looking around: no
+[ INFO] [1578335903.214987091]: Replanning: no
+[ WARN] [1578335958.460593615]: Motoman robot is now enabled and will accept motion commands.
+[ WARN] [1578335989.913113992]: Motoman robot is now enabled and will accept motion commands.
+[ WARN] [1578335989.913970078]: Motoman robot is now enabled and will accept motion commands.
+[ INFO] [1578335989.924496710]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335989.925368392]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335989.925640335]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1578335989.945960335]: RRTConnect: Created 4 states (2 start + 2 goal)
+[ INFO] [1578335989.945986022]: Solution found in 0.020410 seconds
+[ INFO] [1578335989.987468276]: SimpleSetup: Path simplification took 0.000580 seconds and changed from 3 to 2 states
+[ WARN] [1578335990.192787739]: Motoman robot is now enabled and will accept motion commands.
+[ERROR] [1578335990.197748132]: Aborting point stream operation.  Failed to send point (#0): Invalid message (3) : Trajectory start position doesn't match current robot position (3011)
+[ INFO] [1578335990.199836395]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335990.200490228]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335990.200721133]: RRTConnect: Starting planning with 1 states already in datastructure
+[ERROR] [1578335995.206783221]: RRTConnect: Unable to sample any valid states for goal tree
+[ INFO] [1578335995.206816981]: RRTConnect: Created 1 states (1 start + 0 goal)
+[ INFO] [1578335995.206827763]: No solution found after 5.006186 seconds
+[ INFO] [1578335995.212724546]: Unable to solve the planning problem
+[ INFO] [1578335995.224689903]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335995.224920262]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335995.225004607]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1578335995.245294835]: RRTConnect: Created 4 states (2 start + 2 goal)
+[ INFO] [1578335995.245321557]: Solution found in 0.020340 seconds
+[ INFO] [1578335995.245862537]: SimpleSetup: Path simplification took 0.000524 seconds and changed from 3 to 2 states
+[ INFO] [1578335995.249640679]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335995.249893007]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335995.250018804]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1578335995.260239859]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1578335995.260259236]: Solution found in 0.010295 seconds
+[ INFO] [1578335995.260980859]: SimpleSetup: Path simplification took 0.000639 seconds and changed from 4 to 2 states
+[ERROR] [1578335995.306456362]: Aborting point stream operation.  Failed to send point (#0): Invalid message (3) : Trajectory start position doesn't match current robot position (3011)
+[ INFO] [1578335995.349684415]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335995.349920726]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335995.350033658]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1578335995.360240904]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1578335995.360259509]: Solution found in 0.010276 seconds
+[ INFO] [1578335995.361096808]: SimpleSetup: Path simplification took 0.000821 seconds and changed from 4 to 2 states
+[ INFO] [1578335995.449669665]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335995.449900292]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335995.449984647]: RRTConnect: Starting planning with 1 states already in datastructure
+[ INFO] [1578335995.470237123]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1578335995.470263776]: Solution found in 0.020304 seconds
+[ INFO] [1578335995.470917387]: SimpleSetup: Path simplification took 0.000637 seconds and changed from 4 to 2 states
+[ INFO] [1578335995.549653770]: Planning request received for MoveGroup action. Forwarding to planning pipeline.
+[ INFO] [1578335995.549876765]: Planner configuration 'manipulator' will use planner 'geometric::RRTConnect'. Additional configuration parameters will be set when the planner is constructed.
+[ INFO] [1578335995.549962413]: RRTConnect: Starting planning with 1 states already in datastructure
+[ERROR] [1578335995.567031724]: Aborting point stream operation.  Failed to send point (#0): Invalid message (3) : Trajectory start position doesn't match current robot position (3011)
+[ INFO] [1578335995.570235443]: RRTConnect: Created 5 states (2 start + 3 goal)
+[ INFO] [1578335995.570257166]: Solution found in 0.020319 seconds
+[ INFO] [1578335995.571031749]: SimpleSetup: Path simplification took 0.000758 seconds and changed from 4 to 2 states
+[ERROR] [1578335995.572350036]: Aborting point stream operation.  Failed to send point (#0): Invalid message (3) : Trajectory start position doesn't match current robot position (3011)
+
