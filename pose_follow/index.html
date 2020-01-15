@@ -35,21 +35,21 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
-        <title>SIA20</title>
+        <title>pose_follow_planner & executerの使い方 - SIA20</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.572ca0f0.css">
       
       
     
     
-      <script src="assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -58,7 +58,7 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#ros-for-sia20" tabindex="1" class="md-skip">
+      <a href="#pose_follow_planner-executer" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -87,7 +87,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="SIA20" class="md-header-nav__button md-logo">
+        <a href=".." title="SIA20" class="md-header-nav__button md-logo">
           
             <i class="md-icon"></i>
           
@@ -104,7 +104,7 @@
                 SIA20
               </span>
               <span class="md-header-nav__topic">
-                ROS for SIA20
+                pose_follow_planner & executerの使い方
               </span>
             
           
@@ -159,7 +159,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="." title="SIA20" class="md-nav__button md-logo">
+    <a href=".." title="SIA20" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
@@ -168,6 +168,42 @@
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="ROS for SIA20" class="md-nav__link">
+      ROS for SIA20
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-nav__link">
+      FollowJointTrajectoryAction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../learning/" title="学習データ集め" class="md-nav__link">
+      学習データ集め
+    </a>
+  </li>
+
     
       
       
@@ -184,11 +220,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        ROS for SIA20
+        pose_follow_planner & executerの使い方
       </label>
     
-    <a href="." title="ROS for SIA20" class="md-nav__link md-nav__link--active">
-      ROS for SIA20
+    <a href="./" title="pose_follow_planner & executerの使い方" class="md-nav__link md-nav__link--active">
+      pose_follow_planner & executerの使い方
     </a>
     
       
@@ -202,15 +238,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#who-maintain-this-project" title="Who maintain this project?" class="md-nav__link">
-    Who maintain this project?
+  <a href="#_1" title="構造と役割" class="md-nav__link">
+    構造と役割
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorials" title="Tutorials" class="md-nav__link">
-    Tutorials
+  <a href="#_2" title="立ち上げ方" class="md-nav__link">
+    立ち上げ方
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue" title="Issue" class="md-nav__link">
+    Issue
   </a>
   
 </li>
@@ -232,43 +275,7 @@
 
 
   <li class="md-nav__item">
-    <a href="FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-nav__link">
-      FollowJointTrajectoryAction
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="learning/" title="学習データ集め" class="md-nav__link">
-      学習データ集め
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="pose_follow/" title="pose_follow_planner & executerの使い方" class="md-nav__link">
-      pose_follow_planner & executerの使い方
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="vive/" title="HTC Vive" class="md-nav__link">
+    <a href="../vive/" title="HTC Vive" class="md-nav__link">
       HTC Vive
     </a>
   </li>
@@ -299,7 +306,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/cable_setup_jpn/" title="ケーブルセットアップ" class="md-nav__link">
+    <a href="../Japanese/cable_setup_jpn/" title="ケーブルセットアップ" class="md-nav__link">
       ケーブルセットアップ
     </a>
   </li>
@@ -311,7 +318,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/cartesian_velocity_control_jpn/" title="Cartesian Velocity Control" class="md-nav__link">
+    <a href="../Japanese/cartesian_velocity_control_jpn/" title="Cartesian Velocity Control" class="md-nav__link">
       Cartesian Velocity Control
     </a>
   </li>
@@ -323,7 +330,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/internet_connection/" title="インターネット接続" class="md-nav__link">
+    <a href="../Japanese/internet_connection/" title="インターネット接続" class="md-nav__link">
       インターネット接続
     </a>
   </li>
@@ -355,15 +362,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#who-maintain-this-project" title="Who maintain this project?" class="md-nav__link">
-    Who maintain this project?
+  <a href="#_1" title="構造と役割" class="md-nav__link">
+    構造と役割
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorials" title="Tutorials" class="md-nav__link">
-    Tutorials
+  <a href="#_2" title="立ち上げ方" class="md-nav__link">
+    立ち上げ方
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue" title="Issue" class="md-nav__link">
+    Issue
   </a>
   
 </li>
@@ -385,23 +399,43 @@
               
                 
                 
-                <h1 id="ros-for-sia20">ROS for SIA20</h1>
-<p>Welcome to ROS for SIA20.
-This documents explain for how to use SIA20 robot arm with ROS.
-This documents contains some tutorials from basic to advanced.
-If you get a issue, <strong>PLEASE feel free to contact me from <a href="https://github.com/harumo11/sia20/issues">ISSUE PAGE</a>.</strong></p>
-<h2 id="who-maintain-this-project">Who maintain this project?</h2>
-<p>This project is maintained by Harumo Sasatake at Toyohashi University of Tech (Japan).</p>
-<h2 id="tutorials">Tutorials</h2>
-<p>This documents are written in English and Japanese.</p>
-<div class="admonition english tutorial">
-<p class="admonition-title">English</p>
-<p>Click here!</p>
-</div>
-<div class="admonition japanese tutorial">
-<p class="admonition-title">Japanese</p>
-<p>Click here!</p>
-</div>
+                <h1 id="pose_follow_planner-executer">pose_follow_planner &amp; executerの使い方</h1>
+<h2 id="_1">構造と役割</h2>
+<p>pose_follow_planner ==(target joint)==&gt; pose_follow_executer</p>
+<ul>
+<li>pose_follow_planner</li>
+</ul>
+<p>HTC Viveから命令を受取りmoveitを用いて逆運動学を解く．</p>
+<p>target_joint = current_joint + $\Delta$ T * joint_displacement</p>
+<ul>
+<li>pose_follow_executer</li>
+</ul>
+<p><code>pose_follow_planner</code>で作成したtarget_jointをタイムスタンプをつけてSIA20へ転送する．</p>
+<p>実行周期はrate = 1/ $\Delta$T を使わないとエラー（#4414 スピードオーバー）が発生する．</p>
+<h2 id="_2">立ち上げ方</h2>
+<p>roscore</p>
+<div class="highlight"><pre><span></span>roscore 
+</pre></div>
+
+<p>HTC Vive</p>
+<div class="highlight"><pre><span></span>roslaunch vive_ros server_vr.launch
+roslaunch vive_ros vive.launch
+</pre></div>
+
+<p>motoman</p>
+<div class="highlight"><pre><span></span>roslaunch motoman_sia20d_moveit_config moveit_planning_execution.launch sim:=false controller:=fs100 robot_ip:=10.0.0.2
+</pre></div>
+
+<p>pose_follow_executer</p>
+<div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_executer
+</pre></div>
+
+<p>pose_follow_planner</p>
+<div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_plannner
+</pre></div>
+
+<p>追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．</p>
+<h2 id="issue">Issue</h2>
                 
                   
                 
@@ -422,14 +456,28 @@ If you get a issue, <strong>PLEASE feel free to contact me from <a href="https:/
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
+          <a href="../learning/" title="学習データ集め" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                学習データ集め
+              </span>
+            </div>
+          </a>
         
-          <a href="FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../vive/" title="HTC Vive" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                FollowJointTrajectoryAction
+                HTC Vive
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -459,9 +507,9 @@ If you get a issue, <strong>PLEASE feel free to contact me from <a href="https:/
       
     </div>
     
-      <script src="assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../assets/javascripts/application.b41f3d20.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

@@ -35,21 +35,21 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
-        <title>SIA20</title>
+        <title>HTC Vive - SIA20</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.572ca0f0.css">
       
       
     
     
-      <script src="assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -58,7 +58,7 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#ros-for-sia20" tabindex="1" class="md-skip">
+      <a href="#htc-vive" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -87,7 +87,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="SIA20" class="md-header-nav__button md-logo">
+        <a href=".." title="SIA20" class="md-header-nav__button md-logo">
           
             <i class="md-icon"></i>
           
@@ -104,7 +104,7 @@
                 SIA20
               </span>
               <span class="md-header-nav__topic">
-                ROS for SIA20
+                HTC Vive
               </span>
             
           
@@ -159,7 +159,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="." title="SIA20" class="md-nav__button md-logo">
+    <a href=".." title="SIA20" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
@@ -168,6 +168,54 @@
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="ROS for SIA20" class="md-nav__link">
+      ROS for SIA20
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-nav__link">
+      FollowJointTrajectoryAction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../learning/" title="学習データ集め" class="md-nav__link">
+      学習データ集め
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../pose_follow/" title="pose_follow_planner & executerの使い方" class="md-nav__link">
+      pose_follow_planner & executerの使い方
+    </a>
+  </li>
+
     
       
       
@@ -184,11 +232,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        ROS for SIA20
+        HTC Vive
       </label>
     
-    <a href="." title="ROS for SIA20" class="md-nav__link md-nav__link--active">
-      ROS for SIA20
+    <a href="./" title="HTC Vive" class="md-nav__link md-nav__link--active">
+      HTC Vive
     </a>
     
       
@@ -202,16 +250,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#who-maintain-this-project" title="Who maintain this project?" class="md-nav__link">
-    Who maintain this project?
+  <a href="#dependency" title="Dependency" class="md-nav__link">
+    Dependency
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorials" title="Tutorials" class="md-nav__link">
-    Tutorials
+  <a href="#ros" title="ROS" class="md-nav__link">
+    ROS
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="座標系" class="md-nav__link">
+    座標系
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="トラブルシューティング" class="md-nav__link">
+    トラブルシューティング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roslaunch" title="roslaunchでエラーが起きてプロセスが死ぬ" class="md-nav__link">
+    roslaunchでエラーが起きてプロセスが死ぬ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steamvrfaild" title="steamVRでfaildというエラーが出る．" class="md-nav__link">
+    steamVRでfaildというエラーが出る．
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -223,54 +305,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-nav__link">
-      FollowJointTrajectoryAction
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="learning/" title="学習データ集め" class="md-nav__link">
-      学習データ集め
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="pose_follow/" title="pose_follow_planner & executerの使い方" class="md-nav__link">
-      pose_follow_planner & executerの使い方
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="vive/" title="HTC Vive" class="md-nav__link">
-      HTC Vive
-    </a>
   </li>
 
     
@@ -299,7 +333,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/cable_setup_jpn/" title="ケーブルセットアップ" class="md-nav__link">
+    <a href="../Japanese/cable_setup_jpn/" title="ケーブルセットアップ" class="md-nav__link">
       ケーブルセットアップ
     </a>
   </li>
@@ -311,7 +345,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/cartesian_velocity_control_jpn/" title="Cartesian Velocity Control" class="md-nav__link">
+    <a href="../Japanese/cartesian_velocity_control_jpn/" title="Cartesian Velocity Control" class="md-nav__link">
       Cartesian Velocity Control
     </a>
   </li>
@@ -323,7 +357,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Japanese/internet_connection/" title="インターネット接続" class="md-nav__link">
+    <a href="../Japanese/internet_connection/" title="インターネット接続" class="md-nav__link">
       インターネット接続
     </a>
   </li>
@@ -355,16 +389,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#who-maintain-this-project" title="Who maintain this project?" class="md-nav__link">
-    Who maintain this project?
+  <a href="#dependency" title="Dependency" class="md-nav__link">
+    Dependency
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorials" title="Tutorials" class="md-nav__link">
-    Tutorials
+  <a href="#ros" title="ROS" class="md-nav__link">
+    ROS
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="座標系" class="md-nav__link">
+    座標系
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="トラブルシューティング" class="md-nav__link">
+    トラブルシューティング
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roslaunch" title="roslaunchでエラーが起きてプロセスが死ぬ" class="md-nav__link">
+    roslaunchでエラーが起きてプロセスが死ぬ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steamvrfaild" title="steamVRでfaildというエラーが出る．" class="md-nav__link">
+    steamVRでfaildというエラーが出る．
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -385,23 +453,46 @@
               
                 
                 
-                <h1 id="ros-for-sia20">ROS for SIA20</h1>
-<p>Welcome to ROS for SIA20.
-This documents explain for how to use SIA20 robot arm with ROS.
-This documents contains some tutorials from basic to advanced.
-If you get a issue, <strong>PLEASE feel free to contact me from <a href="https://github.com/harumo11/sia20/issues">ISSUE PAGE</a>.</strong></p>
-<h2 id="who-maintain-this-project">Who maintain this project?</h2>
-<p>This project is maintained by Harumo Sasatake at Toyohashi University of Tech (Japan).</p>
-<h2 id="tutorials">Tutorials</h2>
-<p>This documents are written in English and Japanese.</p>
-<div class="admonition english tutorial">
-<p class="admonition-title">English</p>
-<p>Click here!</p>
-</div>
-<div class="admonition japanese tutorial">
-<p class="admonition-title">Japanese</p>
-<p>Click here!</p>
-</div>
+                <h1 id="htc-vive">HTC Vive</h1>
+<p>ROSでHTC　Viveを使用するための説明</p>
+<h2 id="dependency">Dependency</h2>
+<ul>
+<li><a href="https://github.com/robosavvy/vive_ros">ROS Package</a></li>
+<li><a href="https://store.steampowered.com/steamvr?l=japanese">SteamVR</a></li>
+</ul>
+<h2 id="ros">ROS</h2>
+<p>Viveを立ち上げてROSで使用するときには下記のコマンドを実行します．</p>
+<ol>
+<li>launch vive server</li>
+</ol>
+<div class="highlight"><pre><span></span>roslaunch vive_ros server_vr.launch
+</pre></div>
+
+<ol>
+<li>launch ROS topic bridge</li>
+</ol>
+<div class="highlight"><pre><span></span>roslaunch vive_ros vive.launch
+</pre></div>
+
+<ol>
+<li>rvizで確認</li>
+</ol>
+<div class="highlight"><pre><span></span>rviz
+</pre></div>
+
+<p>Fixed Frame -&gt; world
+Add -&gt; By Display Type -&gt; TF</p>
+<h2 id="_1">座標系</h2>
+<p>本棚の上のベースステーションが{world}の上に存在する．
+ただ床から2.265m上空だと表示されるが，実際は2.1mなので誤差がある．</p>
+<h2 id="_2">トラブルシューティング</h2>
+<h3 id="roslaunch">roslaunchでエラーが起きてプロセスが死ぬ</h3>
+<ol>
+<li>以前に使用したviveのサーバプログラムがゾンビプロセスになっている可能性があります．</li>
+</ol>
+<p><code>rosrun vive_ros close_server.sh</code>を実行することによって多くの場合はゾンビプロセスをkillすることができます．killした後，もう一度roslaunchを試みてください．</p>
+<h3 id="steamvrfaild">steamVRでfaildというエラーが出る．</h3>
+<p>ROSからはアクセス可能な場合があります．ROSからアクセスできるか試してみてください．</p>
                 
                   
                 
@@ -422,14 +513,28 @@ If you get a issue, <strong>PLEASE feel free to contact me from <a href="https:/
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
+          <a href="../pose_follow/" title="pose_follow_planner & executerの使い方" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                pose_follow_planner & executerの使い方
+              </span>
+            </div>
+          </a>
         
-          <a href="FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../Japanese/cable_setup_jpn/" title="ケーブルセットアップ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                FollowJointTrajectoryAction
+                ケーブルセットアップ
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -459,9 +564,9 @@ If you get a issue, <strong>PLEASE feel free to contact me from <a href="https:/
       
     </div>
     
-      <script src="assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../assets/javascripts/application.b41f3d20.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
