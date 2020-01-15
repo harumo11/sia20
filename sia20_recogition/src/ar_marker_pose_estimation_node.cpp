@@ -22,10 +22,10 @@ int main(int argc, char* argv[])
 	geometry_msgs::Twist dirt_pose, broom_pose, goal_pose;
 
 	// カメラのキャリブレーションデータを読み込む
-	cv::FileStorage fs("/home/robot/catkin_ws/src/sia20/sia20_recogition/config/params.yml", cv::FileStorage::READ);
+	cv::FileStorage fs("/home/harumo/catkin_ws/src/sia20/sia20_recogition/config/params.yml", cv::FileStorage::READ);
 	if (!fs.isOpened()) {
 		std::cout << "Camera calibration file is not opened" << std::endl;
-		std::exit(0);
+		std::exit(-1);
 	}
 	cv::Mat camera_matrix, dist_coeffs;
 	fs["intrinsic"] >> camera_matrix;
@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 	cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
 
 	// カメラを起動
-	cv::VideoCapture cap(0);
+	cv::VideoCapture cap(2);
 	cv::UMat frame;
 	cv::UMat src;
 
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 			cv::aruco::estimatePoseSingleMarkers(corners, marker_side_length, camera_matrix, dist_coeffs, rvecs, tvecs);
 			cv::aruco::drawDetectedMarkers(src, corners, ids);
 			const double axis_length = 0.1;	// 描画する軸の長さ 10cm
-			for (int i = 0; i < ids.size(); i++) {
+			for (int i = 0; i < (int)ids.size(); i++) {
 				cv::aruco::drawAxis(src, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], axis_length);
 			}
 
@@ -117,7 +117,10 @@ int main(int argc, char* argv[])
 			std::cout << "NO AR marker is detected" << std::endl;
 		}
 
-		cv::waitKey(1);
+		if (cv::waitKey(27) > 1) {
+			ros::shutdown();
+			std::exit(0);
+		}
 		cv::imshow("src", src);
 	}
 
