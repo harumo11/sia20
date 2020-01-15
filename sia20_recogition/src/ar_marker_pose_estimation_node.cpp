@@ -10,6 +10,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
 #include <geometry_msgs/Twist.h>
+#include <image_transport/image_transport.h>
+#include <sensor_msgs/image_encodings.h>
 
 int main(int argc, char* argv[])
 {
@@ -36,8 +38,8 @@ int main(int argc, char* argv[])
 
 	// カメラを起動
 	cv::VideoCapture cap(2);
-	cv::UMat frame;
-	cv::UMat src;
+	cv::Mat frame;
+	cv::Mat src;
 
 
 	while (true) {
