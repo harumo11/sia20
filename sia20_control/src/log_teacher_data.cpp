@@ -16,7 +16,10 @@ class ViveControllerListener {
     void call_back(const sensor_msgs::Joy msgs);
 };
 
-void ViveControllerListener::call_back(const sensor_msgs::Joy msgs){ this->data = msgs; }
+void ViveControllerListener::call_back(const sensor_msgs::Joy msgs){ 
+	ROS_INFO_STREAM("vive controller callback");
+	this->data = msgs; 
+}
 
 // 目標関節軸をサブスクライブするクラス
 class JointTrajPointListener {
@@ -25,7 +28,10 @@ class JointTrajPointListener {
     void call_back(const trajectory_msgs::JointTrajectoryPoint msgs);
 };
 
-void JointTrajPointListener::call_back(const trajectory_msgs::JointTrajectoryPoint msgs){   this->data = msgs;  }
+void JointTrajPointListener::call_back(const trajectory_msgs::JointTrajectoryPoint msgs){
+	ROS_INFO_STREAM("joint traj point controller callback");
+	this->data = msgs;  
+}
 
 // 現在の関節角度をサブスクライブするクラス
 class JointStateListener {
@@ -34,7 +40,10 @@ class JointStateListener {
     void call_back(const sensor_msgs::JointState msgs);
 };
 
-void JointStateListener::call_back(const sensor_msgs::JointState msgs){ this->data = msgs;  }
+void JointStateListener::call_back(const sensor_msgs::JointState msgs){
+	ROS_INFO_STREAM("joint state callback");
+	this->data = msgs;  
+}
 
 // arマーカから獲得できる座標をサブスクライブするクラス
 class PoseListener {
@@ -43,10 +52,14 @@ class PoseListener {
 		void call_back(const geometry_msgs::Twist msgs);
 };
 
-void PoseListener::call_back(const geometry_msgs::Twist msgs) { this->data = msgs; }
+void PoseListener::call_back(const geometry_msgs::Twist msgs) {
+	ROS_INFO_STREAM("pose callback");
+	this->data = msgs; 
+}
 
 // 届いたposeメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_twist_msgs(const geometry_msgs::Twist msgs){
+	ROS_INFO_STREAM("unstruct_twist_msgs");
 	std::stringstream ss;
 	ss << msgs.linear.x << "," << msgs.linear.y << "," << msgs.linear.z << "," << msgs.angular.x << "," << msgs.angular.y << "," << msgs.angular.z;
 	return ss.str();
@@ -54,6 +67,7 @@ std::string unstruct_twist_msgs(const geometry_msgs::Twist msgs){
 
 // 届いたJointStateメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_joint_state_msgs(const sensor_msgs::JointState msgs){
+	ROS_INFO_STREAM("unstruct_joint_state_msgs");
 	std::stringstream ss;
 	ss << msgs.position.at(0) << "," << msgs.position.at(1) << "," << msgs.position.at(2) << "," << msgs.position.at(3) << "," << msgs.position.at(4) << "," << msgs.position.at(5) << "," << msgs.position.at(6);
 	return ss.str();
@@ -61,6 +75,7 @@ std::string unstruct_joint_state_msgs(const sensor_msgs::JointState msgs){
 
 // 届いたJointTrajectoryメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_joint_traj_point_msgs(const trajectory_msgs::JointTrajectoryPoint msgs){
+	ROS_INFO_STREAM("unstruct_joint_traj_point_msgs");
 	std::stringstream ss;
 	ss << msgs.positions.at(0) << "," << msgs.positions.at(1) << "," << msgs.positions.at(2) << "," << msgs.positions.at(3) << "," << msgs.positions.at(4) << "," << msgs.positions.at(5) << "," << msgs.positions.at(6);
 	return ss.str();
@@ -86,7 +101,8 @@ int main(int argc, char *argv[]) {
    ros::Subscriber broom_pose_subscriber = node.subscribe("/ar_broom_pose", 1, &PoseListener::call_back, &broom_pose_listener);
    ros::Subscriber goal_pose_subscriber = node.subscribe("/ar_goal_pose", 1, &PoseListener::call_back, &goal_pose_listener);
    ros::Subscriber joint_state_subscriber = node.subscribe("/joint_states", 1, &JointStateListener::call_back, &joint_state_listener);
-   ros::Subscriber joint_traj_point_subscriber = node.subscribe("/joint_value_controller", 1, &JointTrajPointListener::call_back, &joint_traj_point_listener);
+   ros::Subscriber joint_traj_point_subscriber = node.subscribe("/joint_value_command", 1, &JointTrajPointListener::call_back, &joint_traj_point_listener);
+   ros::Subscriber vive_controller_subscriber = node.subscribe("/vive/controller_LHR_066549FF/joy", 1, &ViveControllerListener::call_back, &vive_controller_listener);
    // 全メッセージが到着するまで待つ
    ROS_INFO_STREAM("Waiting for dirt, goal, broom pose, joint state and vive controller topic");
    ros::topic::waitForMessage<geometry_msgs::Twist>("ar_dirt_pose");
@@ -94,6 +110,7 @@ int main(int argc, char *argv[]) {
    ros::topic::waitForMessage<geometry_msgs::Twist>("ar_goal_pose");
    ros::topic::waitForMessage<sensor_msgs::JointState>("joint_states");
    ros::topic::waitForMessage<trajectory_msgs::JointTrajectoryPoint>("joint_value_command");
+   ros::topic::waitForMessage<sensor_msgs::Joy>("/vive/controller_LHR_066549FF/joy");
  
     ROS_INFO_STREAM("Logging node starts");
     int file_number = 0;
@@ -101,7 +118,10 @@ int main(int argc, char *argv[]) {
     while (ros::ok())
     {
         ROS_INFO_STREAM("Press Side button of Vive controller to start rec");
+		std::cout << "here" << std::endl;
         ros::spinOnce();
+		timer.sleep();
+		std::cout << "there" << std::endl;
         
         // viveコントローラのボタンが押されたらレコーディングスタート
         if (vive_controller_listener.data.buttons.at(3) == 1){
