@@ -8,31 +8,26 @@
 
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 #include <opencv2/aruco.hpp>
 #include <geometry_msgs/Twist.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
+#include <cv_bridge/cv_bridge.h>
 
 int main(int argc, char* argv[])
 {
-	// ros初期化
-	ros::init(argc, argv, "ar_pose_estimation_node");
-	ros::NodeHandle node;
-	ros::Publisher broom_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_broom_pose", 1);	//箒のarマーカの位置を流すパブリッシャ
-	ros::Publisher dirt_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_dirt_pose", 1);	//ゴミのarマーカの位置を流すパブリッシャ
-	ros::Publisher goal_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_goal_pose", 1);	//ゴールのarマーカの位置を流すパブリッシャ
-	geometry_msgs::Twist dirt_pose, broom_pose, goal_pose;
-
+	// cv_bridgeと併用するとファイルが読み込めないことがわかった
 	// カメラのキャリブレーションデータを読み込む
-	cv::FileStorage fs("/home/harumo/catkin_ws/src/sia20/sia20_recogition/config/params.yml", cv::FileStorage::READ);
-	if (!fs.isOpened()) {
-		std::cout << "Camera calibration file is not opened" << std::endl;
-		std::exit(-1);
-	}
-	cv::Mat camera_matrix, dist_coeffs;
-	fs["intrinsic"] >> camera_matrix;
-	fs["distortion"] >> dist_coeffs;
-
+	//cv::FileStorage my_fs("/home/harumo/catkin_ws/src/sia20/sia20_recogition/config/params.yml", cv::FileStorage::READ);
+	//if (!my_fs.isOpened()) {
+	//	std::cout << "Camera calibration file is not opened" << std::endl;
+	//	std::exit(-1);
+	//}
+	// intrinsic matrixを読み込み(3,3)
+	cv::Mat camera_matrix = (cv::Mat_<double>(3,3) << 5.7676473334939226e+02, 0.0, 3.2108661199975330e+02, 0.0, 5.7659577304127572e+02, 2.3379326055411508e+02, 0.0, 0.0, 1.0);
+	// distortion matrixを読み込み(1,5)
+	cv::Mat dist_coeffs = (cv::Mat_<double>(1,5) << -1.2974438965267243e-01, 5.8147428099409670e-01,-6.9962431415323987e-03, 3.6420062709177823e-03, -1.1958039271165244e+00) ;
 	// ARマーカの辞書を設定
 	cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
 
@@ -41,6 +36,19 @@ int main(int argc, char* argv[])
 	cv::Mat frame;
 	cv::Mat src;
 
+	// ros初期化
+	ros::init(argc, argv, "ar_pose_estimation_node");
+	ros::NodeHandle node;
+	ros::Publisher broom_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_broom_pose", 1);	//箒のarマーカの位置を流すパブリッシャ
+	ros::Publisher dirt_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_dirt_pose", 1);	//ゴミのarマーカの位置を流すパブリッシャ
+	ros::Publisher goal_pose_publisher = node.advertise<geometry_msgs::Twist>("ar_goal_pose", 1);	//ゴールのarマーカの位置を流すパブリッシャ
+	geometry_msgs::Twist dirt_pose, broom_pose, goal_pose;
+	image_transport::ImageTransport it(node);
+	image_transport::Publisher image_pub = it.advertise("ar_image", 10);
+	cv_bridge::CvImage ros_image;
+	ros_image.header.stamp = ros::Time::now();
+	ros_image.header.frame_id = "ar_image";
+	ros_image.encoding = "rgb8";
 
 	while (true) {
 		// カメラから画像を取得
@@ -124,6 +132,9 @@ int main(int argc, char* argv[])
 			std::exit(0);
 		}
 		cv::imshow("src", src);
+
+		ros_image.image = src;
+		image_pub.publish(ros_image.toImageMsg());
 	}
 
 	return 0;

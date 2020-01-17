@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	rospy
 	std_msgs
+	sensor_msgs
+	image_transport
+	cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -138,6 +141,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/sia20_recogition_node.cpp)
 add_executable(ar_marker_pose_estimation_node src/ar_marker_pose_estimation_node.cpp)
 add_executable(ar_marker_creation src/ar_marker_creation.cpp)
+add_executable(cv_mat_init src/cv_mat_init.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,14 +158,18 @@ add_executable(ar_marker_creation src/ar_marker_creation.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(ar_marker_pose_estimation_node
-	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
+	${catkin_LIBRARIES}
 )
 target_link_libraries(ar_marker_creation
 	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
 )
 
+target_link_libraries(cv_mat_init
+	${catkin_INCLUDE_DIRS}
+	${OpenCV_LIBRARIES}
+)
 #############
 ## Install ##
 #############
