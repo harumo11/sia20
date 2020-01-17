@@ -8,6 +8,13 @@
 #include <sensor_msgs/Joy.h>
 #include <fstream>
 
+void count_down(const int count_sec = 5){
+	for (int i = count_sec; i > 0; i--) {
+		ROS_INFO_STREAM("Count down : " << i);
+		ros::Duration(1.0).sleep();
+	}
+	ROS_INFO_STREAM("Rec starts!");
+}
 
 // Viveコントローラのボタンをサブスクライブするクラス
 class ViveControllerListener {
@@ -17,7 +24,6 @@ class ViveControllerListener {
 };
 
 void ViveControllerListener::call_back(const sensor_msgs::Joy msgs){ 
-	ROS_INFO_STREAM("vive controller callback");
 	this->data = msgs; 
 }
 
@@ -29,7 +35,6 @@ class JointTrajPointListener {
 };
 
 void JointTrajPointListener::call_back(const trajectory_msgs::JointTrajectoryPoint msgs){
-	ROS_INFO_STREAM("joint traj point controller callback");
 	this->data = msgs;  
 }
 
@@ -41,7 +46,6 @@ class JointStateListener {
 };
 
 void JointStateListener::call_back(const sensor_msgs::JointState msgs){
-	ROS_INFO_STREAM("joint state callback");
 	this->data = msgs;  
 }
 
@@ -53,13 +57,11 @@ class PoseListener {
 };
 
 void PoseListener::call_back(const geometry_msgs::Twist msgs) {
-	ROS_INFO_STREAM("pose callback");
 	this->data = msgs; 
 }
 
 // 届いたposeメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_twist_msgs(const geometry_msgs::Twist msgs){
-	ROS_INFO_STREAM("unstruct_twist_msgs");
 	std::stringstream ss;
 	ss << msgs.linear.x << "," << msgs.linear.y << "," << msgs.linear.z << "," << msgs.angular.x << "," << msgs.angular.y << "," << msgs.angular.z;
 	return ss.str();
@@ -67,7 +69,6 @@ std::string unstruct_twist_msgs(const geometry_msgs::Twist msgs){
 
 // 届いたJointStateメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_joint_state_msgs(const sensor_msgs::JointState msgs){
-	ROS_INFO_STREAM("unstruct_joint_state_msgs");
 	std::stringstream ss;
 	ss << msgs.position.at(0) << "," << msgs.position.at(1) << "," << msgs.position.at(2) << "," << msgs.position.at(3) << "," << msgs.position.at(4) << "," << msgs.position.at(5) << "," << msgs.position.at(6);
 	return ss.str();
@@ -75,7 +76,6 @@ std::string unstruct_joint_state_msgs(const sensor_msgs::JointState msgs){
 
 // 届いたJointTrajectoryメッセージのフォーマットを記録用に変更する関数
 std::string unstruct_joint_traj_point_msgs(const trajectory_msgs::JointTrajectoryPoint msgs){
-	ROS_INFO_STREAM("unstruct_joint_traj_point_msgs");
 	std::stringstream ss;
 	ss << msgs.positions.at(0) << "," << msgs.positions.at(1) << "," << msgs.positions.at(2) << "," << msgs.positions.at(3) << "," << msgs.positions.at(4) << "," << msgs.positions.at(5) << "," << msgs.positions.at(6);
 	return ss.str();
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
 
 	
    // ROS初期化
-   ros::init(argc, argv, "move_init_pose_srv_node");
+   ros::init(argc, argv, "log_teacher_data_node");
    ros::NodeHandle node;
    ros::Rate timer(40);
  
@@ -118,16 +118,13 @@ int main(int argc, char *argv[]) {
     while (ros::ok())
     {
         ROS_INFO_STREAM("Press Side button of Vive controller to start rec");
-		std::cout << "here" << std::endl;
         ros::spinOnce();
 		timer.sleep();
-		std::cout << "there" << std::endl;
         
         // viveコントローラのボタンが押されたらレコーディングスタート
         if (vive_controller_listener.data.buttons.at(3) == 1){
             ROS_INFO_STREAM("Side button of Vive controller is pressed");
-			ros::Duration(5.0).sleep();
-			ROS_ERROR_STREAM("Rec starts!");
+			count_down();
             
             // 記録用ファイル作成
 			ros::spinOnce();
@@ -138,8 +135,8 @@ int main(int argc, char *argv[]) {
 
 			while (true) {
 				log_file << unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_traj_point_msgs(joint_traj_point_listener.data) << std::endl;
-				ROS_INFO_STREAM("REC ONCE");
-				ROS_INFO_STREAM(unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_traj_point_msgs(joint_traj_point_listener.data));
+				ROS_DEBUG_STREAM_THROTTLE(10, "Recording NOW!");
+				//ROS_INFO_STREAM(unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_traj_point_msgs(joint_traj_point_listener.data));
 				ros::spinOnce();
 				timer.sleep();
 

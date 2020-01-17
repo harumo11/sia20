@@ -1,10 +1,15 @@
-// このプログラムはpose_follow_plannerから受け取った命令値をsia20に
+// このプログラムはpose_follow_planner3から受け取った速度の命令値をsia20に
 // 送るためのプログラムです．
 
+#include <eigen3/Eigen/Dense>
 #include <iostream>
 #include <ros/ros.h>
 #include <trajectory_msgs/JointTrajectory.h>
+#include <geometry_msgs/Pose.h>
 #include <sensor_msgs/JointState.h>
+#include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/robot_model_loader/robot_model_loader.h>
+#include <moveit/robot_state/robot_state.h>
 
 class JointStateListener {
 	public:
@@ -16,14 +21,14 @@ void JointStateListener::call_back(const sensor_msgs::JointState msgs){
 	this->joint_state = msgs;
 }
 
-class JointTargetListener {
+class TargetDisplacementListener {
 	public:
-		void call_back(const trajectory_msgs::JointTrajectoryPoint msgs);
-		trajectory_msgs::JointTrajectoryPoint joint_target;
+		void call_back(const geometry_msgs::Pose msgs);
+		geometry_msgs::Pose data;
 };
 
-void JointTargetListener::call_back(const trajectory_msgs::JointTrajectoryPoint msgs){
-	this->joint_target = msgs;
+void TargetDisplacementListener::call_back(const geometry_msgs::Pose msgs){
+	this->data = msgs;
 }
 
 void set_joint_trajectry_config(trajectory_msgs::JointTrajectory& joint_trajectory_msgs){
@@ -33,15 +38,21 @@ void set_joint_trajectry_config(trajectory_msgs::JointTrajectory& joint_trajecto
 	joint_trajectory_msgs.header.stamp = ros::Time::now();
 }
 
-void set_joint_trajectry_point_config(trajectory_msgs::JointTrajectoryPoint& joint_trajectory_point, const double time_from_start){
-	joint_trajectory_point.time_from_start = ros::Duration(time_from_start); 
+void set_joint_trajectry_point_config(trajectory_msgs::JointTrajectoryPoint& joint_trajectory_point, const ros::Duration time_from_start){
+	joint_trajectory_point.time_from_start = time_from_start; 
 	joint_trajectory_point.velocities = {0, 0, 0, 0, 0, 0, 0};
+}
+
+Eigen::MatrixXd p_inv(Eigen::MatrixXd J){
+	return (J.transpose() * (J * J.transpose()).inverse());
 }
 
 int main(int argc, char* argv[])
 {
 	// ros node initialize
 	ros::init(argc, argv, "joint_trajectory_publisher");
+	ros::AsyncSpinner spinner(3);
+	spinner.start();
 
 	// create ros node handle
 	ros::NodeHandle node_handle;
@@ -51,29 +62,35 @@ int main(int argc, char* argv[])
 
 	// make subscriber. 
 	JointStateListener joint_state_listener;
-	JointTargetListener joint_target_listener;
+	TargetDisplacementListener target_displacement_listener;
 	ros::Subscriber joint_subscriber = node_handle.subscribe("/joint_states", 1, &JointStateListener::call_back, &joint_state_listener);
-	ros::Subscriber target_subscriber = node_handle.subscribe("/joint_value_command", 1, &JointTargetListener::call_back, &joint_target_listener);
+	ros::Subscriber target_subscriber = node_handle.subscribe("/target_displacement", 1, &TargetDisplacementListener::call_back, &target_displacement_listener); 
+
+	// moveit 初期化
+	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
+	robot_model_loader::RobotModelLoader model_loader("robot_description");
+	robot_model::RobotModelPtr kinematic_model = model_loader.getModel();
+	moveit::core::RobotState kinematic_state(kinematic_model);
+	kinematic_state.setToDefaultValues();
+	const moveit::core::JointModelGroup *joint_model_group_ptr;
+	joint_model_group_ptr = kinematic_model->getJointModelGroup("manipulator");
+	ros::topic::waitForMessage<sensor_msgs::JointState>("joint_states");
 
 	// make loop timer
 	//ros::Rate rate_timer(10);
-	const double control_cycle = 10;
+	const double control_cycle = 100;
 	ros::Rate rate_timer(control_cycle);
 
 	int counter = 0;
 	//const double T = 0.1;
 	const double T = 1.0 / control_cycle;
 	std::cout << "T : " << T << std::endl;
-	const double step_size = 0.1;
-
-	ROS_INFO_STREAM("Waiting for /joint_value_command topic");
-	ros::topic::waitForMessage<trajectory_msgs::JointTrajectoryPoint>("/joint_value_command");
 
 	// subscribe current position (first time)
 	trajectory_msgs::JointTrajectory joint_trajectory_msgs;
 	set_joint_trajectry_config(joint_trajectory_msgs);
 	trajectory_msgs::JointTrajectoryPoint joint_trajectory_point;
-	set_joint_trajectry_point_config(joint_trajectory_point, counter++ * T);
+	set_joint_trajectry_point_config(joint_trajectory_point, ros::Duration(0.0));
 	ros::spinOnce();
 	ros::spinOnce();
 	ros::spinOnce();

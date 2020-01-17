@@ -1,13 +1,11 @@
 // このプログラムはHTC Viveのコントローラからの命令により
-// ロボットアームの手先位置を計算し，それをpose_follow_downloaderに
-// 流すプログラムです．
-// pose_follow_planner.cppとの違いは最初に起動したときに
-// 手先が変な姿勢へ移動しないことです．
+// 現在の手先位置と目標位置の差分を計算し，それをpose_follow_executer2に流すプログラムです．
 
 #include <algorithm>
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 #include <std_srvs/Trigger.h>
+#include <geometry_msgs/Twist.h>
 #include <geometry_msgs/TransformStamped.h> 
 #include <trajectory_msgs/JointTrajectory.h>
 #include <tf2_ros/transform_listener.h>
@@ -15,6 +13,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 
 
@@ -27,6 +26,16 @@ class ViveController {
 
 void ViveController::call_back(const sensor_msgs::Joy msgs){
 	this->state = msgs;
+}
+
+class JointStateListener {
+	public:
+		sensor_msgs::JointState data;
+		void call_back(const sensor_msgs::JointState msgs);
+};
+
+void JointStateListener::call_back(const sensor_msgs::JointState msgs){
+	this->data = msgs;
 }
 
 
@@ -58,7 +67,7 @@ int main(int argc, char* argv[])
 	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
 
 	// joint_trajectoryの設定
-	auto joint_value_command_publisher = node.advertise<trajectory_msgs::JointTrajectoryPoint>("/joint_value_command", 1);
+	auto target_displacement_publisher = node.advertise<geometry_msgs::Pose>("/target_displacement", 1);
 	trajectory_msgs::JointTrajectoryPoint joint_trajectory_point_msgs;
 	
 	int iter = 0;
@@ -123,13 +132,13 @@ int main(int argc, char* argv[])
 		// 姿勢を足し算
 		tf2::Quaternion q_new, q_org, q_rot;
 		tf2::convert(tf_base_link_local_link_t.transform.rotation, q_org);
-		ROS_INFO_STREAM("tf_base_link_local_link_t quat" << tf_base_link_local_link_t.transform.rotation);
-		ROS_INFO_STREAM("local_link_t(q_org) " << q_org.x() << ", " << q_org.y() << ", " << q_org.z() << ", " << q_org.w());
+		//ROS_INFO_STREAM("tf_base_link_local_link_t quat" << tf_base_link_local_link_t.transform.rotation);
+		//ROS_INFO_STREAM("local_link_t(q_org) " << q_org.x() << ", " << q_org.y() << ", " << q_org.z() << ", " << q_org.w());
 		tf2::convert(tf_local_controller_vive_controller.transform.rotation, q_rot);
-		ROS_INFO_STREAM("local_controller(q_rot) " << q_rot.x() << ", " << q_rot.y() << ", " << q_rot.z() << ", " << q_rot.w());
+		//ROS_INFO_STREAM("local_controller(q_rot) " << q_rot.x() << ", " << q_rot.y() << ", " << q_rot.z() << ", " << q_rot.w());
 		q_new = q_rot * q_org;
 		q_new.normalize();
-		ROS_INFO_STREAM("q_new " << q_new.x() << ", " << q_new.y() << ", " << q_new.z() << ", " << q_new.w());
+		//ROS_INFO_STREAM("q_new " << q_new.x() << ", " << q_new.y() << ", " << q_new.z() << ", " << q_new.w());
 		//tf2::convert(q_new, target_link_t.transform.rotation);
 		target_link_t.transform.rotation = tf2::toMsg(q_new);
 		// 親フレーム，子フレームを設定
@@ -152,54 +161,52 @@ int main(int argc, char* argv[])
 		target_link_t_pose.position.y = tf_base_link_target_link_t.transform.translation.y;
 		target_link_t_pose.position.z = tf_base_link_target_link_t.transform.translation.z;
 		target_link_t_pose.orientation = tf_base_link_target_link_t.transform.rotation;
-		
-		ROS_INFO_STREAM(target_link_t_pose);
 
-		//// planを作成
-		move_group.setPoseTarget(target_link_t_pose);
-		moveit::planning_interface::MoveGroupInterface::Plan plan;
-		if (move_group.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-			ROS_INFO_STREAM("Planning Success");
-			joint_trajectory_point_msgs.positions =  plan.trajectory_.joint_trajectory.points.back().positions;
-			joint_trajectory_point_msgs.velocities = {0,0,0,0,0,0,0};
-			//// 各関節角度のt と t-1の差分の最大値が10度以上ならプランニングをやり直す
-			const double rad_10 = (60.0 / 180.0) * M_PI;
-			std::vector<double> joint_diff;
-			for (int i = 0; i < 6; i++) {	// joint_tは何度回ってもいいので無視する
-				auto current_joint_value = move_group.getCurrentJointValues().at(i);
-				auto target_joint_value  = joint_trajectory_point_msgs.positions.at(i);
-				auto joint_diff_value = current_joint_value - target_joint_value;
-				ROS_INFO_STREAM("current : " << current_joint_value * 180.0/M_PI << " target : " << target_joint_value * 180.0/M_PI<< " diff : " << joint_diff_value * 180.0/M_PI);
-				joint_diff.push_back(std::abs(joint_diff_value));
-			}
-			const auto max_diff_itr = std::max_element(joint_diff.begin(), joint_diff.end());
-			if (*max_diff_itr > rad_10) {	// １０度以上ならpublishしない
-				ROS_WARN_STREAM("joint " << std::distance(joint_diff.begin(), max_diff_itr) << " is bigger than 20 deg : joint value is : " << *max_diff_itr * 180.0/M_PI);
-			}
-			else
-			{
-				// 各目標角度を1/10する
-				//// 現在の関節角度を読み込む
-				const std::vector<double> current_joint = move_group.getCurrentJointValues();
-				//// target_joint - current_jointをしてjoint_displacementを計算する
-				std::vector<double> joint_displacement;
-				for (int i = 0; i < 7; i++) {
-					joint_displacement.push_back(joint_trajectory_point_msgs.positions.at(i) - current_joint.at(i));
-					//// target_joint = curren_joint + 0.1 * joint_displacementを計算する
-					const double velocity_weight = 0.14;
-					joint_trajectory_point_msgs.positions.at(i) = current_joint.at(i) + velocity_weight * joint_displacement.at(i);
-					joint_trajectory_point_msgs.velocities.at(i) = joint_displacement.at(i);
-				}
-				
-				// joint_trajectory_point_msgsをpublishする
-				joint_value_command_publisher.publish(joint_trajectory_point_msgs);
-				ROS_INFO_STREAM(joint_trajectory_point_msgs);
-				ROS_INFO_STREAM("Target joints were published" << iter);
-			}
+		// 現在の手先座標を得る
+		//geometry_msgs::PoseStamped current_link_t_pose = move_group.getCurrentPose();
+		geometry_msgs::TransformStamped tf_base_link_link_t;
+		try {
+			tf_base_link_link_t = tf_buffer.lookupTransform("base_link", "link_t", ros::Time(0));
+		} catch (tf2::TransformException& ex) {
+			ROS_WARN_STREAM(ex.what());
+			continue;
 		}
-		else {
-			ROS_WARN_STREAM("Planning Failed");
-		}
+		geometry_msgs::PoseStamped current_link_t_pose;
+		current_link_t_pose.pose.position.x = tf_base_link_link_t.transform.translation.x;
+		current_link_t_pose.pose.position.y = tf_base_link_link_t.transform.translation.y;
+		current_link_t_pose.pose.position.z = tf_base_link_link_t.transform.translation.z;
+		current_link_t_pose.pose.orientation = tf_base_link_link_t.transform.rotation;
+
+		// 目標手先座標(target_link_t)と現在手先座標(current_link_t_pose)の差分を計算する
+		// 位置の差分
+		geometry_msgs::Pose displacement_link_t;
+		displacement_link_t.position.x = target_link_t_pose.position.x - current_link_t_pose.pose.position.x;
+		displacement_link_t.position.y = target_link_t_pose.position.y - current_link_t_pose.pose.position.y;
+		displacement_link_t.position.z = target_link_t_pose.position.z - current_link_t_pose.pose.position.z;
+		// 姿勢の差分
+		tf2::Quaternion target_link_t_quat(target_link_t_pose.orientation.x, target_link_t_pose.orientation.y, target_link_t_pose.orientation.z, target_link_t_pose.orientation.w);
+		tf2::Quaternion current_link_t_quat(current_link_t_pose.pose.orientation.x, current_link_t_pose.pose.orientation.y, current_link_t_pose.pose.orientation.z, current_link_t_pose.pose.orientation.w);
+		tf2::Quaternion displacement_link_t_quat = target_link_t_quat * current_link_t_quat.inverse();
+		displacement_link_t_quat.normalize();
+		displacement_link_t.orientation.x = displacement_link_t_quat.x();
+		displacement_link_t.orientation.y = displacement_link_t_quat.y();
+		displacement_link_t.orientation.z = displacement_link_t_quat.z();
+		displacement_link_t.orientation.w = displacement_link_t_quat.w();
+		//表示
+		double r,p,w;
+		double t_r, t_p, t_w;
+		double c_r, c_p, c_w;
+		tf2::Matrix3x3(displacement_link_t_quat).getRPY(r,p,w);
+		tf2::Matrix3x3(target_link_t_quat).getRPY(t_r, t_p, t_w);
+		tf2::Matrix3x3(current_link_t_quat).getRPY(c_r, c_p, c_w);
+
+		ROS_INFO_STREAM("r : " << r << " p : " << p << " w : " << w); 
+		ROS_INFO_STREAM("c_r : " << c_r << " c_p : " << c_p << " c_w : " << w); 
+		ROS_INFO_STREAM("t_r : " << t_r << " t_p : " << t_p << " t_w : " << w); 
+		
+		ROS_INFO_STREAM(displacement_link_t);
+
+		target_displacement_publisher.publish(displacement_link_t);
 
 		iter++;
 		timer.sleep();
