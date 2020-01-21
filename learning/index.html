@@ -467,14 +467,14 @@ roslaunch vive_ros vive.launch
 <div class="highlight"><pre><span></span>roslaunch motoman_sia20d_moveit_config moveit_planning_execution.launch sim:=false controller:=fs100 robot_ip:=10.0.0.2
 </pre></div>
 
-<p>pose_follow_executer</p>
-<div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_executer
+<p>pose_follower</p>
+<div class="highlight"><pre><span></span>rosrun manipulator_pose_following pose_following_jaco_node
 </pre></div>
 
 <p>pose_follow_planner</p>
-<p><div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_planner2
+<p><div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_planner3
 </pre></div>
-<em>pose_follow_planner</em>ではなく,必ず２の方を選ぶこと
+<em>pose_follow_planner</em>ではなく,必ず3の方を選ぶこと
 これを間違えるとコントローラと手先の座標が合わない</p>
 <p>logger
 <div class="highlight"><pre><span></span>rosrun sia20_control log_teacher_data
