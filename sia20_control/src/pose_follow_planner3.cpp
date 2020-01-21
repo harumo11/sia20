@@ -69,15 +69,13 @@ int main(int argc, char* argv[])
 	// joint_trajectoryの設定
 	auto target_displacement_publisher = node.advertise<geometry_msgs::Pose>("/target_displacement", 1);
 	trajectory_msgs::JointTrajectoryPoint joint_trajectory_point_msgs;
+	// target_poseの設定
+	auto target_pose_publishser = node.advertise<geometry_msgs::Pose>("target_pose", 1);
 	
 	int iter = 0;
 	while (ros::ok()) {
 		if (vive_controller.state.buttons.at(2) > 0) {	// もし大きな丸いボタンが押されたら
 			ROS_INFO_STREAM("Vive controller's big circle button is pushed");
-
-			// sia20dをenableにする
-			std_srvs::Trigger robot_enable;
-			ros::service::call("/robot_enable", robot_enable);
 
 			// {world}から見た{vive_controller}より，staticなフレームである{local_controller}を生成
 			geometry_msgs::TransformStamped tf_local_controller_frame;

@@ -2,6 +2,7 @@
 // 送るためのプログラムです．
 
 #include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Geometry>
 #include <iostream>
 #include <ros/ros.h>
 #include <trajectory_msgs/JointTrajectory.h>
@@ -21,8 +22,27 @@ class TargetDisplacementListener {
 	public:
 		geometry_msgs::Pose data;
 		Eigen::VectorXd delta_x = Eigen::VectorXd::Zero(6);
-		void call_back(const geometry_msgs::Pose msgs) { this->data = msgs; };
+		void call_back(const geometry_msgs::Pose msgs);
 };
+
+void TargetDisplacementListener::call_back(const geometry_msgs::Pose msgs){
+	//位置の変位をコピー
+	this->delta_x(0) = msgs.position.x / 0.01;
+	this->delta_x(1) = msgs.position.y / 0.01; 
+	this->delta_x(2) = msgs.position.z / 0.01;
+
+	//メッセージの姿勢がquaternionで表されているので，roll, pitch, yawになおす．
+	Eigen::Quaterniond quat(msgs.orientation.w, msgs.orientation.x, msgs.orientation.y, msgs.orientation.z);
+	
+	//姿勢の変位をコピー
+	const auto rpy = quat.toRotationMatrix().eulerAngles(0, 1, 2);
+	this->delta_x(3) = rpy(0) / 0.01;
+	this->delta_x(4) = rpy(1) / 0.01;
+	this->delta_x(5) = rpy(2) / 0.01;
+
+	std::cout << "delta_x " << std::endl;
+	std::cout << delta_x << std::endl;
+}
 
 void set_joint_trajectry_config(trajectory_msgs::JointTrajectory& joint_trajectory_msgs){
 	joint_trajectory_msgs.joint_names = {"joint_s", "joint_l", "joint_e", "joint_u", "joint_r", "joint_b", "joint_t"};
@@ -31,7 +51,7 @@ void set_joint_trajectry_config(trajectory_msgs::JointTrajectory& joint_trajecto
 
 void set_joint_trajectry_point_config(trajectory_msgs::JointTrajectoryPoint& joint_trajectory_point, const ros::Duration time_from_start){
 	joint_trajectory_point.time_from_start = time_from_start; 
-	joint_trajectory_point.velocities = {0, 0, 0, 0, 0, 0, 0};
+	joint_trajectory_point.velocities = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 }
 
 Eigen::MatrixXd pseudo_inv(Eigen::MatrixXd J){
@@ -67,6 +87,10 @@ int main(int argc, char* argv[])
 	joint_model_group_ptr = kinematic_model->getJointModelGroup("manipulator");
 	ros::topic::waitForMessage<sensor_msgs::JointState>("joint_states");
 
+	// pose_follow_plannner3からの指令を待つ
+	ROS_INFO_STREAM("Waiting message from pose_follow_plannner3");
+	ros::topic::waitForMessage<geometry_msgs::Pose>("target_displacement");
+
 	// JointTrajectoryをsia20に送る (初回)
 	trajectory_msgs::JointTrajectory joint_trajectory_msgs;
 	set_joint_trajectry_config(joint_trajectory_msgs);
@@ -78,34 +102,64 @@ int main(int argc, char* argv[])
 	
 	const ros::Time t_start = ros::Time::now();
 	ros::Time t_last = t_start;
+	bool should_reset = false;
 	while (ros::ok()) {
 		// dtを計算
-		double dt = (ros::Time::now() - t_start).toSec();
+		double dt = (ros::Time::now() - t_last).toSec();
 		t_last = ros::Time::now();
 		kinematic_state.setVariableValues(joint_state_listener.data);
+		ROS_INFO_STREAM("dt : " << dt);
 		
 		// Jacobianを取得
-		const auto jacobian = kinematic_state.getJacobian(joint_model_group_ptr); // TODO getJacobian()はlink_tまでのもの，それともtool_t?
-		const auto inv_jacobian = pseudo_inv(jacobian);
+		const Eigen::MatrixXd jacobian = kinematic_state.getJacobian(joint_model_group_ptr); // TODO getJacobian()はlink_tまでのもの，それともtool_t?
+		const Eigen::MatrixXd inv_jacobian = pseudo_inv(jacobian);
 
 		// delta_qを計算
-		const auto delta_q = inv_jacobian * target_displacement_listener.delta_x;
-		ROS_DEBUG_STREAM("delta_q : " << delta_q);
+		const Eigen::VectorXd delta_q = inv_jacobian * target_displacement_listener.delta_x * 0.01;
 
 		// JointTrajectoryPointに変換
 		set_joint_trajectry_point_config(joint_trajectory_point, ros::Duration(ros::Time::now() - t_start));
-		joint_trajectory_point.positions = joint_state_listener.data.position;
 		for (int i = 0; i < 7; i++) {
 			joint_trajectory_point.positions.at(i) = joint_state_listener.data.position.at(i) + delta_q(i);
-			joint_trajectory_point.velocities.at(i) = delta_q(i);
+			if (should_reset) {
+				joint_trajectory_point.positions = joint_state_listener.data.position;
+				joint_trajectory_point.velocities.at(i) = 0;
+			}
+			else {
+				joint_trajectory_point.velocities.at(i) = delta_q(i);
+			}
 		}
 
-		// JointTrajectoryをpublish
-		set_joint_trajectry_config(joint_trajectory_msgs);
-		joint_trajectory_msgs.points.at(0) = joint_trajectory_point;
-		joint_trajectory_publisher.publish(joint_trajectory_msgs);
+		//表示
+		for (int i = 0; i < 7; i++) {
+			std::cout << joint_trajectory_point.positions.at(i) << "\t";
+		}
+		std::cout << std::endl;
+		for (int i = 0; i < 7; i++) {
+			std::cout << joint_trajectory_point.velocities.at(i) << "\t";
+		}
+		std::cout << std::endl;
 
-		ROS_INFO("Publish once");
+		// リミットを超えていたら，捨てる
+		const auto max_joint_target_itr = std::max_element(joint_trajectory_point.positions.begin(), joint_trajectory_point.positions.end());
+		const auto max_vel_target_itr = std::max_element(joint_trajectory_point.velocities.begin(), joint_trajectory_point.velocities.end());
+		should_reset = false;
+		if (std::abs(*max_joint_target_itr) > M_PI) {
+			ROS_WARN_STREAM("Max joint limit over");
+			should_reset = true;
+		}
+		else if (std::abs(*max_vel_target_itr) > M_PI) {
+			ROS_WARN_STREAM("Max joint velocity limit over");
+			should_reset = true;
+		}
+		else {
+		 //JointTrajectoryをpublish
+			set_joint_trajectry_config(joint_trajectory_msgs);
+			joint_trajectory_msgs.points.at(0) = joint_trajectory_point;
+			joint_trajectory_publisher.publish(joint_trajectory_msgs);
+			ROS_INFO_STREAM("Publish once");
+		}
+
 		rate_timer.sleep();
 		ros::spinOnce();
 	}
