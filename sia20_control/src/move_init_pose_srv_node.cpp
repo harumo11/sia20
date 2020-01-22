@@ -15,9 +15,7 @@ int main(int argc, char* argv[])
 
 	static const std::string PLANNING_GROUP = "manipulator";
 	moveit::planning_interface::MoveGroupInterface move_group(PLANNING_GROUP);
-	const std::vector<double> init_joint_values = {1.61967921257, -0.316306859255, -1.86695694923, -1.14934372902, -0.374367237091, -0.273443460464, 0.000240624460275};
-	//const std::vector<double> init_joint_values = {2.27785921097 -0.441973984241 -2.64661121368 -0.966646552086 -0.884180426598 -0.51678442955 -2.74567556381};
-	
+	const std::vector<double> init_joint_values = {-0.5866283774375916, 0.27649152278900146, 0.0, -0.9963206052780151, -1.0167710781097412, -0.5848567485809326, 0.8310868144035339};
 	// make robot be enable
 	std_srvs::Trigger robot_enable_triger;
 	ros::service::call("/robot_enable", robot_enable_triger);

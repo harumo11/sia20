@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <ros/ros.h>
+#include <ros/console.h>
 #include <sensor_msgs/Joy.h>
 #include <std_srvs/Trigger.h>
 #include <geometry_msgs/Twist.h>
@@ -70,7 +71,9 @@ int main(int argc, char* argv[])
 	auto target_displacement_publisher = node.advertise<geometry_msgs::Pose>("/target_displacement", 1);
 	trajectory_msgs::JointTrajectoryPoint joint_trajectory_point_msgs;
 	// target_poseの設定
-	auto target_pose_publishser = node.advertise<geometry_msgs::Pose>("target_pose", 1);
+	auto target_pose_publisher = node.advertise<geometry_msgs::Pose>("target_pose", 1);
+	// pose_following/cmd_vel用のpublisher
+	auto target_pose_twist_publisher = node.advertise<geometry_msgs::Twist>("pose_following/cmd_vel", 1);
 	
 	int iter = 0;
 	while (ros::ok()) {
@@ -198,13 +201,24 @@ int main(int argc, char* argv[])
 		tf2::Matrix3x3(target_link_t_quat).getRPY(t_r, t_p, t_w);
 		tf2::Matrix3x3(current_link_t_quat).getRPY(c_r, c_p, c_w);
 
-		ROS_INFO_STREAM("r : " << r << " p : " << p << " w : " << w); 
-		ROS_INFO_STREAM("c_r : " << c_r << " c_p : " << c_p << " c_w : " << w); 
-		ROS_INFO_STREAM("t_r : " << t_r << " t_p : " << t_p << " t_w : " << w); 
+		ROS_INFO_STREAM("relative\t"       << r   << "\t" << p   << "\t" << w);
+		ROS_INFO_STREAM("current link_t\t" << c_r << "\t" << c_p << "\t" << c_w);
+		ROS_INFO_STREAM("target  link_t\t" << t_r << "\t" << t_p << "\t" << t_w);
 		
 		ROS_INFO_STREAM(displacement_link_t);
 
 		target_displacement_publisher.publish(displacement_link_t);
+
+		// pose_following/cmd_vel
+		geometry_msgs::Twist cmd_vel;
+		cmd_vel.linear.x = displacement_link_t.position.x;
+		cmd_vel.linear.y = displacement_link_t.position.y;
+		cmd_vel.linear.z = displacement_link_t.position.z;
+		cmd_vel.angular.x = r;
+		cmd_vel.angular.y = p;
+		cmd_vel.angular.z = w;
+		ROS_INFO_STREAM("/cmd_vel\t" << cmd_vel);
+		target_pose_twist_publisher.publish(cmd_vel);
 
 		iter++;
 		timer.sleep();
