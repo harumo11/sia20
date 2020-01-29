@@ -164,7 +164,7 @@ int main(int argc, char *argv[]) {
             const std::string file_path = "/home/robot/catkin_ws/src/sia20/sia20_control/log/";
             std::ofstream log_file(file_path + "log_" + std::to_string(file_number++) + ".csv");
 			std::stringstream ss;
-			log_file << "dirt(x), dirt(y), dirt(z), dirt(r), dirt(p), dirt(w), goal(x), goal(y), goal(z), goal(r), goal(p), goal(w), broom(x), broom(y), broom(z), broom(r), broom(p), broom(w), joint state(s), joint state(l), joint state(e), joint state(u), joint state(r), joint state(b), joint state(t), joint command(s), joint command(l), joint command(e), joint command(u), joint command(r), joint command(b), joint command(t), pose state(x), pose state(y), pose state(z), pose state(q_x), pose state(q_y), pose state(q_z), pose state(q_w), cmd_vel(x), cmd_vel(y), cmd_vel(z), cmd_vel(r), cmd_vel(p), cmd_vel(w)" << std::endl;
+			log_file << "dirt(x), dirt(y), dirt(z), dirt(r), dirt(p), dirt(w), goal(x), goal(y), goal(z), goal(r), goal(p), goal(w), broom(x), broom(y), broom(z), broom(r), broom(p), broom(w), joint state(s), joint state(l), joint state(e), joint state(u), joint state(r), joint state(b), joint state(t), joint command(s), joint command(l), joint command(e), joint command(u), joint command(r), joint command(b), joint command(t), pose state(x), pose state(y), pose state(z), pose state(r), pose state(p), pose state(w), cmd_vel(x), cmd_vel(y), cmd_vel(z), cmd_vel(r), cmd_vel(p), cmd_vel(w)" << std::endl;
 
 			while (true) {
 				// moveitから現在の手先位置を取得
