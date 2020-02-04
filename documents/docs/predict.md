@@ -17,3 +17,15 @@ pose_follower
 ```
 rosrun manipulator_pose_following pose_following_jaco_node
 ```
+
+初期位置への移動	
+```
+rosrun sia20_control move_init_pose_srv_node
+```
+
+### PC-harumoで行うコマンド
+```
+rosrun sia20_recognition ar_pose_estimation
+```
+
+
