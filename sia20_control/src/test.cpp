@@ -67,6 +67,9 @@ int main(int argc, char* argv[])
 	spinner.start();
 	ros::Rate timer(100);
 
+	//パブリッシャー宣言
+	auto target_velocity_publisher = node.advertise<geometry_msgs::Twist>("pose_following/cmd_vel", 1);
+
 	//リスナー宣言
 	PoseListener dirt_pose_listener;
 	PoseListener broom_pose_listener;
@@ -125,8 +128,7 @@ int main(int argc, char* argv[])
 	dynet::Expression b4 = dynet::parameter(cg, p_b4);
 
 	//入出力設定
-	auto x_value_ptr = std::make_shared<std::vector<dynet::real>>();	//センサデータのミニバッチのポインタ（入力）
-	//auto y_value_ptr = std::make_shared<std::vector<dynet::real>>();	//教師データのミニバッチのポインタ（出力）
+	auto x_value_ptr = std::make_shared<std::vector<dynet::real>>();	//センサデータののポインタ（入力）
 	////ノード作成
 	dynet::Expression x = dynet::input(cg, {INPUT_DIM}, x_value_ptr.get());
 
@@ -157,26 +159,28 @@ int main(int argc, char* argv[])
 		std::vector<double> hand_pose_vector = twist_to_vector(pose_to_twist(move_group.getCurrentPose()));
 		x_value_ptr->clear();
 
+		//受け取ったデータをベクトルx_value_ptrに格納
+		x_value_ptr->insert(x_value_ptr->end(), dirt_pose_vector.begin(), dirt_pose_vector.end());
+		x_value_ptr->insert(x_value_ptr->end(), goal_pose_vector.begin(), goal_pose_vector.end());
+		x_value_ptr->insert(x_value_ptr->end(), broom_pose_vector.begin(), broom_pose_vector.end());
+
+		//推測を実行し，cmd_velを得る
+		cg.forward(y_pred);
+		auto cmd_vel = dynet::as_vector(y_pred.value());
+
+		//推測したcmd_velを送る
+		geometry_msgs::Twist cmd_vel_msgs;
+		cmd_vel_msgs.linear.x = cmd_vel.at(0);
+		cmd_vel_msgs.linear.y = cmd_vel.at(1);
+		cmd_vel_msgs.linear.z = cmd_vel.at(2);
+		cmd_vel_msgs.angular.x = cmd_vel.at(3);
+		cmd_vel_msgs.angular.y = cmd_vel.at(4);
+		cmd_vel_msgs.angular.z = cmd_vel.at(5);
+		target_velocity_publisher.publish(cmd_vel_msgs);
+
+		ROS_INFO_STREAM("Publish Once");
 	}
 
-	//推測を実行
-	////入出力を作成
-	auto one_supervised_csv = supervisor_data_csv.get_random_sampling(1);
-	for (int j = 0; j < one_supervised_csv.raw_size(); j++) {
-		if (j < 24) {	//入力データ作成
-			x_value_ptr->push_back(one_supervised_csv(0, j).get_as_double());
-		}
-		else {	//出力データ作成
-			y_value_ptr->push_back(one_supervised_csv(0, j).get_as_double());
-		}
-	}
-	////入出力を表示
-	print_vector(*x_value_ptr, "x_value");
-	print_vector(*y_value_ptr, "y_value");
-	////推測を実行
-	cg.forward(y_pred);
-	auto y_pred_vec = dynet::as_vector(y_pred.value());
-	print_vector(y_pred_vec, "y_pred");
 
 	return 0;
 }

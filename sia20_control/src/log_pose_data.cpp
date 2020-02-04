@@ -4,7 +4,9 @@
 //使い方はコントローラの大きなマルボタンを押すと位置関係の初期化＆追従開始
 //コントローラの横の楕円のボタンを押すとコントローラの位置とロボットの手先座標
 //の記録を開始します．
+//記録はlog_pose_xxx.csvとして保存されます
 
+#include <fstream>
 #include <eigen3/Eigen/Dense>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
@@ -17,7 +19,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <fstream>
+#include <tf2_ros/buffer.h>
 
 void count_down(const int count_sec = 3){
 	for (int i = count_sec; i > 0; i--) {
@@ -94,7 +96,7 @@ std::string unstruct_joint_trajectory_msgs(const trajectory_msgs::JointTrajector
 	return ss.str();
 }
 
-// PoseStampedに含まれるQuaternionをRPYを含むTwistに変換する関数
+// PoseStampedのQuaternionをTwistのrpyに変換する関数
 geometry_msgs::Twist pose2twist(const geometry_msgs::PoseStamped pose){
 	// Quaternionをrpyに変換
 	tf2::Quaternion quat(pose.pose.orientation.x, pose.pose.orientation.y, pose.pose.orientation.z, pose.pose.orientation.w);
@@ -113,6 +115,24 @@ geometry_msgs::Twist pose2twist(const geometry_msgs::PoseStamped pose){
 	return twist;
 }
 
+geometry_msgs::Twist transform2twist(const geometry_msgs::TransformStamped transform){
+	// Quaternionをrpyに変換
+	tf2::Quaternion quat(transform.transform.rotation.x, transform.transform.rotation.y, transform.transform.rotation.z, transform.transform.rotation.w);
+	double r, p, w;
+	tf2::Matrix3x3(quat).getRPY(r, p, w);
+
+	// Twistに格納
+	geometry_msgs::Twist twist;
+	twist.linear.x = transform.transform.translation.x;
+	twist.linear.y = transform.transform.translation.y;
+	twist.linear.z = transform.transform.translation.z;
+	twist.angular.x = r;
+	twist.angular.y = p;
+	twist.angular.z = w;
+
+	return twist;
+
+}
 
 int main(int argc, char *argv[]) {
 
@@ -123,6 +143,7 @@ int main(int argc, char *argv[]) {
    ros::AsyncSpinner spinner(2);
    spinner.start();
    ros::Rate timer(40);
+   const std::string vive_controller_id = "controller_LHR_066549FF";
  
    // リスナー宣言
    ViveControllerListener vive_controller_listener;
@@ -158,7 +179,8 @@ int main(int argc, char *argv[]) {
             // 記録用ファイル作成
 			ros::spinOnce();
             const std::string file_path = "/home/robot/catkin_ws/src/sia20/sia20_control/log/";
-            std::ofstream log_file(file_path + "log_pose" + std::to_string(file_number++) + ".csv");
+			const std::string file_name = file_path + "log_pose" + std::to_string(file_number++) + ".csv";
+            std::ofstream log_file(file_name);
 			std::stringstream ss;
 			log_file << "hand pose (x)" << "," << "hand pose (y)" << "," << "hand pose (z)" << "," << "hand pose (r)" << "," << "hand pose (p)" << "," << "hand pose (w)" << "controller pose (x)" << "," << "controller pose (y)" << "," << "controller pose (z)" << "," << "controller pose (r)" << "," << "controller pose (p)" << "," << "controller pose (w)" << std::endl;
 
@@ -166,10 +188,21 @@ int main(int argc, char *argv[]) {
 				// moveitから現在の手先位置を取得
 				const auto current_hand_msgs = pose2twist(move_group.getCurrentPose());
 				// vive controllerの現在の位置を取得
-				//TODO ここからやって
-				log_file << unstruct_twist_msgs(current_hand_msgs) << "," <<  std::endl;
+				geometry_msgs::TransformStamped tf_world_to_controller;
+				try
+				{
+					tf_world_to_controller = tf_buffer.lookupTransform("local_controller", vive_controller_id, ros::Time(0));
+				}
+				catch(const tf2::TransformException& e)
+				{
+					ROS_WARN_STREAM(e.what());
+					continue;
+				}
+				geometry_msgs::Twist current_controller_msgs = transform2twist(tf_world_to_controller);
+
+				//取得した２つのデータを記録
+				log_file << unstruct_twist_msgs(current_hand_msgs) << "," << unstruct_twist_msgs(current_controller_msgs) << std::endl;
 				ROS_DEBUG_STREAM_THROTTLE(10, "Recording NOW!");
-				//ROS_INFO_STREAM(unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_traj_point_msgs(joint_traj_point_listener.data));
 				ros::spinOnce();
 				timer.sleep();
 
