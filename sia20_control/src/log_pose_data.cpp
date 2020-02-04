@@ -1,8 +1,14 @@
+//このプログラムはロボットの手先の追従性を確認するものです．
+//Viveコントローラからの命令と，実際のロボットの手先の位置を取得します．
+//
+//使い方はコントローラの大きなマルボタンを押すと位置関係の初期化＆追従開始
+//コントローラの横の楕円のボタンを押すとコントローラの位置とロボットの手先座標
+//の記録を開始します．
+
 #include <eigen3/Eigen/Dense>
-#include <eigen3/Eigen/Geomrtory>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
-#include <trajectory_msgs/JointTrajectoryPoint.h>
+#include <trajectory_msgs/JointTrajectory.h>
 #include <sensor_msgs/Joy.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <ros/ros.h>
