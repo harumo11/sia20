@@ -18,9 +18,19 @@ pose_follower
 rosrun manipulator_pose_following pose_following_jaco_node
 ```
 
+predict
+```
+rosrun sia20_control predict
+```
+
 初期位置への移動	
 ```
 rosrun sia20_control move_init_pose_srv_node
+```
+
+robot enable
+```
+rosservice call /robot_enable
 ```
 
 ### PC-harumoで行うコマンド
