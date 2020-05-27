@@ -32,6 +32,8 @@ group_names = robot.get_group_names()
 #print robot.get_current_state()
 #print ""
 
+rospy.loginfo("Those joints configuration is for harumo's broom puresure test")
+
 joint_goal = [0, 0, 0, 0, 0, 0, 0]
 joint_goal[0] = 0.0
 joint_goal[1] = -0.529410898685
