@@ -37,53 +37,11 @@ print "============ Printing robot state"
 print robot.get_current_state()
 print ""
 
-"""joint_goal = [0, 0, 0, 0, 0, 0]
-joint_goal[0] = 0
-joint_goal[1] = 0.3
-joint_goal[2] = 1.4
-joint_goal[3] = -pi / 4
-joint_goal[4] = 0
-joint_goal[5] = 0
-
-group.set_pose_target(joint_goal)
-group.go()
-#rospy.sleep(0.1)
-#rospy.sleep(3)
-#aa = raw_input('press enter to continue')
-
 joint_goal = [0, 0, 0, 0, 0, 0]
-joint_goal[0] = 0
-joint_goal[1] = 0
-joint_goal[2] = 1.3
-joint_goal[3] = 0
-joint_goal[4] = 0
-joint_goal[5] = 0
-
-group.set_pose_target(joint_goal)
-group.go()
-#rospy.sleep(0.1)
-#rospy.sleep(3)
-#aa = raw_input('press enter to continue')
-
-joint_goal = [0, 0, 0, 0, 0, 0]
-joint_goal[0] = 0
-joint_goal[1] = -0.3
-joint_goal[2] = 1.4
-joint_goal[3] = pi / 4
-joint_goal[4] = 0
-joint_goal[5] = 0
-
-group.set_pose_target(joint_goal)
-group.go()
-#rospy.sleep(0.1)
-#rospy.sleep(3)
-#aa = raw_input('press enter to continue')"""
-
-joint_goal = [0, 0, 0, 0, 0, 0]
-joint_goal[0] = -0.5371 - 0.15
-joint_goal[1] = 0.003181
-joint_goal[2] = 0.7051
-joint_goal[3] = -3.141592/2 #Roll
+joint_goal[0] = 0.0
+joint_goal[1] = -0.529410898685
+joint_goal[2] = -1.70442326635e-05
+joint_goal[3] =  #Roll
 joint_goal[4] = 1.22173 #Pitch
 joint_goal[5] = 3.141592/2 #Yaw
 
