@@ -141,7 +141,11 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/sia20_recogition_node.cpp)
 add_executable(ar_marker_pose_estimation_node src/ar_marker_pose_estimation_node.cpp)
 add_executable(ar_marker_creation src/ar_marker_creation.cpp)
+<<<<<<< HEAD
 #add_executable(cv_mat_init src/cv_mat_init.cpp)
+=======
+add_executable(leptorino src/leptorino.cpp)
+>>>>>>> 9f85ea1e8540421d2aad4cb25ef79d577f062775
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -165,11 +169,19 @@ target_link_libraries(ar_marker_creation
 	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
 )
+target_link_libraries(leptorino
+	rs_comm
+	Gpop
+	${catkin_LIBRARIES}
+	)
 
+<<<<<<< HEAD
 ##target_link_libraries(cv_mat_init
 ##	${catkin_INCLUDE_DIRS}
 ##	${OpenCV_LIBRARIES}
 ##)
+=======
+>>>>>>> 9f85ea1e8540421d2aad4cb25ef79d577f062775
 #############
 ## Install ##
 #############
