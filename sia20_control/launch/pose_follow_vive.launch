@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- sia20d -->
+	<node name="" pkg="sia20_control" type="sim_manager" respawn="false"
+		output="screen" >
+		<remap from="/joint_states" to="/sia20/joint_states" />
+	</node>
+</launch>
