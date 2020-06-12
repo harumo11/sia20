@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sia20_recogition)
 
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
+
+set(APPEND CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu")
+
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -16,9 +20,10 @@ find_package(catkin REQUIRED COMPONENTS
 	cv_bridge
 )
 
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 3.2 REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -122,7 +127,6 @@ catkin_package(
 include_directories(
 # include
  ${catkin_INCLUDE_DIRS}
- ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -141,6 +145,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/sia20_recogition_node.cpp)
 add_executable(ar_marker_pose_estimation_node src/ar_marker_pose_estimation_node.cpp)
 add_executable(ar_marker_creation src/ar_marker_creation.cpp)
+add_executable(sand src/sand.cpp)
 add_executable(leptorino src/leptorino.cpp)
 
 ## Rename C++ executable without prefix
@@ -157,6 +162,7 @@ add_executable(leptorino src/leptorino.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
 target_link_libraries(ar_marker_pose_estimation_node
 	${OpenCV_LIBRARIES}
 	${catkin_LIBRARIES}
@@ -165,11 +171,19 @@ target_link_libraries(ar_marker_creation
 	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
 )
+
+target_link_libraries(sand
+	${catkin_LIBRARIES}
+	${OpenCV_LIBRARIES}
+)
+
 target_link_libraries(leptorino
 	rs_comm
 	Gpop
 	${catkin_LIBRARIES}
 	)
+
+message(WORN ${catkin_LIBRARIES})
 
 #############
 ## Install ##

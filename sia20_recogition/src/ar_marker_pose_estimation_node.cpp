@@ -4,6 +4,8 @@
 // dirt id : 0
 // goal id : 1
 // broom id : 2
+//
+// さらに，砂の中心を計算します．
 
 
 #include <ros/ros.h>
@@ -32,7 +34,7 @@ int main(int argc, char* argv[])
 	cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
 
 	// カメラを起動
-	cv::VideoCapture cap(2);
+	cv::VideoCapture cap(0);
 	cv::Mat frame;
 	cv::Mat src;
 

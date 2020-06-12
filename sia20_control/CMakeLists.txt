@@ -57,6 +57,7 @@ add_executable(predict src/test.cpp)
 add_executable(predict2 src/test3.cpp)
 add_executable(repeat src/repeat.cpp)
 add_executable(sakakibara src/sakakibara.cpp)
+add_executable(simple_velocity_control src/simple_velocity_control.cpp)
 
 target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
 #target_link_libraries(joint_trajectory_publisher_ik ${catkin_LIBRARIES})
@@ -89,4 +90,5 @@ target_link_libraries(predict dynet pthread ${catkin_LIBRARIES})
 target_link_libraries(predict2 dynet pthread ${catkin_LIBRARIES})
 target_link_libraries(repeat fanda ${catkin_LIBRARIES})
 target_link_libraries(sakakibara ${catkin_LIBRARIES})
+target_link_libraries(simple_velocity_control ${catkin_LIBRARIES})
 
