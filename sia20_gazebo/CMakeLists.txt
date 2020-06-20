@@ -11,8 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
   gazebo_ros_control
-  sia20_control
-  sia20_description
   xacro
 )
 
