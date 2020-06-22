@@ -20,7 +20,7 @@ roslaunch vive_ros server_vr.launch
 2.  launch ROS topic bridge
 
 ```
-rosrun vive_ros vive.launch
+roslaunch vive_ros vive.launch
 ```
 
 3. rvizで確認
@@ -38,6 +38,9 @@ Add -> By Display Type -> TF
 ただ床から2.265m上空だと表示されるが，実際は2.1mなので誤差がある．
 steam-vrのroom scaleを再度実行して調整すると元に戻るかも．．
 
+## コントローラ
+- LHR_3CCD7CA5 (キズあり）
+- LHR_066549FF (テープあり)
 
 ## トラブルシューティング
 
