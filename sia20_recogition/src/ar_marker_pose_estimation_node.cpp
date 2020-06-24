@@ -21,11 +21,6 @@ int main(int argc, char* argv[])
 {
 	// cv_bridgeと併用するとファイルが読み込めないことがわかった
 	// カメラのキャリブレーションデータを読み込む
-	//cv::FileStorage my_fs("/home/harumo/catkin_ws/src/sia20/sia20_recogition/config/params.yml", cv::FileStorage::READ);
-	//if (!my_fs.isOpened()) {
-	//	std::cout << "Camera calibration file is not opened" << std::endl;
-	//	std::exit(-1);
-	//}
 	// intrinsic matrixを読み込み(3,3)
 	cv::Mat camera_matrix = (cv::Mat_<double>(3,3) << 5.7676473334939226e+02, 0.0, 3.2108661199975330e+02, 0.0, 5.7659577304127572e+02, 2.3379326055411508e+02, 0.0, 0.0, 1.0);
 	// distortion matrixを読み込み(1,5)
@@ -35,6 +30,10 @@ int main(int argc, char* argv[])
 
 	// カメラを起動
 	cv::VideoCapture cap(0);
+	if (!cap.isOpened()) {
+		ROS_ERROR_STREAM("Can't open the camera. exit");
+		std::exit(-1);
+	}
 	cv::Mat frame;
 	cv::Mat src;
 
@@ -50,9 +49,9 @@ int main(int argc, char* argv[])
 	cv_bridge::CvImage ros_image;
 	ros_image.header.stamp = ros::Time::now();
 	ros_image.header.frame_id = "ar_image";
-	ros_image.encoding = "rgb8";
+	ros_image.encoding = "bgr8";
 
-	while (true) {
+	while (ros::ok()) {
 		// カメラから画像を取得
 		cap >> src;
 		frame = src;
@@ -128,12 +127,6 @@ int main(int argc, char* argv[])
 		else {
 			std::cout << "NO AR marker is detected" << std::endl;
 		}
-
-		if (cv::waitKey(27) > 1) {
-			ros::shutdown();
-			std::exit(0);
-		}
-		cv::imshow("src", src);
 
 		ros_image.image = src;
 		image_pub.publish(ros_image.toImageMsg());

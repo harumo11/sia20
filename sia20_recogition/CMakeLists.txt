@@ -145,6 +145,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/sia20_recogition_node.cpp)
 add_executable(ar_marker_pose_estimation_node src/ar_marker_pose_estimation_node.cpp)
 add_executable(ar_marker_creation src/ar_marker_creation.cpp)
+add_executable(ar_marker_and_candy_pose_estimation_node src/ar_marker_and_candy_pose_estimation_node.cpp)
 add_executable(sand src/sand.cpp)
 #add_executable(cv_mat_init src/cv_mat_init.cpp)
 add_executable(leptorino src/leptorino.cpp)
@@ -183,6 +184,10 @@ target_link_libraries(leptorino
 	Gpop
 	${catkin_LIBRARIES}
 	)
+target_link_libraries(ar_marker_and_candy_pose_estimation_node
+	${catkin_LIBRARIES}
+	${OpenCV_LIBRARIES}
+)
 
 
 #############
