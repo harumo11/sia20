@@ -35,14 +35,14 @@ group_names = robot.get_group_names()
 rospy.loginfo("Those joints configuration is for harumo's broom puresure test")
 
 joint_goal = [0, 0, 0, 0, 0, 0, 0]
-# short brush 70deg
-joint_goal[0] = 0.000528371194378 
-joint_goal[1] = -1.29529345036
-joint_goal[2] = 0.000221575013711
-joint_goal[3] = 1.43981146812
-joint_goal[4] = 3.03758570226e-05
-joint_goal[5] = -1.51197338104 
-joint_goal[6] = 0.0015039028367
+# short sponge
+joint_goal[0] = -0.3186
+joint_goal[1] =  0.2539
+joint_goal[2] =  0.0008
+joint_goal[3] = -1.6698
+joint_goal[4] =  0.77011
+joint_goal[5] =  0.51063
+joint_goal[6] = -0.9972
 # short broom 70deg
 #joint_goal[0] = 0.000681769277435 
 #joint_goal[1] = -0.992639005184
