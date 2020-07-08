@@ -20,7 +20,7 @@ roslaunch vive_ros server_vr.launch
 2.  launch ROS topic bridge
 
 ```
-roslaunch vive_ros vive.launch
+rosrun vive_ros vive_node
 ```
 
 3. rvizで確認
