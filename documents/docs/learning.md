@@ -75,7 +75,14 @@ rosrun sia20_recogition leptorino
 
 ![DSC_0228](image/DSC_0228.JPG)
 
-
+- linear
+	- x : -0.33 ~ -0.31
+	- y : -0.11 ~ -0.10
+	- z : 0.10  ~ 0.12
+- anguler
+	- x : -2.59
+	- y : -0.21 ~ -0.27
+	- z : 0.10 ~ 0.12
 
 
 ## Issue
