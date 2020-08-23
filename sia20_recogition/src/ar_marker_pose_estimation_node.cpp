@@ -4,8 +4,6 @@
 // dirt id : 0
 // goal id : 1
 // broom id : 2
-//
-// さらに，砂の中心を計算します．
 
 
 #include <ros/ros.h>

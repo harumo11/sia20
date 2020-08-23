@@ -1,11 +1,10 @@
 // このプログラムはOpenCV arucoのARマーカを読み取り
 // 最終的にtarget,broomそしてgoalの座標をrosに流すものです．
 //
-// dirt id : 0
 // goal id : 1
 // broom id : 2
 //
-// さらに，砂の中心を計算します．
+// さらに，飴の袋の中心を計算します．
 
 
 #include <ros/ros.h>
@@ -58,7 +57,7 @@ int main(int argc, char* argv[])
 	while (ros::ok()) {
 		// カメラから画像を取得
 		cap >> src;
-		frame = src;
+		src.copyTo(frame);
 
 		// ARマーカをカメラ画像から取得
 		std::vector<int> ids;	// 発見したARマーカのIDが入る
@@ -111,82 +110,82 @@ int main(int argc, char* argv[])
 			cv::imshow("ar", frame);
 			cv::waitKey(10);
 
-		//	//　飴を見つけるための処理
-		//	static int hsv_h_min = 29;
-		//	static int hsv_h_max = 70;
-		//	static int hsv_s_min = 37; 
-		//	static int hsv_s_max = 255;
-		//	static int hsv_v_min = 0;
-		//	static int hsv_v_max = 255;
-		//	cv::createTrackbar("hsv_h_min", "trackbar", &hsv_h_min, 255);
-		//	cv::createTrackbar("hsv_h_max", "trackbar", &hsv_h_max, 255);
-		//	cv::createTrackbar("hsv_s_min", "trackbar", &hsv_s_min, 255);
-		//	cv::createTrackbar("hsv_s_max", "trackbar", &hsv_s_max, 255);
-		//	cv::createTrackbar("hsv_v_min", "trackbar", &hsv_v_min, 255);
-		//	cv::createTrackbar("hsv_v_max", "trackbar", &hsv_v_max, 255);
-		//	static int element_close_kernel_size = 10;
-		//	static int element_open_kernel_size = 2;
-		//	cv::createTrackbar("closing_kernel_size", "trackbar", &element_close_kernel_size, 10);
-		//	cv::createTrackbar("opening_kernel_size", "trackbar", &element_open_kernel_size, 10);
-		//	cv::cvtColor(src, hsv_frame, cv::COLOR_BGR2HSV);
-		//	cv::inRange(hsv_frame, cv::Scalar(hsv_h_min, hsv_s_min, hsv_v_min), cv::Scalar(hsv_h_max, hsv_s_max, hsv_v_max), hsv_frame);
-		//	cv::Mat element_close(element_close_kernel_size, element_close_kernel_size, CV_8U, cv::Scalar::all(255));	//morphingのための構造体
-		//	cv::Mat element_open(element_open_kernel_size, element_open_kernel_size, CV_8U, cv::Scalar::all(255));	//morphingのための構造体
-		//	cv::morphologyEx(hsv_frame, opening_frame, cv::MORPH_OPEN, element_open, cv::Point(1, 1), 3);
-		//	cv::morphologyEx(opening_frame, closing_frame, cv::MORPH_CLOSE, element_close, cv::Point(-1, -1), 3);
+			//　飴を見つけるための処理
+			static int hsv_h_min = 29;
+			static int hsv_h_max = 70;
+			static int hsv_s_min = 37; 
+			static int hsv_s_max = 255;
+			static int hsv_v_min = 0;
+			static int hsv_v_max = 255;
+			cv::createTrackbar("hsv_h_min", "trackbar", &hsv_h_min, 255);
+			cv::createTrackbar("hsv_h_max", "trackbar", &hsv_h_max, 255);
+			cv::createTrackbar("hsv_s_min", "trackbar", &hsv_s_min, 255);
+			cv::createTrackbar("hsv_s_max", "trackbar", &hsv_s_max, 255);
+			cv::createTrackbar("hsv_v_min", "trackbar", &hsv_v_min, 255);
+			cv::createTrackbar("hsv_v_max", "trackbar", &hsv_v_max, 255);
+			static int element_close_kernel_size = 10;
+			static int element_open_kernel_size = 2;
+			cv::createTrackbar("closing_kernel_size", "trackbar", &element_close_kernel_size, 10);
+			cv::createTrackbar("opening_kernel_size", "trackbar", &element_open_kernel_size, 10);
+			cv::cvtColor(src, hsv_frame, cv::COLOR_BGR2HSV);
+			cv::inRange(hsv_frame, cv::Scalar(hsv_h_min, hsv_s_min, hsv_v_min), cv::Scalar(hsv_h_max, hsv_s_max, hsv_v_max), hsv_frame);
+			cv::Mat element_close(element_close_kernel_size, element_close_kernel_size, CV_8U, cv::Scalar::all(255));	//morphingのための構造体
+			cv::Mat element_open(element_open_kernel_size, element_open_kernel_size, CV_8U, cv::Scalar::all(255));	//morphingのための構造体
+			cv::morphologyEx(hsv_frame, opening_frame, cv::MORPH_OPEN, element_open, cv::Point(1, 1), 3);
+			cv::morphologyEx(opening_frame, closing_frame, cv::MORPH_CLOSE, element_close, cv::Point(-1, -1), 3);
 
-		//	// ラベリング
-		//	cv::connectedComponentsWithStats(closing_frame, labels, stats, centoids);
-		//	labeling_frame = closing_frame;
-		//	cv::cvtColor(labeling_frame, labeling_frame, cv::COLOR_GRAY2BGR);
-		//	int max_area_index = 0;
-		//	int max_area = 0;
-		//	for (int i = 0; i < stats.rows; i++) {
-		//		int x = stats.at<int>(cv::Point(0,i));
-		//		int y = stats.at<int>(cv::Point(1,i));
-		//		int w = stats.at<int>(cv::Point(2,i));
-		//		int h = stats.at<int>(cv::Point(3,i));
+			// ラベリング
+			cv::connectedComponentsWithStats(closing_frame, labels, stats, centoids);
+			labeling_frame = closing_frame;
+			cv::cvtColor(labeling_frame, labeling_frame, cv::COLOR_GRAY2BGR);
+			int max_area_index = 0;
+			int max_area = 0;
+			for (int i = 0; i < stats.rows; i++) {
+				int x = stats.at<int>(cv::Point(0,i));
+				int y = stats.at<int>(cv::Point(1,i));
+				int w = stats.at<int>(cv::Point(2,i));
+				int h = stats.at<int>(cv::Point(3,i));
 
-		//		int area = w * h;
-		//		std::cout << "area : " << area << std::endl;
-		//		if ((area < 300000) && (area > max_area)) {
-		//			max_area_index = i;
-		//			max_area = area;
-		//		}
+				int area = w * h;
+				std::cout << "area : " << area << std::endl;
+				if ((area < 300000) && (area > max_area)) {
+					max_area_index = i;
+					max_area = area;
+				}
 
-		//		//cv::Scalar color(255, 0, 0);
-		//		//cv::Rect rect(stats.at<int>(cv::Point(0, i)),
-		//		//			  stats.at<int>(cv::Point(1, i)), 
-		//		//			  stats.at<int>(cv::Point(2, i)),
-		//		//			  stats.at<int>(cv::Point(3, i)));
-		//		//cv::rectangle(labeling_frame, rect, color);
-		//	}
-		//	//　最大面積のラベルのバウンディングボックスのみ表示
-		//	std::cout << "Max area index : " << max_area_index << std::endl;
-		//	cv::Scalar color(255, 0, 0);
-		//	int x = stats.at<int>(cv::Point(0, max_area_index));
-		//	int y = stats.at<int>(cv::Point(1, max_area_index));
-		//	int w = stats.at<int>(cv::Point(2, max_area_index));
-		//	int h = stats.at<int>(cv::Point(3, max_area_index));
-		//	cv::Rect rect(x,y,w,h);
-		//	std::cout << "rect area : " << rect.area() << " x : " << x << " y : " << y << std::endl;
-		//	cv::rectangle(labeling_frame, rect, color);
-		//	cv::Vec2d dirt_center = centoids.at<double>(max_area_index);
-		//	// 飴の重心を計算
-		//	dirt_pose.linear.x = (rect.tl().x + rect.br().x)/2.0;
-		//	dirt_pose.linear.y = (rect.tl().y + rect.br().y)/2.0;
-		//	cv::circle(labeling_frame, {(int)dirt_pose.linear.x, (int)dirt_pose.linear.y}, 5, {255, 0, 0}, -1);
-		//	// 深層学習のために正規化する．
-		//	// 205 pixel ==> 0.205 のように1*10^-2する
-		//	dirt_pose.linear.x *= 0.001;
-		//	dirt_pose.linear.y *= 0.001;
+				cv::Scalar color(255, 0, 0);
+				cv::Rect rect(stats.at<int>(cv::Point(0, i)),
+							  stats.at<int>(cv::Point(1, i)), 
+							  stats.at<int>(cv::Point(2, i)),
+							  stats.at<int>(cv::Point(3, i)));
+				cv::rectangle(labeling_frame, rect, color);
+			}
+			//　最大面積のラベルのバウンディングボックスのみ表示
+			std::cout << "Max area index : " << max_area_index << std::endl;
+			cv::Scalar color(255, 0, 0);
+			int x = stats.at<int>(cv::Point(0, max_area_index));
+			int y = stats.at<int>(cv::Point(1, max_area_index));
+			int w = stats.at<int>(cv::Point(2, max_area_index));
+			int h = stats.at<int>(cv::Point(3, max_area_index));
+			cv::Rect rect(x,y,w,h);
+			std::cout << "rect area : " << rect.area() << " x : " << x << " y : " << y << std::endl;
+			cv::rectangle(labeling_frame, rect, color);
+			cv::Vec2d dirt_center = centoids.at<double>(max_area_index);
+			// 飴の重心を計算
+			dirt_pose.linear.x = (rect.tl().x + rect.br().x)/2.0;
+			dirt_pose.linear.y = (rect.tl().y + rect.br().y)/2.0;
+			cv::circle(labeling_frame, {(int)dirt_pose.linear.x, (int)dirt_pose.linear.y}, 5, {255, 0, 0}, -1);
+			// 深層学習のために桁合わせする．
+			// 205 pixel ==> 0.205 のように1*10^-2する
+			dirt_pose.linear.x *= 0.001;
+			dirt_pose.linear.y *= 0.001;
 
-		//	for (int i = 0; i < stats.rows; i++) {
-		//		double *param = centoids.ptr<double>(i);
-		//		int x = static_cast<int>(param[0]);
-		//		int y = static_cast<int>(param[1]);
-		//		cv::circle(labeling_frame, cv::Point(x,y), 3, cv::Scalar(0,0,255), -1);
-		//	}
+			for (int i = 0; i < stats.rows; i++) {
+				double *param = centoids.ptr<double>(i);
+				int x = static_cast<int>(param[0]);
+				int y = static_cast<int>(param[1]);
+				cv::circle(labeling_frame, cv::Point(x,y), 3, cv::Scalar(0,0,255), -1);
+			}
 
 			// 最初の１つだけマーカの座標を表示
 			std::cout << "(x, y, z) : " << tvecs.front()[0] << "\t,\t" << tvecs.front()[1] << "\t,\t" << tvecs.front()[2] << std::endl;
@@ -209,8 +208,8 @@ int main(int argc, char* argv[])
 		//cv::imshow("closing", closing_frame);
 		//cv::imshow("opening", opening_frame);
 		//cv::imshow("result", src);
-		//cv::imshow("labeld", labeling_frame);
-		//cv::waitKey(1);
+		cv::imshow("labeld", labeling_frame);
+		cv::waitKey(1);
 	}
 
 	return 0;

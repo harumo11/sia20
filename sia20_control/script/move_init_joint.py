@@ -4,9 +4,11 @@ import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
+from std_srvs.srv import Trigger
 from math import pi
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
+
 moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node('move_group', anonymous=True)
 robot = moveit_commander.RobotCommander()
@@ -33,24 +35,29 @@ group_names = robot.get_group_names()
 #print ""
 
 rospy.loginfo("Those joints configuration is for harumo's broom puresure test")
+rospy.loginfo("Servo on")
+
+rospy.wait_for_service("robot_enable")
+service_client = rospy.ServiceProxy("robot_enable", Trigger)
+service_client.call()
 
 joint_goal = [0, 0, 0, 0, 0, 0, 0]
-# short sponge
-joint_goal[0] = -0.3186
-joint_goal[1] =  0.2539
-joint_goal[2] =  0.0008
-joint_goal[3] = -1.6698
-joint_goal[4] =  0.77011
-joint_goal[5] =  0.51063
-joint_goal[6] = -0.9972
-# short broom 70deg
-#joint_goal[0] = 0.000681769277435 
-#joint_goal[1] = -0.992639005184
-#joint_goal[2] = 6.81769306539e-05
-#joint_goal[3] = 1.47650766373
-#joint_goal[4] = -0.000592329190113
-#joint_goal[5] = -0.532534301281 
-#joint_goal[6] = 0.00156405894086
+# short broom 
+#joint_goal[0] = -0.3186
+#joint_goal[1] =  0.2539
+#joint_goal[2] =  0.0008
+#joint_goal[3] = -1.6698
+#joint_goal[4] =  0.77011
+#joint_goal[5] =  0.51063
+#joint_goal[6] = -0.9972
+# long broom
+joint_goal[0] = -0.324965327978
+joint_goal[1] = 0.226790547371
+joint_goal[2] = -8.52211596793e-05
+joint_goal[3] = -1.0992847681
+joint_goal[4] = -1.0992847681
+joint_goal[5] = -0.349322348833
+joint_goal[6] = 0.958707988262
 
 group.set_joint_value_target(joint_goal)
 rospy.loginfo("Start to move the target : %s", joint_goal)

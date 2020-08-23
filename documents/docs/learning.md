@@ -49,11 +49,18 @@ rosrun sia20_control move_init_pose_srv_node
 ```
 立ち上げ後，ロボットは初期位置へ戻る
 
-### PC-harumoで行うコマンド
-
 ar image
 ```
 rosrun sia20_recognition ar_pose_estimation
+```
+ar image and sand 
+```
+rosrun sia20_recogition ar_marker_and_candy_pose_estimation_node 
+```
+
+圧力センサ
+```
+rosrun sia20_recogition leptorino 
 ```
 
 追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．

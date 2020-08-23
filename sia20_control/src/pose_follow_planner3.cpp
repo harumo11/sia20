@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
 	//ros::Rate timer(100);
-	ros::Rate timer(40);
+	ros::Rate timer(100);
 
 	// HTC Viveの設定
 	const std::string vive_controller_id = "controller_LHR_066549FF";

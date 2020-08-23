@@ -1,6 +1,11 @@
+// 模倣のための教師データを取得する
+// [rec start] Viveコントローラのサイドボタン（２つあるうちのどちらでも可）を押すと，数秒後にレコーディングが始まる．
+// [rec finish] Viveコントローラのサイドボタン（２つあるうちのどちらでも可）を押すと，レコーディングが終了する．
+
 #include <eigen3/Eigen/Dense>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
+#include <std_msgs/Float32MultiArray.h>
 #include <trajectory_msgs/JointTrajectoryPoint.h>
 #include <sensor_msgs/Joy.h>
 #include <moveit/move_group_interface/move_group_interface.h>
@@ -17,6 +22,13 @@ void count_down(const int count_sec = 3){
 	}
 	ROS_INFO_STREAM("Rec starts!");
 }
+
+// レプトリノのセンサデータをサブスクライブするクラス
+class MultiArrayListener {
+	public:
+		std_msgs::Float32MultiArray data;
+		void call_back(const std_msgs::Float32MultiArray msgs);
+};
 
 // Viveコントローラのボタンをサブスクライブするクラス
 class ViveControllerListener {
@@ -58,8 +70,13 @@ class PoseListener {
 		void call_back(const geometry_msgs::Twist msgs);
 };
 
+
 void PoseListener::call_back(const geometry_msgs::Twist msgs) {
 	this->data = msgs; 
+}
+
+void MultiArrayListener::call_back(const std_msgs::Float32MultiArray msgs){
+	this->data = msgs;
 }
 
 // 届いたposeメッセージのフォーマットを記録用に変更する関数
@@ -82,6 +99,13 @@ std::string unstruct_joint_trajectory_msgs(const trajectory_msgs::JointTrajector
 	ROS_INFO_STREAM("unstruct joint trajectory msgs");
 	ss << msgs.points.at(0).positions.at(0) << "," << msgs.points.at(0).positions.at(1) << "," << msgs.points.at(0).positions.at(2) << "," << msgs.points.at(0).positions.at(3) << "," << msgs.points.at(0).positions.at(4) << "," << msgs.points.at(0).positions.at(5) << "," << msgs.points.at(0).positions.at(6);
 	msgs.points.at(0).positions.at(0);
+	return ss.str();
+}
+
+// 届いたレプトリノのセンサデータのx軸方向の値だけ取り出して，フォーマットを記録用に変更する関数
+std::string unstruct_multi_array_msgs(const std_msgs::Float32MultiArray msgs){
+	std::stringstream ss;
+	ss << (msgs.data.at(0) * 500.0 / 4000);
 	return ss.str();
 }
 
@@ -123,6 +147,7 @@ int main(int argc, char *argv[]) {
    JointStateListener joint_state_listener;
    JointTrajectoryListener joint_trajectory_listener;
    ViveControllerListener vive_controller_listener;
+   MultiArrayListener leptorino_listener;
 
    // サブスクライバー初期化
    ros::Subscriber dirt_pose_subscriber = node.subscribe("/ar_dirt_pose", 1, &PoseListener::call_back, &dirt_pose_listener);
@@ -132,22 +157,30 @@ int main(int argc, char *argv[]) {
    ros::Subscriber joint_state_subscriber = node.subscribe("/joint_states", 1, &JointStateListener::call_back, &joint_state_listener);
    ros::Subscriber joint_trajectory_subscriber = node.subscribe("/joint_command", 1, &JointTrajectoryListener::call_back, &joint_trajectory_listener);
    ros::Subscriber vive_controller_subscriber = node.subscribe("/vive/controller_LHR_066549FF/joy", 1, &ViveControllerListener::call_back, &vive_controller_listener);
+   ros::Subscriber leptorino_subscriber = node.subscribe("/sensor_data", 1, &MultiArrayListener::call_back, &leptorino_listener);
 
    // moveit初期化
    moveit::planning_interface::MoveGroupInterface move_group("manipulator");
 
    // 全メッセージが到着するまで待つ
-   ROS_INFO_STREAM("Waiting for dirt, goal, broom pose, joint state and vive controller topic");
-   ros::topic::waitForMessage<geometry_msgs::Twist>("ar_dirt_pose");
-   ros::topic::waitForMessage<geometry_msgs::Twist>("ar_broom_pose");
-   ros::topic::waitForMessage<geometry_msgs::Twist>("ar_goal_pose");
-   ros::topic::waitForMessage<sensor_msgs::JointState>("joint_states");
-   ros::topic::waitForMessage<trajectory_msgs::JointTrajectory>("joint_command");
+   ROS_INFO_STREAM("Waiting for dirt, goal, broom pose, joint state, leptorino and vive controller topic");
+   ros::topic::waitForMessage<geometry_msgs::Twist>("/ar_dirt_pose");
+   ROS_INFO_STREAM("ar_dirt_pose message is found");
+   ros::topic::waitForMessage<geometry_msgs::Twist>("/ar_broom_pose");
+   ROS_INFO_STREAM("ar_broom_pose message is found");
+   ros::topic::waitForMessage<geometry_msgs::Twist>("/ar_goal_pose");
+   ROS_INFO_STREAM("ar_goal_pose message is found");
+   ros::topic::waitForMessage<sensor_msgs::JointState>("/joint_states");
+   ROS_INFO_STREAM("joint_states message is found");
+   ros::topic::waitForMessage<trajectory_msgs::JointTrajectory>("/joint_command");
+   ROS_INFO_STREAM("joint_command message is found");
    ros::topic::waitForMessage<sensor_msgs::Joy>("/vive/controller_LHR_066549FF/joy");
+   ROS_INFO_STREAM("vive controller message is found");
+   ros::topic::waitForMessage<std_msgs::Float32MultiArray>("/sensor_data");
+   ROS_INFO_STREAM("leptorino message is found");
  
     ROS_INFO_STREAM("Logging node starts");
     int file_number = 0;
-	
     while (ros::ok())
     {
         ROS_INFO_STREAM("Press Side button of Vive controller to start rec");
@@ -164,12 +197,12 @@ int main(int argc, char *argv[]) {
             const std::string file_path = "/home/robot/catkin_ws/src/sia20/sia20_control/log/";
             std::ofstream log_file(file_path + "log_" + std::to_string(file_number++) + ".csv");
 			std::stringstream ss;
-			log_file << "dirt(x), dirt(y), dirt(z), dirt(r), dirt(p), dirt(w), goal(x), goal(y), goal(z), goal(r), goal(p), goal(w), broom(x), broom(y), broom(z), broom(r), broom(p), broom(w), joint state(s), joint state(l), joint state(e), joint state(u), joint state(r), joint state(b), joint state(t), joint command(s), joint command(l), joint command(e), joint command(u), joint command(r), joint command(b), joint command(t), pose state(x), pose state(y), pose state(z), pose state(r), pose state(p), pose state(w), cmd_vel(x), cmd_vel(y), cmd_vel(z), cmd_vel(r), cmd_vel(p), cmd_vel(w)" << std::endl;
+			log_file << "dirt(x), dirt(y), dirt(z), dirt(r), dirt(p), dirt(w), goal(x), goal(y), goal(z), goal(r), goal(p), goal(w), broom(x), broom(y), broom(z), broom(r), broom(p), broom(w), joint state(s), joint state(l), joint state(e), joint state(u), joint state(r), joint state(b), joint state(t), joint command(s), joint command(l), joint command(e), joint command(u), joint command(r), joint command(b), joint command(t), pose state(x), pose state(y), pose state(z), pose state(r), pose state(p), pose state(w), cmd_vel(x), cmd_vel(y), cmd_vel(z), cmd_vel(r), cmd_vel(p), cmd_vel(w), leptorino(x)" << std::endl;
 
 			while (true) {
 				// moveitから現在の手先位置を取得
 				const auto current_hand_msgs = pose2twist(move_group.getCurrentPose());
-				log_file << unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_trajectory_msgs(joint_trajectory_listener.data) << "," << unstruct_twist_msgs(current_hand_msgs) << "," << unstruct_twist_msgs(cmd_vel_listener.data) << std::endl;
+				log_file << unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_trajectory_msgs(joint_trajectory_listener.data) << "," << unstruct_twist_msgs(current_hand_msgs) << "," << unstruct_twist_msgs(cmd_vel_listener.data) << "," << unstruct_multi_array_msgs(leptorino_listener.data) << std::endl;
 				ROS_DEBUG_STREAM_THROTTLE(10, "Recording NOW!");
 				//ROS_INFO_STREAM(unstruct_twist_msgs(dirt_pose_listener.data) << "," << unstruct_twist_msgs(goal_pose_listener.data) << "," << unstruct_twist_msgs(broom_pose_listener.data) << "," << unstruct_joint_state_msgs(joint_state_listener.data) << "," << unstruct_joint_traj_point_msgs(joint_traj_point_listener.data));
 				ros::spinOnce();
