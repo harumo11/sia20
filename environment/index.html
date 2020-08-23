@@ -40,7 +40,7 @@
     
     
       
-        <title>学習データ集め - SIA20</title>
+        <title>Environment - SIA20</title>
       
     
     
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#_1" tabindex="1" class="md-skip">
+      <a href="#environment" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -104,7 +104,7 @@
                 SIA20
               </span>
               <span class="md-header-nav__topic">
-                学習データ集め
+                Environment
               </span>
             
           
@@ -197,18 +197,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../environment/" title="Environment" class="md-nav__link">
-      Environment
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -220,11 +208,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        学習データ集め
+        Environment
       </label>
     
-    <a href="./" title="学習データ集め" class="md-nav__link md-nav__link--active">
-      学習データ集め
+    <a href="./" title="Environment" class="md-nav__link md-nav__link--active">
+      Environment
     </a>
     
       
@@ -238,42 +226,23 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" title="立ち上げ方" class="md-nav__link">
-    立ち上げ方
+  <a href="#_1" title="カメラの位置設定" class="md-nav__link">
+    カメラの位置設定
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pc-ng" title="PC-NGで行うコマンド" class="md-nav__link">
-    PC-NGで行うコマンド
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#issue" title="Issue" class="md-nav__link">
-    Issue
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roll180" title="テレオペを始めたときにrollが１８０度だけ移動する．" class="md-nav__link">
-    テレオペを始めたときにrollが１８０度だけ移動する．
+  <a href="#_2" title="机の位置設定" class="md-nav__link">
+    机の位置設定
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="箒の位置設定" class="md-nav__link">
+    箒の位置設定
+  </a>
   
 </li>
       
@@ -285,6 +254,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../learning/" title="学習データ集め" class="md-nav__link">
+      学習データ集め
+    </a>
   </li>
 
     
@@ -441,42 +422,23 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" title="立ち上げ方" class="md-nav__link">
-    立ち上げ方
+  <a href="#_1" title="カメラの位置設定" class="md-nav__link">
+    カメラの位置設定
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pc-ng" title="PC-NGで行うコマンド" class="md-nav__link">
-    PC-NGで行うコマンド
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#issue" title="Issue" class="md-nav__link">
-    Issue
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roll180" title="テレオペを始めたときにrollが１８０度だけ移動する．" class="md-nav__link">
-    テレオペを始めたときにrollが１８０度だけ移動する．
+  <a href="#_2" title="机の位置設定" class="md-nav__link">
+    机の位置設定
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="箒の位置設定" class="md-nav__link">
+    箒の位置設定
+  </a>
   
 </li>
       
@@ -497,56 +459,29 @@
               
                 
                 
-                <h1 id="_1">学習データ集め</h1>
-<h2 id="_2">立ち上げ方</h2>
-<h3 id="pc-ng">PC-NGで行うコマンド</h3>
-<p>roscore</p>
-<div class="highlight"><pre><span></span>roscore 
-</pre></div>
-
-<p>HTC Vive</p>
-<div class="highlight"><pre><span></span>roslaunch vive_ros server_vr.launch
-roslaunch vive_ros vive.launch
-</pre></div>
-
-<p>motoman</p>
-<div class="highlight"><pre><span></span>roslaunch motoman_sia20d_moveit_config moveit_planning_execution.launch sim:=false controller:=fs100 robot_ip:=10.0.0.2
-</pre></div>
-
-<p>pose_follower</p>
-<div class="highlight"><pre><span></span>rosrun manipulator_pose_following pose_following_jaco_node
-</pre></div>
-
-<p>pose_follow_planner</p>
-<p><div class="highlight"><pre><span></span>rosrun sia20_control pose_follow_planner3
-</pre></div>
-<em>pose_follow_planner</em>ではなく,必ず3の方を選ぶこと
-これを間違えるとコントローラと手先の座標が合わない</p>
-<p>logger
-<div class="highlight"><pre><span></span>rosrun sia20_control log_teacher_data
-</pre></div>
-立ち上げ後，Viveコントローラの側面のボタンを押すとロギングを開始し，
-再度，押すとロギングを終了する．なおボタンを押すごとにロギングファイルが作成される．</p>
-<p>初期位置への移動
-<div class="highlight"><pre><span></span>rosrun sia20_control move_init_pose_srv_node
-</pre></div>
-立ち上げ後，ロボットは初期位置へ戻る</p>
-<p>ar image
-<div class="highlight"><pre><span></span>rosrun sia20_recognition ar_pose_estimation
-</pre></div>
-ar image and sand 
-<div class="highlight"><pre><span></span>rosrun sia20_recogition ar_marker_and_candy_pose_estimation_node 
-</pre></div></p>
-<p>圧力センサ
-<div class="highlight"><pre><span></span>rosrun sia20_recogition leptorino 
-</pre></div></p>
-<p>追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．</p>
-<h2 id="issue">Issue</h2>
-<h3 id="roll180">テレオペを始めたときにrollが１８０度だけ移動する．</h3>
-<pre><code>初期値を変更するのではなく，開始時（丸ボタンを押したとき）にrollが１８０度
-必ず回転することを利用し，180度移動した後に，もう一回ボタンを押すことで回転をキャンセル
-することができる．バッドノウハウ．
-</code></pre>
+                <h1 id="environment">Environment</h1>
+<p>環境セットアップ
+<img alt="env_whole" src="../image/env_whole.JPG" /></p>
+<h2 id="_1">カメラの位置設定</h2>
+<p><img alt="image" src="../image/env_setup.png" /></p>
+<h2 id="_2">机の位置設定</h2>
+<p><img alt="leg_position" src="../image/leg_position.JPG" /></p>
+<p>白いテープが貼ってある場所が，ロボットの架台との接触線</p>
+<h2 id="_3">箒の位置設定</h2>
+<p>カメラから見て<code>ar_goal_pose</code>の座標は</p>
+<p>linear</p>
+<ul>
+<li>x : 0.318</li>
+<li>y : 0.193</li>
+<li>z : 0.958</li>
+</ul>
+<p>angular</p>
+<ul>
+<li>x : -0.327</li>
+<li>y : -2.426</li>
+<li>z : -0.591</li>
+</ul>
+<p>の付近にある</p>
                 
                   
                 
@@ -567,7 +502,7 @@ ar image and sand
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../environment/" title="Environment" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -576,19 +511,19 @@ ar image and sand
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Environment
+                FollowJointTrajectoryAction
               </span>
             </div>
           </a>
         
         
-          <a href="../leptorino/" title="leptorino torque and force sensor" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../learning/" title="学習データ集め" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                leptorino torque and force sensor
+                学習データ集め
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

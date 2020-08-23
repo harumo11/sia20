@@ -199,8 +199,32 @@
 
 
   <li class="md-nav__item">
+    <a href="../environment/" title="Environment" class="md-nav__link">
+      Environment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../learning/" title="学習データ集め" class="md-nav__link">
       学習データ集め
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../leptorino/" title="leptorino torque and force sensor" class="md-nav__link">
+      leptorino torque and force sensor
     </a>
   </li>
 
@@ -293,6 +317,30 @@
 
 
   <li class="md-nav__item">
+    <a href="../setup/" title="Setup" class="md-nav__link">
+      Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../trouble_shooting/" title="Trouble shooting" class="md-nav__link">
+      Trouble shooting
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../vive/" title="HTC Vive" class="md-nav__link">
       HTC Vive
     </a>
@@ -306,13 +354,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
     
-    <label class="md-nav__link" for="nav-7">
+    <label class="md-nav__link" for="nav-11">
       Japanese
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
+      <label class="md-nav__title" for="nav-11">
         Japanese
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -435,8 +483,14 @@
 <p>pose_follower
 <div class="highlight"><pre><span></span>rosrun manipulator_pose_following pose_following_jaco_node
 </pre></div></p>
+<p>predict
+<div class="highlight"><pre><span></span>rosrun sia20_control predict
+</pre></div></p>
 <p>初期位置への移動  <br />
 <div class="highlight"><pre><span></span>rosrun sia20_control move_init_pose_srv_node
+</pre></div></p>
+<p>robot enable
+<div class="highlight"><pre><span></span>rosservice call /robot_enable
 </pre></div></p>
 <h3 id="pc-harumo">PC-harumoで行うコマンド</h3>
 <div class="highlight"><pre><span></span>rosrun sia20_recognition ar_pose_estimation
@@ -476,13 +530,13 @@
           </a>
         
         
-          <a href="../vive/" title="HTC Vive" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../setup/" title="Setup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                HTC Vive
+                Setup
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

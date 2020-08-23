@@ -199,8 +199,32 @@
 
 
   <li class="md-nav__item">
+    <a href="../environment/" title="Environment" class="md-nav__link">
+      Environment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../learning/" title="学習データ集め" class="md-nav__link">
       学習データ集め
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../leptorino/" title="leptorino torque and force sensor" class="md-nav__link">
+      leptorino torque and force sensor
     </a>
   </li>
 
@@ -225,6 +249,30 @@
   <li class="md-nav__item">
     <a href="../predict/" title="学習実行" class="md-nav__link">
       学習実行
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../setup/" title="Setup" class="md-nav__link">
+      Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../trouble_shooting/" title="Trouble shooting" class="md-nav__link">
+      Trouble shooting
     </a>
   </li>
 
@@ -283,7 +331,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" title="トラブルシューティング" class="md-nav__link">
+  <a href="#_2" title="コントローラ" class="md-nav__link">
+    コントローラ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="トラブルシューティング" class="md-nav__link">
     トラブルシューティング
   </a>
   
@@ -300,6 +355,20 @@
           <li class="md-nav__item">
   <a href="#steamvrfaild" title="steamVRでfaildというエラーが出る．" class="md-nav__link">
     steamVRでfaildというエラーが出る．
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-cudasteam" title="NVidia cudaのドライバーのアップデートにより，steamが起動できなくなる．" class="md-nav__link">
+    NVidia cudaのドライバーのアップデートにより，steamが起動できなくなる．
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamstream-vrvivepcpcvive" title="Streamは起動するがStream-VRをしようとすると，VIVEをPCに挿してくださいと出る．当然PCにVIVEは繋がっている．" class="md-nav__link">
+    Streamは起動するがStream-VRをしようとすると，VIVEをPCに挿してくださいと出る．当然PCにVIVEは繋がっている．
   </a>
   
 </li>
@@ -327,13 +396,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
     
-    <label class="md-nav__link" for="nav-7">
+    <label class="md-nav__link" for="nav-11">
       Japanese
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
+      <label class="md-nav__title" for="nav-11">
         Japanese
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -422,7 +491,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" title="トラブルシューティング" class="md-nav__link">
+  <a href="#_2" title="コントローラ" class="md-nav__link">
+    コントローラ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="トラブルシューティング" class="md-nav__link">
     トラブルシューティング
   </a>
   
@@ -439,6 +515,20 @@
           <li class="md-nav__item">
   <a href="#steamvrfaild" title="steamVRでfaildというエラーが出る．" class="md-nav__link">
     steamVRでfaildというエラーが出る．
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-cudasteam" title="NVidia cudaのドライバーのアップデートにより，steamが起動できなくなる．" class="md-nav__link">
+    NVidia cudaのドライバーのアップデートにより，steamが起動できなくなる．
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamstream-vrvivepcpcvive" title="Streamは起動するがStream-VRをしようとすると，VIVEをPCに挿してくださいと出る．当然PCにVIVEは繋がっている．" class="md-nav__link">
+    Streamは起動するがStream-VRをしようとすると，VIVEをPCに挿してくださいと出る．当然PCにVIVEは繋がっている．
   </a>
   
 </li>
@@ -483,21 +573,36 @@
 <ol>
 <li>launch ROS topic bridge</li>
 </ol>
-<div class="highlight"><pre><span></span>roslaunch vive_ros vive.launch
+<div class="highlight"><pre><span></span>rosrun vive_ros vive_node
 </pre></div>
 
 <ol>
 <li>rvizで確認</li>
 </ol>
-<div class="highlight"><pre><span></span>rviz
+<p><div class="highlight"><pre><span></span>rviz
 </pre></div>
-
-<p>Fixed Frame -&gt; world
+Fixed Frame -&gt; world
 Add -&gt; By Display Type -&gt; TF</p>
+<ol>
+<li>ベースステーションの位置関係の設定</li>
+</ol>
+<p><div class="highlight"><pre><span></span>steam
+</pre></div>
+steamが立ち上がったら，room scaleでViveを使用するために
+初期設定を行ってください．初期設定は，ヘッドセット，コントローラ，ベースステーションの全てが
+接続されている必要があります．SteamVRを立ち上げ，右上の設定からConfigをクリックし空間の初期設定を行ってください．
+これは２台のベースステーションの位置関係が変わるたびに行ったほうが良いでしょう．
+そうでないと，以前の位置関係を引きずったまま，計測を行うことになります．</p>
 <h2 id="_1">座標系</h2>
 <p>本棚の上のベースステーションが{world}の上に存在する．
-ただ床から2.265m上空だと表示されるが，実際は2.1mなので誤差がある．</p>
-<h2 id="_2">トラブルシューティング</h2>
+ただ床から2.265m上空だと表示されるが，実際は2.1mなので誤差がある．
+steam-vrのroom scaleを再度実行して調整すると元に戻るかも．．</p>
+<h2 id="_2">コントローラ</h2>
+<ul>
+<li>LHR_3CCD7CA5 (キズあり）</li>
+<li>LHR_066549FF (テープあり)</li>
+</ul>
+<h2 id="_3">トラブルシューティング</h2>
 <h3 id="roslaunch">roslaunchでエラーが起きてプロセスが死ぬ</h3>
 <ol>
 <li>以前に使用したviveのサーバプログラムがゾンビプロセスになっている可能性があります．</li>
@@ -505,6 +610,16 @@ Add -&gt; By Display Type -&gt; TF</p>
 <p><code>rosrun vive_ros close_server.sh</code>を実行することによって多くの場合はゾンビプロセスをkillすることができます．killした後，もう一度roslaunchを試みてください．</p>
 <h3 id="steamvrfaild">steamVRでfaildというエラーが出る．</h3>
 <p>ROSからはアクセス可能な場合があります．ROSからアクセスできるか試してみてください．</p>
+<h3 id="nvidia-cudasteam">NVidia cudaのドライバーのアップデートにより，steamが起動できなくなる．</h3>
+<ol>
+<li>Software &amp; Updates -&gt; Additional Driversのドライバーがオープソースのものが選択されている可能性がある．一番最新の<strong>proprietary</strong>のドライバーを選択しよう．
+その後<code>sudo apt update &amp;&amp; sudo apt install cuda</code>すると治るかもしれない．</li>
+</ol>
+<h3 id="streamstream-vrvivepcpcvive">Streamは起動するがStream-VRをしようとすると，VIVEをPCに挿してくださいと出る．当然PCにVIVEは繋がっている．</h3>
+<p>udevのruleはSteam-VRのインストールと同時にインストールされるが，失敗したと思われる．
+<a href="https://github.com/ValveSoftware/steam-devices/blob/master/60-steam-vr.rules">ここ</a>をダウンロードして
+/etc/udev/rules.d/60-steam-vr.rulesに入れましょう．
+その後，<code>sudo udevadm control --reload-rules &amp;&amp; sudo udevadm trigger</code>を実行し，steamを立ち上げ確認する．</p>
                 
                   
                 
@@ -525,7 +640,7 @@ Add -&gt; By Display Type -&gt; TF</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../predict/" title="学習実行" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../trouble_shooting/" title="Trouble shooting" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -534,7 +649,7 @@ Add -&gt; By Display Type -&gt; TF</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                学習実行
+                Trouble shooting
               </span>
             </div>
           </a>
