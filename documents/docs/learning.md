@@ -65,6 +65,19 @@ rosrun sia20_recogition leptorino
 
 追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．
 
+## 初期条件
+### Long normal broom
+#### ar markerの取り付け角度
+
+![long_normal_broom_ar_marker_init](image/long_normal_broom_ar_marker_init.png)
+
+![DSC_0227](image/DSC_0227.JPG)
+
+![DSC_0228](image/DSC_0228.JPG)
+
+
+
+
 ## Issue
 
 ### テレオペを始めたときにrollが１８０度だけ移動する．
