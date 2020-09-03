@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -44,12 +44,12 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.3020aac5.css">
       
       
     
     
-      <script src="../assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -62,6 +62,9 @@
     
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+      
     
     
   </head>
@@ -99,22 +102,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                SIA20
-              </span>
-              <span class="md-header-nav__topic">
-                学習データ集め
-              </span>
-            
+            <span class="md-header-nav__topic">
+              SIA20
+            </span>
+            <span class="md-header-nav__topic">
+              学習データ集め
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -137,7 +137,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -177,18 +176,6 @@
   <li class="md-nav__item">
     <a href=".." title="ROS for SIA20" class="md-nav__link">
       ROS for SIA20
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../FollowJointTrajectoryAction/" title="FollowJointTrajectoryAction" class="md-nav__link">
-      FollowJointTrajectoryAction
     </a>
   </li>
 
@@ -249,6 +236,39 @@
   <a href="#pc-ng" title="PC-NGで行うコマンド" class="md-nav__link">
     PC-NGで行うコマンド
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="初期条件" class="md-nav__link">
+    初期条件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-normal-broom" title="Long normal broom" class="md-nav__link">
+    Long normal broom
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -332,6 +352,18 @@
   <li class="md-nav__item">
     <a href="../setup/" title="Setup" class="md-nav__link">
       Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../training_data/" title="教師データの作成方法" class="md-nav__link">
+      教師データの作成方法
     </a>
   </li>
 
@@ -461,6 +493,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_3" title="初期条件" class="md-nav__link">
+    初期条件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-normal-broom" title="Long normal broom" class="md-nav__link">
+    Long normal broom
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#issue" title="Issue" class="md-nav__link">
     Issue
   </a>
@@ -541,6 +606,26 @@ ar image and sand
 <div class="highlight"><pre><span></span>rosrun sia20_recogition leptorino 
 </pre></div></p>
 <p>追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．</p>
+<h2 id="_3">初期条件</h2>
+<h3 id="long-normal-broom">Long normal broom</h3>
+<h4 id="ar-marker">ar markerの取り付け角度</h4>
+<p><img alt="long_normal_broom_ar_marker_init" src="image/long_normal_broom_ar_marker_init.png" /></p>
+<p><img alt="DSC_0227" src="image/DSC_0227.JPG" /></p>
+<p><img alt="DSC_0228" src="image/DSC_0228.JPG" /></p>
+<ul>
+<li>linear<ul>
+<li>x : -0.33 ~ -0.31</li>
+<li>y : -0.11 ~ -0.10</li>
+<li>z : 0.10  ~ 0.12</li>
+</ul>
+</li>
+<li>anguler<ul>
+<li>x : -2.59</li>
+<li>y : -0.21 ~ -0.27</li>
+<li>z : 0.10 ~ 0.12</li>
+</ul>
+</li>
+</ul>
 <h2 id="issue">Issue</h2>
 <h3 id="roll180">テレオペを始めたときにrollが１８０度だけ移動する．</h3>
 <pre><code>初期値を変更するのではなく，開始時（丸ボタンを押したとき）にrollが１８０度
@@ -610,15 +695,13 @@ ar image and sand
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
@@ -627,9 +710,6 @@ ar image and sand
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
         <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-      
-    
-    
       
     
   </body>
