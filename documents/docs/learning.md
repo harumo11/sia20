@@ -84,6 +84,23 @@ rosrun sia20_recogition leptorino
 	- y : -0.21 ~ -0.27
 	- z : 0.10 ~ 0.12
 
+### Long sponge broom
+### ar markerの取り付け角度
+- linear
+	- x : -0.32
+	- y : -0.11
+	- z : 0.22
+- angular
+	- x : -2.5
+	- y : -0.16
+	- z : 0.22
+
+![long_sponge_broom_init](image/long_sponge_broom_init.png)
+
+![DSC_0229](image/DSC_0229.JPG)
+
+
+
 
 ## Issue
 
