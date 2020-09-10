@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 
 	//dynet初期化
 	dynet::DynetParams params;
-	params.weight_decay = 0.0001;
+	params.weight_decay = 0;
 	params.cpu_requested = true;
 	dynet::initialize(params);
 
@@ -210,7 +210,7 @@ int main(int argc, char* argv[])
 	dynet::Expression y_pred = W8*z7 + b8;
 
 	//パラメータを読み出し
-	dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/normal_broom.model");
+	dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/train3_minibatch_2.model");
 	loader.populate(model);
 	
 	//computation graphを描画
@@ -268,7 +268,7 @@ int main(int argc, char* argv[])
 		// end effector position t-2
 		x_value_ptr->insert(x_value_ptr->end(), hand_pose_arrays.at(2).begin(), hand_pose_arrays.at(2).end());
 		// candy position
-		x_value_ptr->insert(x_value_ptr->end(), dirt_pose_vector.begin(), dirt_pose_vector.begin()+6);	//xyzのみなので+3
+		x_value_ptr->insert(x_value_ptr->end(), dirt_pose_vector.begin(), dirt_pose_vector.begin()+6);	
 		// broom position
 		x_value_ptr->insert(x_value_ptr->end(), broom_pose_vector.begin(), broom_pose_vector.begin()+6);
 		// dustpan position
@@ -282,7 +282,7 @@ int main(int argc, char* argv[])
 			std::exit(1);
 		}
 		for (int i = 0; i < x_value_ptr->size(); i++) {
-			std::cout << x_value_ptr->at(i) << " , ";
+			std::cout << "||| input x vector " << x_value_ptr->at(i) << " , ";
 		}
 		std::cout << std::endl;
 

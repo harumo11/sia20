@@ -116,7 +116,6 @@ int main(int argc, char* argv[])
 	plot.limit_max_number(500);
 	plot.set_x_label("t");
 	plot.set_y_label("Nm");
-	plot.set_y_range(-10000, 100);
 
 	// Log configuration
 	// 連続送信開始
