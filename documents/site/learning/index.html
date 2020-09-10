@@ -258,6 +258,53 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_3" title="初期条件" class="md-nav__link">
+    初期条件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-normal-broom" title="Long normal broom" class="md-nav__link">
+    Long normal broom
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-sponge-broom" title="Long sponge broom" class="md-nav__link">
+    Long sponge broom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker_1" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#issue" title="Issue" class="md-nav__link">
     Issue
   </a>
@@ -342,6 +389,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../training_data/" title="教師データの作成方法" class="md-nav__link">
+      教師データの作成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../trouble_shooting/" title="Trouble shooting" class="md-nav__link">
       Trouble shooting
     </a>
@@ -367,13 +426,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
     
-    <label class="md-nav__link" for="nav-11">
+    <label class="md-nav__link" for="nav-12">
       Japanese
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-11">
+      <label class="md-nav__title" for="nav-12">
         Japanese
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -451,6 +510,53 @@
           <li class="md-nav__item">
   <a href="#pc-ng" title="PC-NGで行うコマンド" class="md-nav__link">
     PC-NGで行うコマンド
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="初期条件" class="md-nav__link">
+    初期条件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-normal-broom" title="Long normal broom" class="md-nav__link">
+    Long normal broom
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-sponge-broom" title="Long sponge broom" class="md-nav__link">
+    Long sponge broom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar-marker_1" title="ar markerの取り付け角度" class="md-nav__link">
+    ar markerの取り付け角度
   </a>
   
 </li>
@@ -541,6 +647,44 @@ ar image and sand
 <div class="highlight"><pre><span></span>rosrun sia20_recogition leptorino 
 </pre></div></p>
 <p>追従を始める前にロボットの手先方向（ｚ軸）とコントローラの尻尾（ｚ軸）の方向を合わせてからViveのコントローラの丸ボタン押すと直感的に制御しやすい．</p>
+<h2 id="_3">初期条件</h2>
+<h3 id="long-normal-broom">Long normal broom</h3>
+<h4 id="ar-marker">ar markerの取り付け角度</h4>
+<p><img alt="long_normal_broom_ar_marker_init" src="../image/long_normal_broom_ar_marker_init.png" /></p>
+<p><img alt="DSC_0227" src="../image/DSC_0227.JPG" /></p>
+<p><img alt="DSC_0228" src="../image/DSC_0228.JPG" /></p>
+<ul>
+<li>linear<ul>
+<li>x : -0.33 ~ -0.31</li>
+<li>y : -0.11 ~ -0.10</li>
+<li>z : 0.10  ~ 0.12</li>
+</ul>
+</li>
+<li>anguler<ul>
+<li>x : -2.59</li>
+<li>y : -0.21 ~ -0.27</li>
+<li>z : 0.10 ~ 0.12</li>
+</ul>
+</li>
+</ul>
+<h3 id="long-sponge-broom">Long sponge broom</h3>
+<h3 id="ar-marker_1">ar markerの取り付け角度</h3>
+<ul>
+<li>linear<ul>
+<li>x : -0.32</li>
+<li>y : -0.11</li>
+<li>z : 0.22</li>
+</ul>
+</li>
+<li>angular<ul>
+<li>x : -2.5</li>
+<li>y : -0.16</li>
+<li>z : 0.22</li>
+</ul>
+</li>
+</ul>
+<p><img alt="long_sponge_broom_init" src="../image/long_sponge_broom_init.png" /></p>
+<p><img alt="DSC_0229" src="../image/DSC_0229.JPG" /></p>
 <h2 id="issue">Issue</h2>
 <h3 id="roll180">テレオペを始めたときにrollが１８０度だけ移動する．</h3>
 <pre><code>初期値を変更するのではなく，開始時（丸ボタンを押したとき）にrollが１８０度

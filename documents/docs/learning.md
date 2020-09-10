@@ -60,6 +60,7 @@ rosrun sia20_recogition ar_marker_and_candy_pose_estimation_node
 
 圧力センサ
 ```
+sudo chmod 777 /dev/ttyACM0
 rosrun sia20_recogition leptorino 
 ```
 

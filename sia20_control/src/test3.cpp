@@ -24,6 +24,8 @@
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <std_msgs/Float32MultiArray.h>
+
 
 void twist_zero_clear(geometry_msgs::Twist& msgs){
 	msgs.linear.x = 0;
@@ -33,6 +35,12 @@ void twist_zero_clear(geometry_msgs::Twist& msgs){
 	msgs.angular.y = 0;
 	msgs.angular.z = 0;
 }
+
+class SensorListener {
+	public:
+		std_msgs::Float32MultiArray data;
+		void call_back(const std_msgs::Float32MultiArray msgs){ this->data = msgs; }
+};
 
 class PoseListener {
 	public:
@@ -72,6 +80,21 @@ geometry_msgs::Twist pose_to_twist(const geometry_msgs::PoseStamped pose){
 	return twist;
 }
 
+void update_hand_pose_arrays(std::array<std::array<double, 6>, 3> hand_pose_arrays, const geometry_msgs::PoseStamped current_pose){
+	// 最新の値を使えるように変換
+	auto latest_hand_pose_vector = twist_to_vector(pose_to_twist(current_pose));
+	// １番めの配列を２番めに移す
+	hand_pose_arrays.at(2) = hand_pose_arrays.at(1);
+	// ０番目の配列を１番めに移す
+	hand_pose_arrays.at(1) = hand_pose_arrays.at(0);
+	// 最新の配列を０番目に入れる
+	int count = 0;
+	for (auto&& pose : hand_pose_arrays.at(0)){
+		pose = latest_hand_pose_vector.at(count);
+		count++;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	//ROS初期化
@@ -85,11 +108,13 @@ int main(int argc, char* argv[])
 	PoseListener dirt_pose_listener;
 	PoseListener broom_pose_listener;
 	PoseListener goal_pose_listener;
+	SensorListener sensor_listener;
 
 	//サブスクライバー宣言
 	ros::Subscriber dirt_pose_subscriber = node.subscribe("/ar_dirt_pose", 1, &PoseListener::call_back, &dirt_pose_listener);
 	ros::Subscriber broom_pose_subscriber = node.subscribe("/ar_broom_pose", 1, &PoseListener::call_back, &broom_pose_listener);
 	ros::Subscriber goal_pose_subscriber = node.subscribe("/ar_goal_pose", 1, &PoseListener::call_back, &goal_pose_listener);
+	ros::Subscriber leptorino_subscriber = node.subscribe("/sensor_data", 1, &SensorListener::call_back, &sensor_listener);
 
 	//moveit初期化
 	moveit::planning_interface::MoveGroupInterface move_group("manipulator");
@@ -185,7 +210,7 @@ int main(int argc, char* argv[])
 	dynet::Expression y_pred = W8*z7 + b8;
 
 	//パラメータを読み出し
-	dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/build/model3.model");
+	dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/normal_broom.model");
 	loader.populate(model);
 	
 	//computation graphを描画
@@ -193,15 +218,6 @@ int main(int argc, char* argv[])
 	//cg.print_graphviz();
 	//std::cout << "=============================================" << std::endl;
 
-	//motomanのエラー回避のためここで速度０のコマンドを数回送る
-	geometry_msgs::Twist initial_cmd_vel;
-	twist_zero_clear(initial_cmd_vel);
-	ROS_WARN_STREAM("starting to publish initial cmd_vel");
-	for (int i = 0; i < 10; i++) {
-		target_velocity_publisher.publish(initial_cmd_vel);
-		ros::Duration(0.01).sleep();
-	}
-	ROS_WARN_STREAM("finishing to publish initial cmd_vel");
 
 	int iter = 0;
 	// hand_pose_arrays which contains hand_pose (t, t-1, t-2)
@@ -209,71 +225,87 @@ int main(int argc, char* argv[])
 	// hand_pose_arrays initialize
 	auto current_hand_pose = move_group.getCurrentPose();
 	for (auto iter = std::rbegin(hand_pose_arrays); iter != std::rend(hand_pose_arrays); iter++){
+		auto hand_pose_vector = twist_to_vector(pose_to_twist(move_group.getCurrentPose()));
+		int counter = 0;
 		for (auto&& e : *iter){
-			e = 1;
+			e = hand_pose_vector.at(counter);
+			counter++;
 		}
+		ros::Duration(0.01).sleep();
 	}
-	for (auto hand_pose_array : hand_pose_arrays){
-		for (auto j : hand_pose_array){
-			std::cout << j << std::endl;
-		}
-		std::cout << "------------------------" << std::endl;
-	}
-	std::exit(0);
 
-//	while (ros::ok()) {
-//		//センサデータ更新
-//		ros::spinOnce();
-//
-//		//センサデータ受け取り(dirt, goal, broomの順に結合)
-//		std::vector<double> dirt_pose_vector = twist_to_vector(dirt_pose_listener.data);
-//		std::vector<double> goal_pose_vector = twist_to_vector(goal_pose_listener.data);
-//		std::vector<double> broom_pose_vector = twist_to_vector(broom_pose_listener.data);
-//		std::vector<double> hand_pose_vector = twist_to_vector(pose_to_twist(move_group.getCurrentPose()));
-//		x_value_ptr->clear();
-//
-//		//受け取ったデータをベクトルx_value_ptrに格納
-//		x_value_ptr->insert(x_value_ptr->end(), dirt_pose_vector.begin(), dirt_pose_vector.begin()+3);	//xyzのみなので+3
-//		std::cout << "|||" << std::endl;
-//		x_value_ptr->insert(x_value_ptr->end(), goal_pose_vector.begin(), goal_pose_vector.begin()+3);
-//		std::cout << "|||" << std::endl;
-//		x_value_ptr->insert(x_value_ptr->end(), broom_pose_vector.begin(), broom_pose_vector.begin()+3);
-//		std::cout << "|||" << std::endl;
-//		x_value_ptr->insert(x_value_ptr->end(), hand_pose_vector.begin(), hand_pose_vector.begin()+3);
-//		std::cout << "|||" << std::endl;
-//		x_value_ptr->insert(x_value_ptr->end(), hand_pose_vector_1.begin(), hand_pose_vector_1.begin()+3);
-//		std::cout << "|||" << std::endl;
-//		x_value_ptr->insert(x_value_ptr->end(), hand_pose_vector_2.begin(), hand_pose_vector_2.begin()+3);
-//		std::cout << "|||x value ptr size : " << x_value_ptr->size() << std::endl;
-//		for (int i = 0; i < x_value_ptr->size(); i++) {
-//			std::cout << x_value_ptr->at(i) << " , ";
-//		}
-//		std::cout << std::endl;
-//
-//		//推測を実行し，cmd_velを得る
-//		cg.forward(y_pred);
-//		std::vector<dynet::real> cmd_vel = dynet::as_vector(y_pred.value());
-//		double cmd_vel_x = dynet::as_scalar(y_pred.value());
-//		std::cout << "||| cmd_vel_x " << cmd_vel_x << std::endl;
-//
-//		//推測したcmd_velを送る
-//		geometry_msgs::Twist cmd_vel_msgs;
-//		cmd_vel_msgs.linear.x = (double)cmd_vel_x;
-//		cmd_vel_msgs.linear.y = 0;
-//		cmd_vel_msgs.linear.z = 0;
-//		cmd_vel_msgs.angular.x = 0;
-//		cmd_vel_msgs.angular.y = 0;
-//		cmd_vel_msgs.angular.z = 0;
-//		target_velocity_publisher.publish(cmd_vel_msgs);
-//		ROS_INFO_STREAM(cmd_vel_msgs);
-//
-//		ROS_INFO_STREAM("Publish Once");
-//
-//		//t-2 = t-1
-//		hand_pose_vector_2.swap(hand_pose_vector_1);
-//		//t-1 = t
-//		hand_pose_vector_1.swap(hand_pose_vector);
-//	}
+	//motomanのエラー回避のためここで速度０のコマンドを数回送る
+	geometry_msgs::Twist initial_cmd_vel;
+	twist_zero_clear(initial_cmd_vel);
+	ROS_WARN_STREAM("starting to publish initial cmd_vel");
+	for (int i = 0; i < 100; i++) {
+		target_velocity_publisher.publish(initial_cmd_vel);
+		ros::Duration(0.01).sleep();
+	}
+	ROS_WARN_STREAM("finishing to publish initial cmd_vel");
+
+	while (ros::ok()) {
+		//センサデータ更新
+		ros::spinOnce();
+
+		//センサデータ受け取り(dirt, goal, broomの順に結合)
+		std::vector<double> dirt_pose_vector = twist_to_vector(dirt_pose_listener.data);
+		std::vector<double> goal_pose_vector = twist_to_vector(goal_pose_listener.data);
+		std::vector<double> broom_pose_vector = twist_to_vector(broom_pose_listener.data);
+		std::vector<double> hand_pose_vector = twist_to_vector(pose_to_twist(move_group.getCurrentPose()));
+		double leptorino_datum = sensor_listener.data.data.at(0);
+
+		// update hand_pose_arrays at here
+		update_hand_pose_arrays(hand_pose_arrays, move_group.getCurrentPose());
+		// 入力ベクトルを空にする
+		x_value_ptr->clear();
+
+		//受け取ったデータをベクトルx_value_ptrに格納
+		// end effector position t 
+		x_value_ptr->insert(x_value_ptr->end(), hand_pose_arrays.at(0).begin(), hand_pose_arrays.at(0).end());
+		// end effector position t-1
+		x_value_ptr->insert(x_value_ptr->end(), hand_pose_arrays.at(1).begin(), hand_pose_arrays.at(1).end());
+		// end effector position t-2
+		x_value_ptr->insert(x_value_ptr->end(), hand_pose_arrays.at(2).begin(), hand_pose_arrays.at(2).end());
+		// candy position
+		x_value_ptr->insert(x_value_ptr->end(), dirt_pose_vector.begin(), dirt_pose_vector.begin()+6);	//xyzのみなので+3
+		// broom position
+		x_value_ptr->insert(x_value_ptr->end(), broom_pose_vector.begin(), broom_pose_vector.begin()+6);
+		// dustpan position
+		x_value_ptr->insert(x_value_ptr->end(), goal_pose_vector.begin(), goal_pose_vector.begin()+6);
+		// leptorino
+		x_value_ptr->push_back(leptorino_datum);
+		
+		std::cout << "|||x value ptr size : " << x_value_ptr->size() << std::endl;
+		if (x_value_ptr->size() != 37) {
+			std::cerr << "x_value input has invalid dimension. exit()" << std::endl;
+			std::exit(1);
+		}
+		for (int i = 0; i < x_value_ptr->size(); i++) {
+			std::cout << x_value_ptr->at(i) << " , ";
+		}
+		std::cout << std::endl;
+
+		//推測を実行し，cmd_velを得る
+		cg.forward(y_pred);
+		std::vector<dynet::real> cmd_vel = dynet::as_vector(y_pred.value());
+		std::cout << "||| (x,y,z) = " << cmd_vel.at(0) << " , " << cmd_vel.at(1) << " , " << cmd_vel.at(2) << " (r,p,w) = "  << cmd_vel.at(3) << " , " << cmd_vel.at(4) << " , " << cmd_vel.at(5) << std::endl;
+
+		//推測したcmd_velを送る
+		geometry_msgs::Twist cmd_vel_msgs;
+		cmd_vel_msgs.linear.x = cmd_vel.at(0);
+		cmd_vel_msgs.linear.y = cmd_vel.at(1);
+		cmd_vel_msgs.linear.z = cmd_vel.at(2);
+		cmd_vel_msgs.angular.x = cmd_vel.at(3);
+		cmd_vel_msgs.angular.y = cmd_vel.at(4);
+		cmd_vel_msgs.angular.z = cmd_vel.at(5);
+		target_velocity_publisher.publish(cmd_vel_msgs);
+		ROS_INFO_STREAM(cmd_vel_msgs);
+
+		ROS_INFO_STREAM("Publish Once");
+
+		timer.sleep();
+	}
 
 
 	return 0;
