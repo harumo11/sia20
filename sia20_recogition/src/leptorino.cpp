@@ -131,26 +131,28 @@ int main(int argc, char* argv[])
 			if ( rt>0 ) {
 				cnt++;
 				
-				if (cnt < 100) {	//calibration
+				const int calib_num = 10;
+				if (cnt <= calib_num) {	//calibration
 					stForce = (ST_R_DATA_GET_F *)CommRcvBuff;
-					calib_data.data.at(0) += stForce->ssForce[0];
-					calib_data.data.at(1) += stForce->ssForce[1];
-					calib_data.data.at(2) += stForce->ssForce[2];
-					calib_data.data.at(3) += stForce->ssForce[3];
-					calib_data.data.at(4) += stForce->ssForce[4];
-					calib_data.data.at(5) += stForce->ssForce[5];
-					ROS_INFO_STREAM("Calibration now");
+					calib_data.data.at(0) += (double)stForce->ssForce[0];
+					calib_data.data.at(1) += (double)stForce->ssForce[1];
+					calib_data.data.at(2) += (double)stForce->ssForce[2];
+					calib_data.data.at(3) += (double)stForce->ssForce[3];
+					calib_data.data.at(4) += (double)stForce->ssForce[4];
+					calib_data.data.at(5) += (double)stForce->ssForce[5];
+					ROS_INFO_STREAM("Calibration now : " << "current value : " << stForce->ssForce[0] << "\t" << "current bias: " << calib_data.data.at(0) / (double)calib_num);
+					ros::Duration(0.1).sleep();
 				}
 				else {	//publish
 					stForce = (ST_R_DATA_GET_F *)CommRcvBuff;
 					std_msgs::Float32MultiArray sensor_data;
 					sensor_data.data = {0,0,0,0,0,0};
-					sensor_data.data.at(0) = stForce->ssForce[0] - calib_data.data.at(0)/100.0;
-					sensor_data.data.at(1) = stForce->ssForce[1] - calib_data.data.at(1)/100.0;
-					sensor_data.data.at(2) = stForce->ssForce[2] - calib_data.data.at(2)/100.0;
-					sensor_data.data.at(3) = stForce->ssForce[3] - calib_data.data.at(3)/100.0;
-					sensor_data.data.at(4) = stForce->ssForce[4] - calib_data.data.at(4)/100.0;
-					sensor_data.data.at(5) = stForce->ssForce[5] - calib_data.data.at(5)/100.0;
+					sensor_data.data.at(0) = stForce->ssForce[0] - calib_data.data.at(0)/(double)calib_num;
+					sensor_data.data.at(1) = stForce->ssForce[1] - calib_data.data.at(1)/(double)calib_num;
+					sensor_data.data.at(2) = stForce->ssForce[2] - calib_data.data.at(2)/(double)calib_num;
+					sensor_data.data.at(3) = stForce->ssForce[3] - calib_data.data.at(3)/(double)calib_num;
+					sensor_data.data.at(4) = stForce->ssForce[4] - calib_data.data.at(4)/(double)calib_num;
+					sensor_data.data.at(5) = stForce->ssForce[5] - calib_data.data.at(5)/(double)calib_num;
 					pub.publish(sensor_data);
 					plot.plot(sensor_data.data.at(0));
 					plot.pause();

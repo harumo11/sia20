@@ -26,6 +26,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <Gpop/Series.hpp>
+#include "cliping_leptorino.hpp"
 
 
 void twist_zero_clear(geometry_msgs::Twist& msgs){
@@ -260,7 +261,9 @@ int main(int argc, char* argv[])
 		std::vector<double> goal_pose_vector = twist_to_vector(goal_pose_listener.data);
 		std::vector<double> broom_pose_vector = twist_to_vector(broom_pose_listener.data);
 		std::vector<double> hand_pose_vector = twist_to_vector(pose_to_twist(move_group.getCurrentPose()));
-		double leptorino_datum = sensor_listener.data.data.at(0);
+		double Li = sensor_listener.data.data.at(0);
+		double leptorino_datum = leptorino::cliping(Li);	// クリッピング
+
 
 		// update hand_pose_arrays at here
 		update_hand_pose_arrays(hand_pose_arrays, move_group.getCurrentPose());
