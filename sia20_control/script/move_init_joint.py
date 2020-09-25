@@ -4,6 +4,7 @@ import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
+import subprocess
 from std_srvs.srv import Trigger
 from math import pi
 from std_msgs.msg import String
@@ -38,8 +39,11 @@ rospy.loginfo("Those joints configuration is for harumo's broom puresure test")
 rospy.loginfo("Servo on")
 
 rospy.wait_for_service("robot_enable")
-service_client = rospy.ServiceProxy("robot_enable", Trigger)
-service_client.call()
+enable_service_client = rospy.ServiceProxy("robot_enable", Trigger)
+enable_service_client.call()
+# In order to avoid import manipulator_pose_following service header, call with shell
+subprocess.call('rosservice call /pose_following/start', shell=True)
+
 
 joint_goal = [0, 0, 0, 0, 0, 0, 0]
 # short broom 

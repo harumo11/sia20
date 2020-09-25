@@ -25,6 +25,7 @@
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <Gpop/Series.hpp>
 
 
 void twist_zero_clear(geometry_msgs::Twist& msgs){
@@ -210,7 +211,8 @@ int main(int argc, char* argv[])
 	dynet::Expression y_pred = W8*z7 + b8;
 
 	//パラメータを読み出し
-	dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/train3_minibatch_2.model");
+	//dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/train3_minibatch_2.model");
+	dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/build/long_normal_broom_weight_decay_0_000001_minibatch_size_2.model");
 	loader.populate(model);
 	
 	//computation graphを描画
@@ -243,6 +245,11 @@ int main(int argc, char* argv[])
 		ros::Duration(0.01).sleep();
 	}
 	ROS_WARN_STREAM("finishing to publish initial cmd_vel");
+
+	// 推測データ表示用のプロット
+	Gpop::Series lin_x_plot("linear x");
+	Gpop::Series lin_y_plot("linear y");
+	Gpop::Series lin_z_plot("linear z");
 
 	while (ros::ok()) {
 		//センサデータ更新
@@ -301,6 +308,12 @@ int main(int argc, char* argv[])
 		cmd_vel_msgs.angular.z = cmd_vel.at(5);
 		target_velocity_publisher.publish(cmd_vel_msgs);
 		ROS_INFO_STREAM(cmd_vel_msgs);
+		lin_x_plot.plot(cmd_vel.at(0));
+		lin_y_plot.plot(cmd_vel.at(1));
+		lin_z_plot.plot(cmd_vel.at(2));
+		lin_x_plot.pause();
+		lin_y_plot.pause();
+		lin_z_plot.pause();
 
 		ROS_INFO_STREAM("Publish Once");
 
