@@ -16,6 +16,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <Gpop/Series.hpp>
+#include "/home/robot/catkin_ws/src/sia20/sia20_control/src/cliping_leptorino.hpp"
 
 #include <rs_comm/pCommon.h>
 #include <rs_comm/rs_comm.h>
@@ -115,7 +116,7 @@ int main(int argc, char* argv[])
 	Gpop::Series plot;
 	plot.limit_max_number(500);
 	plot.set_x_label("t");
-	plot.set_y_label("Nm");
+	plot.set_y_label("N");
 
 	// Log configuration
 	// 連続送信開始
@@ -154,6 +155,7 @@ int main(int argc, char* argv[])
 					sensor_data.data.at(4) = stForce->ssForce[4] - calib_data.data.at(4)/(double)calib_num;
 					sensor_data.data.at(5) = stForce->ssForce[5] - calib_data.data.at(5)/(double)calib_num;
 					pub.publish(sensor_data);
+					//plot.plot(leptorino::cliping(sensor_data.data.at(0)));
 					plot.plot(sensor_data.data.at(0));
 					plot.pause();
 				}

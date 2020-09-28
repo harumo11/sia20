@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	// make publisher
 	ros::Publisher publisher = node_handler.advertise<geometry_msgs::Twist>("pose_following/cmd_vel", 1);
-	ros::Rate timer(40);
+	ros::Rate timer(100);
 	geometry_msgs::Twist twist_buffer;
 	twist_buffer.linear.x = 0.0;
 	twist_buffer.linear.y = 0.0;
@@ -27,13 +27,13 @@ int main(int argc, char* argv[])
 	twist_buffer.angular.x = 0.0;
 	twist_buffer.angular.y = 0.0;
 	twist_buffer.angular.z = 0.0;
-	for (int i = 0; i < 40; i++) {
+	for (int i = 0; i < 100; i++) {
 		publisher.publish(twist_buffer);
 		timer.sleep();
 		ROS_INFO_STREAM("initial publish");
 	}
 	
-	for (int i = 0; i < csv.collumn_size(); i++) {
+	for (int i = 0; i < csv.column_size(); i++) {
 		twist_buffer.linear.x=csv(i,0).get_as_double();
 		twist_buffer.linear.y=csv(i,1).get_as_double();
 		twist_buffer.linear.z=csv(i,2).get_as_double();

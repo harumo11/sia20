@@ -60,6 +60,7 @@ add_executable(simple_velocity_control src/simple_velocity_control.cpp)
 add_executable(VNPouring177 src/VNpouring177_base_trajectory_action_client.cpp)
 add_executable(VNPouring115 src/VNpouring115_base_trajectory_action_client.cpp)
 add_executable(log_eef src/log_eef.cpp)
+add_executable(test_average src/test_average.cpp)
 
 target_link_libraries(joint_trajectory_publisher ${catkin_LIBRARIES})
 #target_link_libraries(joint_trajectory_publisher_ik ${catkin_LIBRARIES})
@@ -96,4 +97,5 @@ target_link_libraries(simple_velocity_control ${catkin_LIBRARIES})
 target_link_libraries(VNPouring177 ${catkin_LIBRARIES} fanda)
 target_link_libraries(VNPouring115 ${catkin_LIBRARIES} fanda)
 target_link_libraries(log_eef ${catkin_LIBRARIES})
+target_link_libraries(test_average Gpop)
 
