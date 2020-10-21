@@ -13,7 +13,7 @@ HTC Vive
 
 ```shell
 roslaunch vive_ros server_vr.launch
-rosrun vive_ros vive.launch
+rosrun vive_ros vive_node
 ```
 
 motoman
