@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(100);
+	ros::Rate timer(40);
 
 	//リスナー宣言
 	PoseListener dirt_pose_listener;
@@ -317,11 +317,19 @@ int main(int argc, char* argv[])
 		std::vector<dynet::real> cmd_vel = dynet::as_vector(y_pred.value());
 		std::cout << "||| (x,y,z) = " << cmd_vel.at(0) << " , " << cmd_vel.at(1) << " , " << cmd_vel.at(2) << " (r,p,w) = "  << cmd_vel.at(3) << " , " << cmd_vel.at(4) << " , " << cmd_vel.at(5) << std::endl;
 
+
 		//推測したcmd_velを送る
 		geometry_msgs::Twist cmd_vel_msgs;
 		cmd_vel_msgs.linear.x = cmd_vel.at(0);
 		cmd_vel_msgs.linear.y = cmd_vel.at(1);
-		cmd_vel_msgs.linear.z = cmd_vel.at(2);
+		//もし，現在の手先座標が0.8以下だったらdz=0とする
+		auto current_pose = move_group.getCurrentPose();
+		if (current_pose.pose.position.z <= 0.83) {
+			cmd_vel_msgs.linear.z = 0.0;
+		}
+		else {
+			cmd_vel_msgs.linear.z = cmd_vel.at(2);
+		}
 		cmd_vel_msgs.angular.x = cmd_vel.at(3);
 		cmd_vel_msgs.angular.y = cmd_vel.at(4);
 		cmd_vel_msgs.angular.z = cmd_vel.at(5);
