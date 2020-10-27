@@ -105,7 +105,8 @@ int main(int argc, char* argv[])
 	ros::NodeHandle node;
 	ros::AsyncSpinner spinner(2);
 	spinner.start();
-	ros::Rate timer(40);
+	// ros::Rate timer(40) // 以前成功したときは４０を使用
+	ros::Rate timer(100);
 
 	//リスナー宣言
 	PoseListener dirt_pose_listener;
@@ -213,8 +214,9 @@ int main(int argc, char* argv[])
 	dynet::Expression y_pred = W8*z7 + b8;
 
 	//パラメータを読み出し
-	//dynet::TextFileLoader loader("/home/robot/catkin_ws/src/sia20/sia20_control/model/train3_minibatch_2.model");
 	dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/build/cliped_train_m2_w0.model");
+	//dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/build/cliped_train_m2_w001_demo_25.model");
+	//dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/model/cliped_train_m2_w0.model");
 	loader.populate(model);
 	
 	//computation graphを描画
