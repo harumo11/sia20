@@ -177,8 +177,23 @@ int main(int argc, char* argv[])
 	dynet::Parameter p_W7 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
 	dynet::Parameter p_b7 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
 	////L8
-	dynet::Parameter p_W8 = model.add_parameters({OUTPUT_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
-	dynet::Parameter p_b8 = model.add_parameters({OUTPUT_LAYER_DIMENSION});
+	dynet::Parameter p_W8 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b8 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
+	////L9
+	dynet::Parameter p_W9 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b9 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
+	////L10
+	dynet::Parameter p_W10 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b10 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
+	////L11
+	dynet::Parameter p_W11 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b11 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
+	////L12
+	dynet::Parameter p_W12 = model.add_parameters({HIDDEN_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b12 = model.add_parameters({HIDDEN_LAYER_DIMENSION});
+	////L13
+	dynet::Parameter p_W13 = model.add_parameters({OUTPUT_LAYER_DIMENSION, HIDDEN_LAYER_DIMENSION});
+	dynet::Parameter p_b13 = model.add_parameters({OUTPUT_LAYER_DIMENSION});
 	
 	//ノード作成
 	dynet::Expression W1 = dynet::parameter(cg, p_W1);
@@ -189,6 +204,11 @@ int main(int argc, char* argv[])
 	dynet::Expression W6 = dynet::parameter(cg, p_W6);
 	dynet::Expression W7 = dynet::parameter(cg, p_W7);
 	dynet::Expression W8 = dynet::parameter(cg, p_W8);
+	dynet::Expression W9 = dynet::parameter(cg, p_W9);
+	dynet::Expression W10 = dynet::parameter(cg, p_W10);
+	dynet::Expression W11 = dynet::parameter(cg, p_W11);
+	dynet::Expression W12 = dynet::parameter(cg, p_W12);
+	dynet::Expression W13 = dynet::parameter(cg, p_W13);
 	dynet::Expression b1 = dynet::parameter(cg, p_b1);
 	dynet::Expression b2 = dynet::parameter(cg, p_b2);
 	dynet::Expression b3 = dynet::parameter(cg, p_b3);
@@ -197,6 +217,11 @@ int main(int argc, char* argv[])
 	dynet::Expression b6 = dynet::parameter(cg, p_b6);
 	dynet::Expression b7 = dynet::parameter(cg, p_b7);
 	dynet::Expression b8 = dynet::parameter(cg, p_b8);
+	dynet::Expression b9 = dynet::parameter(cg, p_b9);
+	dynet::Expression b10 = dynet::parameter(cg, p_b10);
+	dynet::Expression b11 = dynet::parameter(cg, p_b11);
+	dynet::Expression b12 = dynet::parameter(cg, p_b12);
+	dynet::Expression b13 = dynet::parameter(cg, p_b13);
 
 	//入出力設定
 	auto x_value_ptr = std::make_shared<std::vector<dynet::real>>();	//センサデータののポインタ（入力）
@@ -211,7 +236,12 @@ int main(int argc, char* argv[])
 	dynet::Expression z5 = dynet::rectify(W5*z4 + b5);
 	dynet::Expression z6 = dynet::rectify(W6*z5 + b6);
 	dynet::Expression z7 = dynet::rectify(W7*z6 + b7);
-	dynet::Expression y_pred = W8*z7 + b8;
+	dynet::Expression z8 = dynet::rectify(W8*z7 + b8);
+	dynet::Expression z9 = dynet::rectify(W9*z8 + b9);
+	dynet::Expression z10 = dynet::rectify(W10*z9 + b10);
+	dynet::Expression z11 = dynet::rectify(W11*z10 + b11);
+	dynet::Expression z12 = dynet::rectify(W12*z11 + b12);
+	dynet::Expression y_pred = W13*z12 + b13;
 
 	//パラメータを読み出し
 	//dynet::TextFileLoader loader("/home/robot/program/cpp/sia20_learning/build/cliped_train_m2_w0.model");
